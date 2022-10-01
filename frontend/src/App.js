@@ -6,33 +6,38 @@ import Login from "./components/Login";
 
 
 function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   
     fire.auth().onAuthStateChanged((user) => {
       return user ? setIsLoggedIn(true) : setIsLoggedIn(false);
   });
   
-  console.log('logged in?', isLoggedIn);
+  const signOut = () => {
+    fire.auth().signOut()
+  };
+  
+  console.log(isLoggedIn);
   return (
     <div className="App">
       <Router>
-        
         {!isLoggedIn
           ? (
             <>
               <Routes>
-                <Route exact path='/login' element={<Login/>}/>
+                <Route exact path='/' element={<Login/>}/>
               </Routes>
             </>
           ) 
           : (
             <>
-              Hello World!
+            <span onClick={signOut}>
+              <a href="#">Sign out</a>
+            </span>
             </>
           )}
       </Router>
     </div>
   );
-  }
+}
 
 export default App;
