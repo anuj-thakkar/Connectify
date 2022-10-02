@@ -19,8 +19,45 @@ const Register = () => {
     return (
             <div class="logoDiv">
             <img src={logo} alt="logo"></img>
-            <div class="loginDiv">
-                <h1 class="loginHdr">Login</h1>
+            <div class="Register">
+                <h1 class="registerHDR"> Enter the following details </h1>
+                <form onSubmit={handleLogin}>
+                        <input
+                            type="text"
+                            onChange={({ target }) =>     
+                            setEmail(target.value)}
+                            placeholder="First Name"
+                        />
+                        <br />
+                        <input
+                            type="text"
+                            onChange={({ target}) => 
+                            setPassword(target.value)}
+                            placeholder="Last Name"
+                        />
+                        <input
+                            type="email"
+                            onChange={({ target}) => 
+                            setPassword(target.value)}
+                            placeholder="Email"
+                        />
+                        <input
+                            type="password"
+                            onChange={({ target}) => 
+                            setPassword(target.value)}
+                            placeholder="Password"
+                        />
+                        <input
+                            type="password"
+                            onChange={({ target}) => 
+                            setPassword(target.value)}
+                            placeholder="Confirm Password"
+                        />
+                        <br />
+                        <button type="submit">
+                            Sign in
+                        </button>
+                    </form>
             </div>
         </div>
     )
