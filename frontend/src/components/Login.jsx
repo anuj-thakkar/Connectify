@@ -14,14 +14,6 @@ const Login = () => {
         });
     }
 
-    const handleRegister = (e) => {
-        e.preventDefault();
-        fire.auth().createUserWithEmailAndPassword(email, password)
-          .catch((error) => {
-            console.error('Unable to Register');
-        });
-    }
-
     return (
             <div class="logoDiv">
                 <img src={logo} alt="logo"></img>
@@ -29,7 +21,7 @@ const Login = () => {
                     <h1 class="loginHdr">Login</h1>
                     <form onSubmit={handleLogin}>
                         <input
-                            type="text"
+                            type="email"
                             onChange={({ target }) =>     
                             setEmail(target.value)}
                             placeholder="Email"
@@ -52,6 +44,7 @@ const Login = () => {
                     <form onSubmit={handleRegister}>
                         <button type="reg">
                             Register here!
+
                         </button>
                     </form>
                 </div>
