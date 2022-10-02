@@ -8,7 +8,7 @@ import logo from './components/logo.jpg';
 import Container from 'react-bootstrap/Container' 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
+import ForgotPassword from "./components/ForgotPassword"
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -34,6 +34,7 @@ function App() {
                 <Col>
                 <Routes>
                   <Route exact path='/' element={<Login/>}/>
+                  <Route exact path='/forgotPassword' elemement={<ForgotPassword/>}/>
                   <Route exact path='/register' element={<Register/>}/>
                 </Routes>
                 </Col>
