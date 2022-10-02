@@ -48,24 +48,10 @@ const Login = () => {
                     </form>
                 </div>
                 <div class="registerDiv">
-                    <h1>Register</h1>
+                    <h1>Don't have an account? </h1>
                     <form onSubmit={handleRegister}>
-                        <input
-                            type="text"
-                            onChange={({ target }) =>     
-                            setEmail(target.value)}
-                            placeholder="Email"
-                        />
-                        <br />
-                        <input
-                            type="password"
-                            onChange={({ target}) => 
-                            setPassword(target.value)}
-                            placeholder="Password"
-                        />
-                        <br />
                         <button type="reg">
-                            Register
+                            Register here!
                         </button>
                     </form>
                 </div>
