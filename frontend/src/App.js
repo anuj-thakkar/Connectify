@@ -34,7 +34,7 @@ function App() {
                 <Col>
                 <Routes>
                   <Route exact path='/' element={<Login/>}/>
-                  <Route exact path='/forgotPassword' elemement={<ForgotPassword/>}/>
+                  <Route exact path='/forgotPassword' element={<ForgotPassword/>}/>
                   <Route exact path='/register' element={<Register/>}/>
                 </Routes>
                 </Col>
