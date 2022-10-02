@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import fire from '../fire.js';
-import logo from './logo.jpg';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     const [email, setEmail] = useState();
@@ -16,7 +16,6 @@ const Login = () => {
 
     return (
             <div class="logoDiv">
-                <img src={logo} alt="logo"></img>
                 <div class="loginDiv">
                     <h1 class="loginHdr">Login</h1>
                     <form onSubmit={handleLogin}>
@@ -41,12 +40,11 @@ const Login = () => {
                 </div>
                 <div class="registerDiv">
                     <h1>Don't have an account? </h1>
-                    <form onSubmit={handleRegister}>
-                        <button type="reg">
-                            Register here!
-
-                        </button>
-                    </form>
+                        <Link to="/register">
+                            <button type="reg">
+                                Register here!
+                            </button>
+                        </Link>
                 </div>
         </div>
     )

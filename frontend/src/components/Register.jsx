@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import fire from '../fire.js';
-import logo from './logo.jpg';
 
 const Register = () => {
     const [email, setEmail] = useState();
@@ -18,10 +17,9 @@ const Register = () => {
 
     return (
             <div class="logoDiv">
-            <img src={logo} alt="logo"></img>
             <div class="Register">
                 <h1 class="registerHDR"> Enter the following details </h1>
-                <form onSubmit={handleLogin}>
+                <form onSubmit={handleRegister}>
                         <input
                             type="text"
                             onChange={({ target }) =>     
@@ -35,18 +33,21 @@ const Register = () => {
                             setPassword(target.value)}
                             placeholder="Last Name"
                         />
+                        <br />
                         <input
                             type="email"
                             onChange={({ target}) => 
                             setPassword(target.value)}
                             placeholder="Email"
                         />
+                        <br />
                         <input
                             type="password"
                             onChange={({ target}) => 
                             setPassword(target.value)}
                             placeholder="Password"
                         />
+                        <br />
                         <input
                             type="password"
                             onChange={({ target}) => 

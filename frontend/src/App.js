@@ -4,6 +4,10 @@ import "./App.css";
 import fire from './fire.js';
 import Login from "./components/Login";
 import Register from "./components/Register";
+import logo from './components/logo.jpg';
+import Container from 'react-bootstrap/Container' 
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 
 function App() {
@@ -19,26 +23,34 @@ function App() {
   
   console.log(isLoggedIn);
   return (
-    <div className="App">
-      <Router>
-        {!isLoggedIn
-          ? (
-            <>
-              <Routes>
-                <Route exact path='/' element={<Login/>}/>
-                <Route exact path='/register' element={<Register/>}/>
-              </Routes>
-            </>
-          ) 
-          : (
-            <>
-            <span onClick={signOut}>
-              <a href="#">Sign out</a>
-            </span>
-            </>
-          )}
-      </Router>
-    </div>
+    <Container fluid>
+      <div className="App">
+        <Router>
+          {!isLoggedIn
+            ? (
+              <>
+              <Row>
+                <Col><img src={logo} alt="logo"></img></Col>
+                <Col>
+                <Routes>
+                  <Route exact path='/' element={<Login/>}/>
+                  <Route exact path='/register' element={<Register/>}/>
+                </Routes>
+                </Col>
+                </Row>
+              </>
+            ) 
+            : (
+              <>
+              <span onClick={signOut}>
+                <a href="#">Sign out</a>
+              </span>
+              </>
+            )}
+        </Router>
+      </div>
+    </Container>
+    
   );
 }
 
