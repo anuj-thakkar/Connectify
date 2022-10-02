@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import "./App.css";
 import fire from './fire.js';
 import Login from "./components/Login";
+import Register from "./components/Register";
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
             <>
               <Routes>
                 <Route exact path='/' element={<Login/>}/>
+                <Route exact path='/register' element={<Register/>}/>
               </Routes>
             </>
           ) 
