@@ -38,6 +38,13 @@ const Login = () => {
                         </button>
                     </form>
                 </div>
+                <div class="forgotPassword">
+                        <Link to="/forgotPassword">
+                            <button type="reg">
+                                Forgot Password?
+                            </button>
+                        </Link>
+                </div>
                 <div class="registerDiv">
                     <h1>Don't have an account? </h1>
                         <Link to="/register">
