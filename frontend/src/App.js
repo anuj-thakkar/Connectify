@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios"
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import "./App.css";
 import fire from './fire.js';
@@ -12,6 +13,9 @@ import ForgotPassword from "./components/ForgotPassword"
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [sent, setSent] = useState(false)
+  const[text, setText] = useState("")
+
   
     fire.auth().onAuthStateChanged((user) => {
       return user ? setIsLoggedIn(true) : setIsLoggedIn(false);
@@ -20,6 +24,16 @@ function App() {
   const signOut = () => {
     fire.auth().signOut()
   };
+
+  const handleSend = async (e) => {
+		setSent(true)
+		try {
+			await axios.post("http://localhost:4000/send_mail", {
+				text
+			})
+		} catch (error) {
+			console.error(error)
+		}
   
   console.log(isLoggedIn);
   return (
