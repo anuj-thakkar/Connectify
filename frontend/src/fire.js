@@ -1,5 +1,8 @@
-import firebase from 'firebase/compat/app'
-import 'firebase/compat/auth'
+//import firebase from 'firebase/compat/app'
+//import 'firebase/compat/auth'
+
+const firebase = require('firebase');
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyCZeP7p2seEa2t-pLBIvLfdhW22k2mb3yc",
@@ -10,6 +13,11 @@ const firebaseConfig = {
     appId: "1:719951336151:web:c474a824f631e2e0ac1692",
     measurementId: "G-9T7Z4L6FWJ"
 };
-const fire = firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const User = db.collection("Users");
+module.exports = User;
 
-export default fire;
+
+
+// export default fire;
