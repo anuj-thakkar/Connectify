@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import fire from '../fire.js';
+import { Link } from 'react-router-dom';
 
 const Register = () => {
     const [email, setEmail] = useState();
@@ -54,8 +55,13 @@ const Register = () => {
                             placeholder="Confirm Password"
                         />
                         <br />
+                        <Link to="/">
+                            <button type="return">
+                                Go back
+                            </button>
+                        </Link>
                         <button type="submit">
-                            Sign in
+                            Register
                         </button>
                     </form>
             </div>
