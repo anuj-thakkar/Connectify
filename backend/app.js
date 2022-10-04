@@ -1,11 +1,5 @@
 var createError = require('http-errors');
 
-var express = require('express');
-const express = require("express");
-
-// allows you to configure and manage an HTTP server to access resources from the same domain.
-const cors = require("cors");
-
 // from database
 const User = require("./frontend/src/fire");
 
@@ -17,6 +11,8 @@ const { signupController } = require("../controller/appController");
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var express = require('express');
+// allows you to configure and manage an HTTP server to access resources from the same domain.
 var cors = require('cors');
 
 var indexRouter = require('./routes/index');
