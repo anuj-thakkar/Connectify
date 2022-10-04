@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import fire from '../fire.js';
-import logo from './logo.jpg';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     const [email, setEmail] = useState();
@@ -14,22 +14,13 @@ const Login = () => {
         });
     }
 
-    const handleRegister = (e) => {
-        e.preventDefault();
-        fire.auth().createUserWithEmailAndPassword(email, password)
-          .catch((error) => {
-            console.error('Unable to Register');
-        });
-    }
-
     return (
             <div class="logoDiv">
-                <img src={logo} alt="logo"></img>
                 <div class="loginDiv">
                     <h1 class="loginHdr">Login</h1>
                     <form onSubmit={handleLogin}>
                         <input
-                            type="text"
+                            type="email"
                             onChange={({ target }) =>     
                             setEmail(target.value)}
                             placeholder="Email"
@@ -47,27 +38,20 @@ const Login = () => {
                         </button>
                     </form>
                 </div>
+                <div class="forgotPassword">
+                        <Link to="/forgotPassword">
+                            <button type="reg">
+                                Forgot Password?
+                            </button>
+                        </Link>
+                </div>
                 <div class="registerDiv">
-                    <h1>Register</h1>
-                    <form onSubmit={handleRegister}>
-                        <input
-                            type="text"
-                            onChange={({ target }) =>     
-                            setEmail(target.value)}
-                            placeholder="Email"
-                        />
-                        <br />
-                        <input
-                            type="password"
-                            onChange={({ target}) => 
-                            setPassword(target.value)}
-                            placeholder="Password"
-                        />
-                        <br />
-                        <button type="reg">
-                            Register
-                        </button>
-                    </form>
+                    <h1>Don't have an account? </h1>
+                        <Link to="/register">
+                            <button type="reg">
+                                Register here!
+                            </button>
+                        </Link>
                 </div>
         </div>
     )
