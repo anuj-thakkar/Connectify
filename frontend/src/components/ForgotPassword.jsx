@@ -13,17 +13,26 @@ const ForgotPassword = () => {
             <p>Please check your email for the reset link</p>
         </div>
     ) : (
-        <div className="content-container">
-            <h1>Forgot Password</h1>
-            <p>Enter your email and we'll send you a reset link</p>
+        <div className="Auth-form-container">
+            <form className="Auth-form">
+            <div className="Auth-form-content">
+            <h3 className="Auth-form-title">Forgot Password?</h3>
             {errorMessage && <div className="fail">{errorMessage}</div>}
             <input
+                type="email"
+                className="form-control mt-1"
                 value={emailValue}
                 onChange={e => setEmailValue(e.target.value)} 
-                placeholder="someone@gmail.com" />
-            <button
+                placeholder="someone@gmail.com" 
+            />
+            <p></p>
+            <div className="d-grid gap-2 mt-3">
+            <button class="btn btn-success"
                 disabled={!emailValue}
-            >Send Reset link</button>
+            >Send Reset Link</button>
+            </div>
+            </div>
+            </form>
         </div>
     )
 };
