@@ -13,48 +13,50 @@ const Login = () => {
             console.error('Incorrect username or password');
         });
     }
-
     return (
-            <div class="logoDiv">
-                <div class="loginDiv">
-                    <h1 class="loginHdr">Login</h1>
-                    <form onSubmit={handleLogin}>
-                        <input
-                            type="email"
-                            onChange={({ target }) =>     
-                            setEmail(target.value)}
-                            placeholder="Email"
-                        />
-                        <br />
-                        <input
-                            type="password"
-                            onChange={({ target}) => 
-                            setPassword(target.value)}
-                            placeholder="Password"
-                        />
-                        <br />
-                        <button type="submit">
-                            Sign in
-                        </button>
-                    </form>
-                </div>
-                <div class="forgotPassword">
-                        <Link to="/forgotPassword">
-                            <button type="reg">
-                                Forgot Password?
-                            </button>
-                        </Link>
-                </div>
-                <div class="registerDiv">
-                    <h1>Don't have an account? </h1>
-                        <Link to="/register">
-                            <button type="reg">
-                                Register here!
-                            </button>
-                        </Link>
-                </div>
+        <div className="Auth-form-container">
+          <form className="Auth-form" onSubmit={handleLogin}>
+            <div className="Auth-form-content">
+              <h3 className="Auth-form-title">Log In </h3>
+              <p className="text-center mt-2">
+                  <a href="/Register">Don't have an account?</a>
+                  </p>
+              <div className="form-group mt-3">
+                <label>Email address</label>
+                <input
+                  type="email"
+                  className="form-control mt-1"
+                  onChange={({ target }) =>     
+                  setEmail(target.value)}
+                  placeholder="Enter email"
+                />
+              </div>
+              <div className="form-group mt-3">
+                <label>Password</label>
+                <input
+                  type="password"
+                  className="form-control mt-1"
+                  onChange={({ target}) => 
+                  setPassword(target.value)}
+                  placeholder="Enter password"
+                />
+              </div>
+              <div className="d-grid gap-2 mt-3">
+                <button type="submit" className="btn btn-success">
+                  Submit
+                </button>
+              </div>
+              <p></p>
+
+              <div class="forgot-password text-right mt-2">
+                  <p className="text-center mt-2">
+                  Forgot <a href="/forgotPassword">password?</a>
+                  </p>
+              </div>
+            </div>
+          </form>
         </div>
-    )
+      )
 };
 
 export default Login
