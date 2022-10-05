@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import fire from '../fire.js';
-import { Link } from 'react-router-dom';
 
 const Register = () => {
     const [email, setEmail] = useState();
