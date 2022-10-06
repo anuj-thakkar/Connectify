@@ -1,15 +1,17 @@
+.container-fluid {
+  background-color: black;
+}
+
 .App {
   padding-top: 50px;
   margin:0px;
   padding:0px;
-  
   color: black;
   overflow-x: hidden;
   box-sizing: border-box;
   justify-content: center;
   align-items: center;
   display: flex;
-  background-color: black;
   width: 100%;
   height: 100vh;
 }
