@@ -1,13 +1,5 @@
 var createError = require('http-errors');
 
-// from database
-const User = require("./frontend/src/fire");
-
-
-const { check, validationResult } = require("express-validator");
-const { signupController } = require("../controller/appController");
-
-
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
