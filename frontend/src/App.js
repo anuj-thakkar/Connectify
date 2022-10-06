@@ -12,19 +12,30 @@ import Col from 'react-bootstrap/Col';
 import ForgotPassword from "./components/ForgotPassword"
 import "bootstrap/dist/css/bootstrap.min.css"
 
+
+const CLIENT_ID = "53b5b899679f43d9b7c9bfdc2b612054"
+const SPOTIFY_AUTHORIZE = "https://accounts.spotify.com/authorize"
+const REDIRECT_URI = "http://localhost:3000/home"
+const SCOPES = ["user-read-currently-playing", "user-read-playback-state"];
+const SCOPES_URL_PARAM = SCOPES.join("%20")
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [sent, setSent] = useState(false)
   const[text, setText] = useState("")
 
   
-    fire.auth().onAuthStateChanged((user) => {
+  fire.auth().onAuthStateChanged((user) => {
       return user ? setIsLoggedIn(true) : setIsLoggedIn(false);
   });
   
   const signOut = () => {
     fire.auth().signOut()
   };
+
+  const handleLogin = () => {
+    window.location = `${SPOTIFY_AUTHORIZE}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES_URL_PARAM}&response_type=token&show_dialog=TRUE`;
+  }
 
   const handleSend = async (e) => {
 		setSent(true)
@@ -59,9 +70,12 @@ function App() {
             ) 
             : (
               <>
-              <span onClick={signOut}>
+            <button onClick={handleLogin}>
+                Login to Spotify!
+            </button>
+            <span onClick={signOut}>
                 <a href="#">Sign out</a>
-              </span>
+            </span>
               </>
             )}
         </Router>
@@ -70,5 +84,6 @@ function App() {
     
   );
 }
+
 
 export default App;

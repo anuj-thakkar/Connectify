@@ -29,7 +29,7 @@ const Login = () => {
                   onChange={({ target }) =>     
                   setEmail(target.value)}
                   placeholder="Enter email"
-                />
+                /> 
               </div>
               <div className="form-group mt-3">
                 <label>Password</label>
