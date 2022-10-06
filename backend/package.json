@@ -12,7 +12,8 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jade": "^0.31.2",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "nodemon": "^2.0.20"
   },
   "main": "app.js",
   "author": "",
