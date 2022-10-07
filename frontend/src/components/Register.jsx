@@ -1,17 +1,25 @@
 import React, { useState } from 'react';
 import fire from '../fire.js';
+import { registerUser } from '../services/usersService'
 
 const Register = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const [firstName, setFirstName] = useState();
+    const [lastName, setLastName] = useState();
 
 
     const handleRegister = (e) => {
         e.preventDefault();
+        if (email && password && firstName && lastName) {
+          registerUser(firstName, lastName, email, password);
+        }
         fire.auth().createUserWithEmailAndPassword(email, password)
           .catch((error) => {
             console.error('Unable to Register');
+            console.log(email, password);
         });
+        
     }
     return (
         <div className="Auth-form-container">
@@ -24,20 +32,20 @@ const Register = () => {
                 <div className="form-group mt-3">
                 <label>First Name</label>
                 <input
-                  type="email"
+                  type="fName"
                   className="form-control mt-1"
                   onChange={({ target }) =>     
-                  setEmail(target.value)}
+                  setFirstName(target.value)}
                   placeholder="First Name"
                 />
                 </div>
                 <div className="form-group mt-3">
                 <label>Last Name</label>
                 <input
-                  type="email"
+                  type="lName"
                   className="form-control mt-1"
                   onChange={({ target }) =>     
-                  setEmail(target.value)}
+                  setLastName(target.value)}
                   placeholder="Last Name"
                 />
                 </div>
