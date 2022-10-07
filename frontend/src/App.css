@@ -1,11 +1,47 @@
 .container-fluid {
   background-color: black;
 }
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 10px;
+  background-color: rgb(34, 34, 34);
+  padding: 10px;
+}
+
+.grid-container > div {
+  background-color: black;
+  padding: 12px 0;
+  text-align: center;
+  font-size: 20px;
+}
+
+.item1 {
+  grid-area: 3 / 2 / span 62 / span 3;
+  max-width: 100%;
+  color:white;
+}
+
+.item2 {
+  grid-area: 1 / 1 / span 1 / span 4;
+  max-width: 100%;
+  color:white;
+}
+
+.item3 {
+  grid-area: 2 / 1 / span 63 / span 1;
+  max-width: 100%;
+  color:white;
+}
+
+.item4, .item5, .item6 {
+  color: white;
+}
 
 .App {
   padding-top: 50px;
-  margin:0px;
-  padding:0px;
+  margin: 0px;
+  padding: 0px;
   color: black;
   overflow-x: hidden;
   box-sizing: border-box;
