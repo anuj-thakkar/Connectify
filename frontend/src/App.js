@@ -51,11 +51,12 @@ function App() {
   console.log(isLoggedIn);
   return (
     <Container fluid>
-      <div className="App">
+      <div>
         <Router>
           {!isLoggedIn
             ? (
               <>
+              <div class="App">
               <Row>
                 <Col><img src={logo} alt="logo"></img></Col>
                 <Col>
@@ -66,16 +67,35 @@ function App() {
                 </Routes>
                 </Col>
                 </Row>
+              </div>
               </>
             ) 
             : (
               <>
-            <button onClick={handleLogin}>
-                Login to Spotify!
-            </button>
-            <span onClick={signOut}>
-                <a href="#">Sign out</a>
-            </span>
+              <div class="grid-container">
+                <div class="item1">Feed</div>
+                <div class="item2">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="#"><img src={logo} alt="" padding-left="10" height="60" class="d-inline-block align-text-top"></img></a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                      <a class="nav-link active" aria-current="page" href="/">Home</a>
+                      <a class="nav-link active" aria-current="page" onClick={handleLogin} href="#">Spotify Linking</a>
+                      <a class="nav-link active" aria-current="page" onClick={signOut} href="#">Sign out</a>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+                </div>
+                <div class="item3">Chats</div>  
+                <div class="item4">Poll1</div>
+                <div class="item5">Poll2</div>
+                <div class="item6">Poll3</div>
+              </div>
               </>
             )}
         </Router>
@@ -87,3 +107,28 @@ function App() {
 
 
 export default App;
+
+/*<button onClick={handleLogin}>
+                Login to Spotify!
+            </button>
+            <span onClick={signOut}>
+                <a href="#">Sign out</a>
+            </span>*/
+/*
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="#"><img src={logo} alt="" height="30" class="d-inline-block align-text-top"></img></a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                      <a class="nav-link active" aria-current="page" href="#">Home</a>
+                      <a class="nav-link" href="/Login">Features</a>
+                      <a class="nav-link" href="/Register">Pricing</a>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+
+              */
