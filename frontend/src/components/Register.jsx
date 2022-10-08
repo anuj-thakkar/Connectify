@@ -14,6 +14,7 @@ const Register = () => {
         if (email && password && firstName && lastName) {
           registerUser(firstName, lastName, email, password);
         }
+      
         fire.auth().createUserWithEmailAndPassword(email, password)
           .catch((error) => {
             console.error('Unable to Register');
