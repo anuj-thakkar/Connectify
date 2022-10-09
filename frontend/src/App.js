@@ -91,6 +91,7 @@ function App() {
             ) 
             : (
               <>
+              <a onClick={signOut} href='/'>Sign Out</a>
               <div class="grid-container">
                 <div class="item1">Feed</div>
                 <div class="item2">
@@ -103,7 +104,7 @@ function App() {
                   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                       <a class="nav-link active" aria-current="page" href="/">Home</a>
-                      <a class="nav-link active" aria-current="page" onClick={handleLogin} href="#">Spotify Linking</a>
+                      <a class="nav-link active" aria-current="page" onClick={handleLogin}>Spotify Linking</a>
                       <a class="nav-link active" aria-current="page" onClick={signOut} href="#">Sign out</a>
                     </div>
                   </div>

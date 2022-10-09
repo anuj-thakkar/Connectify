@@ -14,15 +14,16 @@ const Register = () => {
     const handleRegister = (e) => {
         e.preventDefault();
         if (email && password && username && name) {
-          registerUser(username, name, email, password);
+           registerUser(username, name, email, password);
         }
-      
-        // fire.auth().createUserWithEmailAndPassword(email, password)
-        //   .catch((error) => {
-        //     console.error('Unable to Register');
-        //     console.log(email, password);
-        // });
-        
+        if (email && password) {
+          fire.auth().createUserWithEmailAndPassword(email, password)
+            .catch((error) => {
+              console.error(error);
+
+              console.log(email, password);
+          });
+        }
     }
 
     const checkValidation = (e) => {
