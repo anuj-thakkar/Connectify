@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios"
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-//import {useNavigate} from 'react-router-dom';
 import "./App.css";
 import fire from './fire.js';
 import Login from "./components/Login";
@@ -97,7 +96,7 @@ function App() {
                     <div class="navbar-nav">
                       <a class="nav-link active" aria-current="page" href="/">Home</a>
                       <a class="nav-link active" aria-current="page" onClick={handleLogin} href="#">Spotify Linking</a>
-                      <a class="nav-link active" aria-current="page" href="/home/settings">Settings</a>
+                      <a class="nav-link active" aria-current="page" onClick={Settings} href="/home/settings">Settings</a> 
                       <a class="nav-link active" aria-current="page" onClick={signOut} href="#">Sign out</a>
                     </div>
                   </div>

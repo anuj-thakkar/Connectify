@@ -53,7 +53,6 @@ const Settings = () => {
      // Return your Settings Pane
      return (
         <SettingsPane items={menu} index="/settings/general" settings={settings} onPaneLeave={leavePaneHandler}>
-          <SettingsContent closeButtonClass="secondary" saveButtonClass="primary" header={true}>
             <SettingsPage handler="/settings/general">
                <fieldset className="form-group">
                  <label for="profileName" style={{color : 'white'}}>Name: </label>
@@ -87,9 +86,10 @@ const Settings = () => {
                <label for="profilePassword" style={{color : 'white'}}>Confirm Password: </label>
                  <input type="text" className="form-control" name="mysettings.general.confirmPassword" placeholder="Re-enter new password" id="general.em" onChange={settingsChanged} />
                </fieldset>
+
+               <button type="Submit"> Save</button>
             </SettingsPage>
             <SettingsPage handler="/settings/profile" options={dynamicOptionsForProfilePage} />
-          </SettingsContent>
         </SettingsPane>
      )
 };
