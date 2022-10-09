@@ -10,7 +10,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ForgotPassword from "./components/ForgotPassword"
-// import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap/dist/css/bootstrap.min.css"
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -60,7 +60,7 @@ function App() {
             : (
               <>
               <span onClick={signOut}>
-                <a href="#">Sign out</a>
+                <a href="/#">Sign out</a>
               </span>
               </>
             )}

@@ -1,17 +1,17 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-  email: { type: String, required: true, lowercase: true, validate: /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/},
-  password: { type: String , required: true },
-  firstName: { type: String , required: true },
-  lastName: { type: String , required: true },
-  // homePhone: { type: String, required: true, validate: /^\d{10}$/},
-  // cellPhone: { type: String, required: true, validate: /^\d{10}$/},
-  accountType: { type: String, enum: ['standard', 'manager', 'admin'], default: 'standard' }
-
+  username: { type: String , required: true },
+  name: { type: String , required: true },
+  email: { type: String, required: true, lowercase: true, validate: /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/}
 }, { timestamps: true });
 
-const usersDB = mongoose.connection.useDb('Users');
-const User = usersDB.model("User", userSchema);
+userSchema.set('toJSON', {
+  transform: (doc, returnedObject) => {
+    returnedObject.id = returnedObject._id.toString();
+    delete returnedObject._id;
+    delete returnedObject.__v;
+  },
+});
 
-module.exports = User;
+module.exports = mongoose.model('User', userSchema);

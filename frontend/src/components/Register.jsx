@@ -5,24 +5,23 @@ import { registerUser } from '../services/usersService'
 const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
+    const [username, setUsername] = useState("");
+    const [name, setName] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [isError, setConfirmPassError] = useState("");
 
 
     const handleRegister = (e) => {
         e.preventDefault();
-
-        if (email && password && firstName && lastName) {
-          registerUser(firstName, lastName, email, password);
+        if (email && password && username && name) {
+          registerUser(username, name, email, password);
         }
       
-        fire.auth().createUserWithEmailAndPassword(email, password)
-          .catch((error) => {
-            console.error('Unable to Register');
-            console.log(email, password);
-        });
+        // fire.auth().createUserWithEmailAndPassword(email, password)
+        //   .catch((error) => {
+        //     console.error('Unable to Register');
+        //     console.log(email, password);
+        // });
         
     }
 
@@ -44,23 +43,23 @@ const Register = () => {
                 <a href="/">Already have an account?</a>
             </p>
                 <div className="form-group mt-3">
-                <label>First Name</label>
+                <label>Username</label>
                 <input
-                  type="fName"
+                  type="username"
                   className="form-control mt-1"
                   onChange={({ target }) =>     
-                  setFirstName(target.value)}
-                  placeholder="First Name"
+                  setUsername(target.value)}
+                  placeholder="username"
                 />
                 </div>
                 <div className="form-group mt-3">
-                <label>Last Name</label>
+                <label>Name</label>
                 <input
-                  type="lName"
+                  type="Name"
                   className="form-control mt-1"
                   onChange={({ target }) =>     
-                  setLastName(target.value)}
-                  placeholder="Last Name"
+                  setName(target.value)}
+                  placeholder="Name"
                 />
                 </div>
               <div className="form-group mt-3">
