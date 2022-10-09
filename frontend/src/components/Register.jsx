@@ -7,10 +7,16 @@ const Register = () => {
     const [password, setPassword] = useState();
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
+    const [confirmPassword, setConfirmPassword] = useState();
 
 
     const handleRegister = (e) => {
         e.preventDefault();
+        
+        if (password !== confirmPassword) {
+          console.log("Passwords must match!")
+        }
+
         if (email && password && firstName && lastName) {
           registerUser(firstName, lastName, email, password);
         }
@@ -76,7 +82,7 @@ const Register = () => {
                   type="password"
                   className="form-control mt-1"
                   onChange={({ target}) => 
-                  setPassword(target.value)}
+                  setConfirmPassword(target.value)}
                   placeholder="Confirm password"
                 />
               </div>
