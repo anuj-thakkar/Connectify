@@ -91,6 +91,13 @@ const Register = () => {
                   setPassword(target.value)}
                   placeholder="Create a password"
                 />
+                <label>Password Requirements</label>
+                <ul>
+                  <li>At least 8 characters</li>
+                  <li>At least 1 number</li>
+                  <li>At least 1 special character</li>
+                </ul>
+              
               </div>
               <div className="form-group mt-3">
                 <label>Confirm Password</label>
@@ -115,6 +122,7 @@ const Register = () => {
           </form>
         </div>
       )
+    
 };
 
 export default Register
