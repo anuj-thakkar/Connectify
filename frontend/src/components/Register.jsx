@@ -18,6 +18,15 @@ const Register = () => {
         }
         if (email && password) {
           fire.auth().createUserWithEmailAndPassword(email, password)
+            .then(() => {
+              try {
+                fire.auth().currentUser.sendEmailVerification();
+                console.log("Verification Sent");
+              } catch (error) {
+                console.log(error);
+              }
+              
+            })
             .catch((error) => {
               console.error(error);
 
