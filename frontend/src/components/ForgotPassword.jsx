@@ -6,6 +6,12 @@ const ForgotPassword = () => {
     const [success, setSuccess] = useState(false);
     const [emailValue, setEmailValue] = useState('');
 
+    const handlePasswordReset = (e) => {
+        e.preventDefault();
+        
+        fire.auth().sendPasswordResetEmail(emailValue)
+        return setSuccess(true);
+    }
 
     return success ? (
         <div className="content-container">
@@ -23,12 +29,14 @@ const ForgotPassword = () => {
                 className="form-control mt-1"
                 value={emailValue}
                 onChange={e => setEmailValue(e.target.value)} 
+                onSubmit={e => handlePasswordReset(e)}
                 placeholder="someone@gmail.com" 
             />
             <p></p>
             <div className="d-grid gap-2 mt-3">
             <button class="btn btn-success"
                 disabled={!emailValue}
+                onClick={handlePasswordReset}
             >Send Reset Link</button>
             </div>
             </div>
