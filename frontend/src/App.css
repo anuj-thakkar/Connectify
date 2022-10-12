@@ -52,6 +52,20 @@
   height: 35px;
 }
 
+.button2 {
+  border: solid;
+  background: white;
+  box-shadow: none;
+  border-radius: 10px;
+  padding: 0px;
+  border-width: 1px;
+  border-color: white;
+  border-radius: 100%;
+  margin: 5px;
+  width: 35px;
+  height: 35px;
+}
+
 .App {
   padding-top: 50px;
   margin: 0px;

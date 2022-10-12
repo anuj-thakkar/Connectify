@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios"
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import fire from './fire.js';
 import Login from "./components/Login";
@@ -11,25 +12,11 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ForgotPassword from "./components/ForgotPassword"
 import "bootstrap/dist/css/bootstrap.min.css"
+import ProfileInfo from "./components/profileInfo";
+import Search from "./components/Search";
+import Home from "./components/Home"
+import Settings from "./components/Settings"
 
-//Spotify Information for Linking
-const CLIENT_ID = "53b5b899679f43d9b7c9bfdc2b612054"
-const SPOTIFY_AUTHORIZE = "https://accounts.spotify.com/authorize"
-const REDIRECT_URI = "http://localhost:3000/home"
-const SCOPES = ["user-read-currently-playing", "user-read-playback-state"];
-const SCOPES_URL_PARAM = SCOPES.join("%20")
-
-const getReturnedParamsFromSpotifyAuth = (hash) => {
-  const stringAfterHash = hash.substring(1);
-  const paramInURL = stringAfterHash.split("&");
-  const paramSplitUp = paramInURL.reduce((accumulator, currentValue) => {
-    const [key, value] = currentValue.split("=");
-    accumulator[key] = value;
-    return accumulator;
-  }, {});
-
-  return paramSplitUp;
-}
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -41,14 +28,6 @@ function App() {
       return user ? setIsLoggedIn(true) : setIsLoggedIn(false);
   });
   
-  const signOut = () => {
-    fire.auth().signOut()
-  };
-
-  const handleLogin = () => {
-    window.location = `${SPOTIFY_AUTHORIZE}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES_URL_PARAM}&response_type=token&show_dialog=TRUE`;
-  }
-
   const handleSend = async (e) => {
 		setSent(true)
 		try {
@@ -60,18 +39,11 @@ function App() {
 		}
   }
 
-  useEffect(() => {
-    if (window.location.hash) {
-      const {access_token, expires_in, token_type,} = getReturnedParamsFromSpotifyAuth(window.location.hash)
-      console.log({access_token})
-    }
-  })
-  
   console.log(isLoggedIn);
   return (
     <Container fluid>
       <div>
-        <Router>
+        <BrowserRouter>
           {!isLoggedIn
             ? (
               <>
@@ -91,37 +63,17 @@ function App() {
             ) 
             : (
               <>
-              <div class="grid-container">
-                <div class="item1">Feed</div>
-                <div class="item2">
-                <nav class="navbar navbar-expand-lg navbar-dark bg-black">
-                <div class="container-fluid">
-                  <a class="navbar-brand" href="#"><img src={logo} alt="" padding-left="10" height="60" class="d-inline-block align-text-top"></img></a>
-                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
-                      <a class="nav-link active" aria-current="page" href="/">Home</a>
-                      <a class="nav-link active" aria-current="page" onClick={handleLogin}>Spotify Linking</a>
-                      <button class="button1">
-                          <img className="buttonImg" src={require('./components/profileIcon.png')} />
-                      </button>
-                      <a class="nav-link active" aria-current="page" onClick={signOut} href="#">Sign out</a>
-                    </div>
-                  </div>
-                </div>
-              </nav>
-                </div>
-                <div class="item3">Chats</div>  
-                <div class="item4">Poll1</div>
-                <div class="item5">Poll2</div>
-                <div class="item6">Poll3</div>
-              </div>
+                 <Routes>
+                  <Route path='/home' element={<Home/>}/>
+                  <Route path='/home/settings' element={<Settings/>}/>
+                  <Route path='/search' element={<Search/>}/>
+                  <Route path='/profile' element={<ProfileInfo/>}/>
+                </Routes>
               </>
             )}
-        </Router>
+        </BrowserRouter>
       </div>
+      
     </Container>
     
   );
