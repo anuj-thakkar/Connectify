@@ -79,7 +79,14 @@ const Settings = () => {
 
            <fieldset className="form-group">
                <label for="profilePassword" style={{color : 'white'}}>New Password: </label>
-                 <input type="text" className="form-control" name="mysettings.general.password" placeholder="Enter new password" id="general.em" onChange={settingsChanged} />
+                 <input type="text" className="form-control" name="mysettings.general.password" placeholder="Enter new password" id="general.em" onChange={settingsChanged} 
+                 />
+                 <label>Password Requirements</label>
+                <ul>
+                  <li>At least 8 characters</li>
+                  <li>At least 1 number</li>
+                  <li>At least 1 special character</li>
+                </ul>
                </fieldset>
 
                <fieldset className="form-group">
