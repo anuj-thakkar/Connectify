@@ -91,7 +91,6 @@ function App() {
             ) 
             : (
               <>
-              <a onClick={signOut} href='/'>Sign Out</a>
               <div class="grid-container">
                 <div class="item1">Feed</div>
                 <div class="item2">
@@ -105,6 +104,9 @@ function App() {
                     <div class="navbar-nav">
                       <a class="nav-link active" aria-current="page" href="/">Home</a>
                       <a class="nav-link active" aria-current="page" onClick={handleLogin}>Spotify Linking</a>
+                      <button class="button1">
+                          <img className="buttonImg" src={require('./components/profileIcon.png')} />
+                      </button>
                       <a class="nav-link active" aria-current="page" onClick={signOut} href="#">Sign out</a>
                     </div>
                   </div>
