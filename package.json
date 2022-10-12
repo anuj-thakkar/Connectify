@@ -6,8 +6,13 @@
     "dotenv": "^16.0.3",
     "firebase": "^9.10.0",
     "nodemailer": "^6.8.0",
+<<<<<<< HEAD
     "nodemon": "^2.0.20"
     "react-router-dom": "^6.4.1"
+=======
+    "react-router-dom": "^6.4.1",
+    "react-settings-pane": "^0.1.4"
+>>>>>>> newSettings
   },
   "name": "connectify",
   "description": "",
