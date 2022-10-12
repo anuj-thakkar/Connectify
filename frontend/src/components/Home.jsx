@@ -64,7 +64,7 @@ const Home = () => {
                         <img className="buttonImg" src={require('./searchIcon.png')} />
                     </button>  
                 </Link>                
-                <a class="nav-link active" aria-current="page" onClick={signOut} href="#">Sign out</a>
+                <a class="nav-link active" aria-current="page" onClick={signOut} href="/#">Sign out</a>
               </div>
             </div>
           </div>
