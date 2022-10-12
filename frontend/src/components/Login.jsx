@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
 import fire from '../fire.js';
-// import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 const Login = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [isError, setErrorMessage] = useState("");
+    const navigate = useNavigate();
     
     const handleLogin = (e) => {
-
-          e.preventDefault();
-          fire.auth().signInWithEmailAndPassword(email, password)
-            .catch((error) => {
-              setErrorMessage(error);
-              console.error('Incorrect username or password');
-          });
-        }
-        
+        e.preventDefault();
+        fire.auth().signInWithEmailAndPassword(email, password)
+          .catch((error) => {
+            setErrorMessage(error);
+            console.error('Incorrect username or password');
+        });
+        navigate('/home');
+    }
 
     return (
         <div className="Auth-form-container">
