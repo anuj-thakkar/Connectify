@@ -51,8 +51,9 @@ const Login = () => {
                 <button type="submit" className="btn btn-success">
                   Submit
                 </button>
-                <p class = "error red-text center align"> </p>
                 
+                <p class = "error red-text center align"> </p>
+
 
               </div>
 

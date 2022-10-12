@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios"
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import "./App.css";
 import fire from './fire.js';
 import Login from "./components/Login";
@@ -10,6 +10,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ForgotPassword from "./components/ForgotPassword"
+import Settings from "./components/Settings"
 import "bootstrap/dist/css/bootstrap.min.css"
 
 //Spotify Information for Linking
@@ -35,6 +36,15 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [sent, setSent] = useState(false)
   const[text, setText] = useState("")
+
+  /*
+  const navigate = useNavigate();
+
+  const navigateToSettings = () => {
+    // 👇️ navigate to /settings
+    navigate('/components/Settings');
+  };
+  */
 
   
   fire.auth().onAuthStateChanged((user) => {
@@ -83,6 +93,7 @@ function App() {
                   <Route exact path='/' element={<Login/>}/>
                   <Route exact path='/forgotPassword' element={<ForgotPassword/>}/>
                   <Route exact path='/register' element={<Register/>}/>
+                  <Route exact path='/home/settings' element={<Settings/>}/>
                 </Routes>
                 </Col>
                 </Row>
@@ -104,7 +115,8 @@ function App() {
                   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                       <a class="nav-link active" aria-current="page" href="/">Home</a>
-                      <a class="nav-link active" aria-current="page" onClick={handleLogin}>Spotify Linking</a>
+                      <a class="nav-link active" aria-current="page" onClick={handleLogin} href="#">Spotify Linking</a>
+                      <a class="nav-link active" aria-current="page" onClick={Settings} href="/home/settings">Settings</a> 
                       <a class="nav-link active" aria-current="page" onClick={signOut} href="#">Sign out</a>
                     </div>
                   </div>
