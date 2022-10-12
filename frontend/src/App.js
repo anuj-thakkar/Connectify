@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios"
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import "./App.css";
 import fire from './fire.js';
 import Login from "./components/Login";
@@ -16,7 +15,6 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import ProfileInfo from "./components/profileInfo";
 import Search from "./components/Search";
 import Home from "./components/Home"
-import Settings from "./components/Settings"
 
 
 function App() {
@@ -53,7 +51,7 @@ function App() {
   return (
     <Container fluid>
       <div>
-        <BrowserRouter>
+        <Router>
           {!isLoggedIn
             ? (
               <>
@@ -82,7 +80,7 @@ function App() {
                 </Routes>
               </>
             )}
-        </BrowserRouter>
+        </Router>
       </div>
       
     </Container>
