@@ -3,6 +3,7 @@ import {SettingsPane, SettingsPage, SettingsContent, SettingsMenu} from 'react-s
 import Home from './Home'
 import { Link } from 'react-router-dom'
 import React, { useState } from 'react';
+import { getAuth, updatePassword } from "firebase/auth";
 
 const Settings = () => {
   const [isError, setConfirmPassError] = useState("");
@@ -15,6 +16,18 @@ const Settings = () => {
        'mysettings.general.bio': 'livin life',
        'mysettings.general.display-theme': 'Dark mode'
      };
+
+     const auth = getAuth();
+
+      const user = auth.currentUser;
+      const newPassword = document.getElementById('confirmNewPass');
+
+      updatePassword(user, newPassword).then(() => {
+        // Update successful.
+      }).catch((error) => {
+        // An error ocurred
+        // ...
+      });
     
      // Define your menu
      const menu = [
@@ -104,7 +117,7 @@ const Settings = () => {
                   {isError} </p>
 
               
-               <Link to="/home" className="btn btn-primary">Save</Link>
+               <Link to="/home" onClick={updatePassword} className="btn btn-primary">Save</Link>
                <Link to="/home" className="btn btn-primary">Cancel</Link>
             </SettingsPage>
             <SettingsPage handler="/settings/profile" options={dynamicOptionsForProfilePage} />

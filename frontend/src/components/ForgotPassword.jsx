@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import fire from '../fire.js';
+import { getAuth, updatePassword } from "firebase/auth";
 
 const ForgotPassword = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [success, setSuccess] = useState(false);
     const [emailValue, setEmailValue] = useState('');
+
+    const auth = getAuth();
+
+    const user = auth.currentUser;
 
     const handlePasswordReset = (e) => {
         e.preventDefault();
