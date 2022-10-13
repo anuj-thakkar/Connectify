@@ -55,6 +55,7 @@ function App() {
             ? (
               <>
                 <Routes>
+                  <Route path='/link' element={<SpotifyLogin/>}/>
                   <Route path='/home' element={<Home/>}/>
                   <Route path='/home/settings' element={<Settings/>}/>
                   <Route path='/search' element={<Search/>}/>
@@ -78,18 +79,6 @@ function App() {
                 </Row>
               </div>
               </>
-            ) 
-            : (
-              <>
-                 <Routes>
-                  <Route path='/link' element={<SpotifyLogin/>}/>
-                  <Route path='/home' element={<Home/>}/>
-                  <Route path='/home/settings' element={<Settings/>}/>
-                  <Route path='/search' element={<Search/>}/>
-                  <Route path='/profile' element={<ProfileInfo/>}/>
-                </Routes>
-              </>
-
             )}
         </Router>
       </div>
