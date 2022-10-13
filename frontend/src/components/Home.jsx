@@ -28,7 +28,7 @@ const Home = () => {
               <div class="navbar-nav">
 
               
-                <a class="nav-link active" aria-current="page" href="/"><MdHomeFilled/> Home</a>
+                <a class="nav-link active" aria-current="page" href="/home"><MdHomeFilled/> Home</a>
 
                 <a class="nav-link active" aria-current="page" onClick={Settings} href="/home/settings">Settings</a> 
                 <Link to='../profile'>
