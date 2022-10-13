@@ -10,7 +10,7 @@ import { useStateProvider } from '../utils/StateProvider';
 const Home = () => {
 
     const signOut = () => {
-        fire.auth().signOut()
+        fire.auth().signOut();
       };
     
     return (
@@ -26,8 +26,10 @@ const Home = () => {
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
+
               
                 <a class="nav-link active" aria-current="page" href="/"><MdHomeFilled/> Home</a>
+
                 <a class="nav-link active" aria-current="page" onClick={Settings} href="/home/settings">Settings</a> 
                 <Link to='../profile'>
                 <button class="button1" >

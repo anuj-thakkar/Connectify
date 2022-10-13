@@ -1,4 +1,7 @@
+import { Navigate, useNavigate } from 'react-router-dom';
 import {SettingsPane, SettingsPage, SettingsContent, SettingsMenu} from 'react-settings-pane';
+import Home from './Home'
+import { Link } from 'react-router-dom'
 
 const Settings = () => {
     // You will maybe receive your settings from this.props or do a fetch request in your componentWillMount
@@ -49,6 +52,13 @@ const Settings = () => {
      const settingsChanged = (changedSettings) => {
        // this is triggered onChange of the inputs
      };
+
+      let navigate = useNavigate(); 
+      const routeChange = () =>{ 
+        let path = '/home'; 
+        navigate(path);
+      }
+
     
      // Return your Settings Pane
      return (
@@ -87,7 +97,9 @@ const Settings = () => {
                  <input type="text" className="form-control" name="mysettings.general.confirmPassword" placeholder="Re-enter new password" id="general.em" onChange={settingsChanged} />
                </fieldset>
 
-               <button type="Submit"> Save</button>
+              
+               <Link to="/home" className="btn btn-primary">Save</Link>
+               <Link to="/home" className="btn btn-primary">Cancel</Link>
             </SettingsPage>
             <SettingsPage handler="/settings/profile" options={dynamicOptionsForProfilePage} />
         </SettingsPane>
