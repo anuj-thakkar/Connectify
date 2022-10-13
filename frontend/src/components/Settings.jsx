@@ -110,14 +110,6 @@ const Settings = () => {
                  <input type="text" className="form-control" name="mysettings.general.email" placeholder="Email Address" id="general.em" onChange={settingsChanged} defaultValue={settings['mysettings.general.email']} />
                </fieldset>
 
-               <fieldset className="form-group">
-               <label for="profileColor" style={{color : 'white'}}>Display: </label>
-               <select name="mysettings.general.color-theme" id="profileDisplay" className="form-control" defaultValue={settings['mysettings.general.display-theme']}>
-               <option value="dark">Dark mode</option>
-               <option value="light">Light mode</option>
-             </select>
-           </fieldset>
-
            <fieldset className="form-group">
                <label for="profilePassword" style={{color : 'white'}}>New Password: </label>
                  <input type="text" className="form-control" name="mysettings.general.password" placeholder="Enter new password" id="newPass" onChange={settingsChanged} />
