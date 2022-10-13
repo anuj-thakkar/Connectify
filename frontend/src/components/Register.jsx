@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import fire from '../fire.js';
 import { registerUser } from '../services/usersService'
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const [email, setEmail] = useState("");
@@ -9,6 +10,7 @@ const Register = () => {
     const [name, setName] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [isError, setConfirmPassError] = useState("");
+    const navigate = useNavigate();
 
 
     const handleRegister = (e) => {
@@ -22,6 +24,7 @@ const Register = () => {
               try {
                 fire.auth().currentUser.sendEmailVerification();
                 console.log("Verification Sent");
+                navigate('/home');
               } catch (error) {
                 console.log(error);
               }
