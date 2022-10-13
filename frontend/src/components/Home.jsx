@@ -24,7 +24,7 @@ const getReturnedParamsFromSpotifyAuth = (hash) => {
 }
 const Home = () => {
     const signOut = () => {
-        fire.auth().signOut()
+        fire.auth().signOut();
       };
     
       const handleLogin = () => {
@@ -51,7 +51,7 @@ const Home = () => {
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                <a class="nav-link active" aria-current="page" href="/home">Home</a>
                 <a class="nav-link active" aria-current="page" onClick={handleLogin}>Spotify Linking</a>
                 <a class="nav-link active" aria-current="page" onClick={Settings} href="/home/settings">Settings</a> 
                 <Link to='../profile'>
