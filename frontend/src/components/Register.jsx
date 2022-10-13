@@ -12,6 +12,14 @@ const Register = () => {
     const [isError, setConfirmPassError] = useState("");
     const navigate = useNavigate();
 
+    function comparePasswords() {
+      if (document.getElementById('pass').value != document.getElementById('confirmPass').value) {
+        setConfirmPassError("Passwords do not match!");
+      } else {
+        setConfirmPassError("");
+      }
+     }
+
 
     const handleRegister = (e) => {
         e.preventDefault();
@@ -38,6 +46,7 @@ const Register = () => {
         }
     }
 
+    
     const checkValidation = (e) => {
       if (password !== confirmPassword) {
         setConfirmPassword(e.target.value);
@@ -47,6 +56,7 @@ const Register = () => {
         setConfirmPassError("");
       }
     }
+    
     return (
         <div className="Auth-form-container">
           <form className="Auth-form" onSubmit={handleRegister}>
@@ -89,6 +99,7 @@ const Register = () => {
                 <label>Password</label>
                 <input
                   type="password"
+                  id="pass"
                   className="form-control mt-1"
                   onChange={({ target}) => 
                   setPassword(target.value)}
@@ -107,7 +118,9 @@ const Register = () => {
                 <input
                   value={confirmPassword}
                   type="password"
+                  id="confirmPass"
                   className="form-control mt-1"
+                  onKeyUp={comparePasswords}
                   onChange = {(e) => checkValidation(e)}
                   name = "confirmPassword"
                   placeholder="Confirm password"
