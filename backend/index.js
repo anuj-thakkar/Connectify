@@ -3,7 +3,7 @@ const cors = require('cors');
 const usersRouter = require('./controllers/users');
 const mongoose = require('mongoose');
 const { request } = require('express');
-//const decodedToken = require('./authenticateToken')
+const decodedToken = require('./authenticateToken')
 
 mongoose.connect(
     'mongodb+srv://admin:connectify@connectify.vdzw2bf.mongodb.net/?retryWrites=true&w=majority',
@@ -19,9 +19,9 @@ const app = express();
 
 
 app.use(cors());
-//app.use(decodedToken);
+app.use(decodedToken);
 app.use(express.json());
-//app.use('/api', usersRouter);
+app.use('/api', usersRouter);
 
 const PORT = 3001;
 app.listen(PORT, () => {
