@@ -16,7 +16,7 @@ const Login = () => {
             setErrorMessage(error);
             console.error('Incorrect username or password');
         });
-        navigate('/home');
+        navigate('/link');
     }
 
     return (
