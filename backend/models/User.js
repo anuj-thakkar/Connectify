@@ -5,8 +5,9 @@ const userSchema = new mongoose.Schema({
   username: { type: String , required: true },
   name: { type: String , required: true },
   email: { type: String, required: true, lowercase: true, validate: /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/},
-  connections: { type: [Connections], required: true
-  },
+  accountType: { type: String, enum: ['standard', 'admin'], default: 'standard' },
+  activated: { type: Boolean, default: false },
+  connections: { type: [Connections], required: true, default: [] },
   posts : { type: Array, required: true }
 }, { timestamps: true });
 

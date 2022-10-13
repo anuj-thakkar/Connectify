@@ -1,3 +1,4 @@
+/*
 const mongoose = require("mongoose");
 const User = require("./User");
 
@@ -24,3 +25,4 @@ userSchema.set('toJSON', {
 });
 
 module.exports = mongoose.model('Connections', connectionsSchema);
+*/
