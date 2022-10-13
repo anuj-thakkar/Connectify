@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios"
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import "bootstrap/dist/css/bootstrap.min.css"
 import "./App.css";
 import fire from './fire.js';
 import Login from "./components/Login";
 import Register from "./components/Register";
 import logo from './components/logo.jpg';
-import Container from 'react-bootstrap/Container' 
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { Row, Col, Container } from 'react-bootstrap';
 import ForgotPassword from "./components/ForgotPassword"
 import Settings from "./components/Settings"
-import "bootstrap/dist/css/bootstrap.min.css"
 import ProfileInfo from "./components/profileInfo";
 import Search from "./components/Search";
 import Home from "./components/Home"
@@ -20,7 +18,7 @@ import Home from "./components/Home"
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [sent, setSent] = useState(false)
-  const[text, setText] = useState("")
+  const [text, setText] = useState("")
 
   /*
   const navigate = useNavigate();
@@ -52,8 +50,18 @@ function App() {
     <Container fluid>
       <div>
         <Router>
-          {!isLoggedIn
+          {isLoggedIn
             ? (
+              <>
+                <Routes>
+                  <Route path='/home' element={<Home/>}/>
+                  <Route path='/home/settings' element={<Settings/>}/>
+                  <Route path='/search' element={<Search/>}/>
+                  <Route path='/profile' element={<ProfileInfo/>}/>
+                </Routes>
+              </>
+            ) 
+            : (
               <>
               <div class="App">
               <Row>
@@ -68,16 +76,6 @@ function App() {
                 </Col>
                 </Row>
               </div>
-              </>
-            ) 
-            : (
-              <>
-                 <Routes>
-                  <Route path='/home' element={<Home/>}/>
-                  <Route path='/home/settings' element={<Settings/>}/>
-                  <Route path='/search' element={<Search/>}/>
-                  <Route path='/profile' element={<ProfileInfo/>}/>
-                </Routes>
               </>
             )}
         </Router>
