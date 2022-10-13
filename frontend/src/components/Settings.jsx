@@ -13,7 +13,6 @@ const Settings = () => {
        'mysettings.general.name': 'Bob Jones',
        'mysettings.general.email': 'bobjones@gmail.com',
        'mysettings.general.bio': 'livin life',
-       'mysettings.general.display-theme': 'Dark mode'
      };
     
      // Define your menu
