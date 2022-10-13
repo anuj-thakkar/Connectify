@@ -14,6 +14,9 @@ import ProfileInfo from "./components/profileInfo";
 import Search from "./components/Search";
 import Home from "./components/Home"
 import SpotifyLogin from "./components/SpotifyLogin";
+import { reducerCases } from "./utils/Constants";
+import { useStateProvider } from "./utils/StateProvider";
+
 
 
 function App() {
@@ -46,7 +49,20 @@ function App() {
 		}
   }
 
-  console.log(isLoggedIn);
+  const [{ token }, dispatch] = useStateProvider();
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const token = hash.substring(1).split("&")[0].split("=")[1];
+      if (token) {
+        dispatch({ type: reducerCases.SET_TOKEN, token });
+      }
+    }
+    document.title = "Spotify";
+  }, [dispatch, token]);
+
+  console.log(token)
+
   return (
     <Container fluid>
       <div>

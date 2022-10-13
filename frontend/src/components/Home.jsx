@@ -6,13 +6,34 @@ import Settings from './Settings';
 import {MdHomeFilled, MdSearch} from 'react-icons/md';
 import { reducerCases } from "../utils/Constants";
 import { useStateProvider } from '../utils/StateProvider';
+import axios from 'axios';
 
 const Home = () => {
+  const [{ token }, dispatch] = useStateProvider();
+
+  useEffect(() => {
+    const getUserInfo = async () => {
+      const { data } = await axios.get("https://api.spotify.com/v1/me", {
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+      });
+      const userInfo = {
+        userId: data.id,
+        userUrl: data.external_urls.spotify,
+        name: data.display_name,
+      };
+      dispatch({ type: reducerCases.SET_USER, userInfo });
+    };
+    getUserInfo();
+  }, [dispatch, token]);
 
     const signOut = () => {
         fire.auth().signOut();
       };
     
+    console.log(token)
     return (
         <>
         <div class="grid-container">

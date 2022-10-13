@@ -4,49 +4,23 @@ import { reducerCases } from "../utils/Constants";
 import { useStateProvider } from '../utils/StateProvider';
 
 export default function SpotifyLogin() {
-    //Spotify Information for Linking
-    const CLIENT_ID = "53b5b899679f43d9b7c9bfdc2b612054"
-    const SPOTIFY_AUTHORIZE = "https://accounts.spotify.com/authorize"
-    const REDIRECT_URI = "http://localhost:3000/home"
-    const SCOPES = ["user-read-currently-playing", 
-                "user-read-playback-state"
-                , "user-read-private"
-                ,"user-modify-playback-state",
-                "user-read-recently-played"];        
-    const SCOPES_URL_PARAM = SCOPES.join("%20")
-
-    const [{ token }, dispatch] = useStateProvider()
-
-    const getReturnedParamsFromSpotifyAuth = (hash) => {
-    const stringAfterHash = hash.substring(1);
-    const paramInURL = stringAfterHash.split("&");
-    const paramSplitUp = paramInURL.reduce((accumulator, currentValue) => {
-    const [key, value] = currentValue.split("=");
-    accumulator[key] = value;
-    return accumulator;
-    }, {});
-
-    return paramSplitUp;
-    }
-
- 
-   const handleLogin = () => {
-     window.location = `${SPOTIFY_AUTHORIZE}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES_URL_PARAM}&response_type=token&show_dialog=TRUE`;
-   }
-
-   useEffect(() => {
-     if (window.location.hash) {
-       const {access_token, expires_in, token_type,} = getReturnedParamsFromSpotifyAuth(window.location.hash)
-       
-       dispatch({ type: reducerCases.SET_TOKEN, access_token });
-
-             //replace with storing these values in our database, but for now storing in local storage for testing
-         localStorage.clear()
-         localStorage.setItem("accessToken", access_token)
-         localStorage.setItem("tokenType", token_type)
-         localStorage.setItem("expiresIn", expires_in)
-     }
-   }, [dispatch, token])
+  const handleLogin = async () => {
+    const client_id = "53b5b899679f43d9b7c9bfdc2b612054";
+    const redirect_uri = "http://localhost:3000/home";
+    const api_uri = "https://accounts.spotify.com/authorize";
+    const scope = [
+      "user-read-private",
+      "user-read-email",
+      "user-modify-playback-state",
+      "user-read-playback-state",
+      "user-read-currently-playing",
+      "user-read-recently-played",
+      "user-top-read",
+    ];
+    window.location.href = `${api_uri}?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scope.join(
+      " "
+    )}&response_type=token&show_dialog=true`;
+  };
 
   return (
     <Container>
