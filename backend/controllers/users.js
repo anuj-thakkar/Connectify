@@ -3,8 +3,8 @@ const User = require('../models/user')
 const express = require("express");
 const fs = require('fs');
 
-
 const app = express();
+
 // module required to change User profile picture 
 const multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
@@ -20,12 +20,11 @@ userRouter.post('/', (req, res) => {
   return res.status(201).json(savedUser);
 });
 
-
 // making the folder static to be accessed on frontend
 // creates endpoint for the image
 app.use(express.static('./uploads'));
 
-app.get("/upload", upload.single("avatar"), (req, res) => {
+app.get("/home/settings", upload.single("avatar"), (req, res) => {
   let fileType = req.file.mimetype.split("/")[1];
   let fileName = req.file.filename + "." + fileType;
 

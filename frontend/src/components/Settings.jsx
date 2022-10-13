@@ -3,6 +3,8 @@ import {SettingsPane, SettingsPage, SettingsContent, SettingsMenu} from 'react-s
 import Home from './Home'
 import { Link } from 'react-router-dom'
 import React, { useState } from 'react';
+import axios from 'axios';
+
 
 const Settings = () => {
   const [isError, setConfirmPassError] = useState("");
@@ -96,14 +98,7 @@ const Settings = () => {
                </fieldset>
 
 
-              <fieldset className='form-group'>
-
-                <label for="profilePicture" style={{color : 'white'}}>Profile Picture </label>
-                <input type="file" onChange={fileOnChange} />
-                <button onClick={sendImage}>Upload</button>
-
-
-              </fieldset>
+              
 
                <fieldset className="form-group">
                <label for="profileBio" style={{color : 'white'}}>Bio: </label>
@@ -128,7 +123,7 @@ const Settings = () => {
                  <input type="text" className="form-control" name="mysettings.general.password" placeholder="Enter new password" id="newPass" onChange={settingsChanged} />
                </fieldset>
 
-               <label>Password Requirements</label>
+               <label >Password Requirements</label>
                 <ul>
                   <li>At least 8 characters</li>
                   <li>At least 1 number</li>
@@ -143,6 +138,12 @@ const Settings = () => {
                <p style={{color: "red"}} >  
                   {isError} </p>
 
+                <fieldset className='form-group'>
+                    <label for="profilePicture" style={{color : 'white'}}>Profile Picture </label>
+                      <input type="file" onChange={fileOnChange} />
+                        <button onClick={sendImage}>Upload
+                        </button>
+                </fieldset>
               
                <Link to="/home" className="btn btn-primary">Save</Link>
                <Link to="/home" className="btn btn-primary">Cancel</Link>
