@@ -3,40 +3,15 @@ import logo from './logo.jpg';
 import fire from '../fire.js';
 import { NavLink, Link } from 'react-router-dom';
 import Settings from './Settings';
+import {MdHomeFilled, MdSearch} from 'react-icons/md';
+import { reducerCases } from "../utils/Constants";
+import { useStateProvider } from '../utils/StateProvider';
 
-//Spotify Information for Linking
-const CLIENT_ID = "53b5b899679f43d9b7c9bfdc2b612054"
-const SPOTIFY_AUTHORIZE = "https://accounts.spotify.com/authorize"
-const REDIRECT_URI = "http://localhost:3000/home"
-const SCOPES = ["user-read-currently-playing", "user-read-playback-state"];
-const SCOPES_URL_PARAM = SCOPES.join("%20")
-
-const getReturnedParamsFromSpotifyAuth = (hash) => {
-  const stringAfterHash = hash.substring(1);
-  const paramInURL = stringAfterHash.split("&");
-  const paramSplitUp = paramInURL.reduce((accumulator, currentValue) => {
-    const [key, value] = currentValue.split("=");
-    accumulator[key] = value;
-    return accumulator;
-  }, {});
-
-  return paramSplitUp;
-}
 const Home = () => {
+
     const signOut = () => {
         fire.auth().signOut();
       };
-    
-      const handleLogin = () => {
-        window.location = `${SPOTIFY_AUTHORIZE}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES_URL_PARAM}&response_type=token&show_dialog=TRUE`;
-      }
-
-      useEffect(() => {
-        if (window.location.hash) {
-          const {access_token, expires_in, token_type,} = getReturnedParamsFromSpotifyAuth(window.location.hash)
-          console.log({access_token})
-        }
-      })
     
     return (
         <>
@@ -51,8 +26,10 @@ const Home = () => {
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="/home">Home</a>
-                <a class="nav-link active" aria-current="page" onClick={handleLogin}>Spotify Linking</a>
+
+              
+                <a class="nav-link active" aria-current="page" href="/"><MdHomeFilled/> Home</a>
+
                 <a class="nav-link active" aria-current="page" onClick={Settings} href="/home/settings">Settings</a> 
                 <Link to='../profile'>
                 <button class="button1" >
