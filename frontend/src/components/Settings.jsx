@@ -1,6 +1,11 @@
+import { Navigate, useNavigate } from 'react-router-dom';
 import {SettingsPane, SettingsPage, SettingsContent, SettingsMenu} from 'react-settings-pane';
+import Home from './Home'
+import { Link } from 'react-router-dom'
+import React, { useState } from 'react';
 
 const Settings = () => {
+  const [isError, setConfirmPassError] = useState("");
     // You will maybe receive your settings from this.props or do a fetch request in your componentWillMount
      //let settings = settings;
     
@@ -72,6 +77,14 @@ const Settings = () => {
         console.log(err.json());
       })
      }
+     function comparePasswords() {
+      if (document.getElementById('newPass').value != document.getElementById('confirmNewPass').value) {
+        setConfirmPassError("Passwords do not match!");
+      } else {
+        setConfirmPassError("");
+      }
+     }
+
     
      // Return your Settings Pane
      return (
@@ -112,15 +125,27 @@ const Settings = () => {
 
            <fieldset className="form-group">
                <label for="profilePassword" style={{color : 'white'}}>New Password: </label>
-                 <input type="text" className="form-control" name="mysettings.general.password" placeholder="Enter new password" id="general.em" onChange={settingsChanged} />
+                 <input type="text" className="form-control" name="mysettings.general.password" placeholder="Enter new password" id="newPass" onChange={settingsChanged} />
                </fieldset>
+
+               <label>Password Requirements</label>
+                <ul>
+                  <li>At least 8 characters</li>
+                  <li>At least 1 number</li>
+                  <li>At least 1 special character</li>
+                </ul>
 
                <fieldset className="form-group">
                <label for="profilePassword" style={{color : 'white'}}>Confirm Password: </label>
-                 <input type="text" className="form-control" name="mysettings.general.confirmPassword" placeholder="Re-enter new password" id="general.em" onChange={settingsChanged} />
+                 <input type="text" onKeyUp={comparePasswords} className="form-control" name="mysettings.general.confirmPassword" placeholder="Re-enter new password" id="confirmNewPass" onChange={settingsChanged} />
                </fieldset>
 
-               <button type="Submit"> Save</button>
+               <p style={{color: "red"}} >  
+                  {isError} </p>
+
+              
+               <Link to="/home" className="btn btn-primary">Save</Link>
+               <Link to="/home" className="btn btn-primary">Cancel</Link>
             </SettingsPage>
             <SettingsPage handler="/settings/profile" options={dynamicOptionsForProfilePage} />
         </SettingsPane>

@@ -13,6 +13,7 @@ import Settings from "./components/Settings"
 import ProfileInfo from "./components/profileInfo";
 import Search from "./components/Search";
 import Home from "./components/Home"
+import SpotifyLogin from "./components/SpotifyLogin";
 
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
             ? (
               <>
                 <Routes>
+                  <Route path='/link' element={<SpotifyLogin/>}/>
                   <Route path='/home' element={<Home/>}/>
                   <Route path='/home/settings' element={<Settings/>}/>
                   <Route path='/search' element={<Search/>}/>
