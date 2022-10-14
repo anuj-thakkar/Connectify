@@ -61,8 +61,6 @@ function App() {
     document.title = "Spotify";
   }, [dispatch, token]);
 
-  console.log(token)
-
   return (
     <Container fluid>
       <div>
