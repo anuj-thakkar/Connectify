@@ -17,6 +17,8 @@ const userSchema = new mongoose.Schema({
         ]
     }
   }], required: true},
+  bio: { type: String, required: true},
+
   // posts : { type: Array, required: true }
   // uid: { type: Number, required: true}
 }, { timestamps: true });
