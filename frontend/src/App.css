@@ -164,3 +164,31 @@ label {
     transform: rotate(360deg);
   }
 }
+
+.labelPass {
+  color: white;
+  align-items: center;
+}
+
+.passList ul {
+  color: white;
+  text-align: right;
+}
+
+.passList li {
+  color: white;
+  text-align: left;
+}
+
+.settingsLogo {
+  margin-top: 300px;
+  margin-left: 300px;
+  margin-bottom: 150px;
+}
+
+.settingsForm {
+  width: 1300px;
+  margin-top: 150px;
+  margin-left: 200px;
+}
+

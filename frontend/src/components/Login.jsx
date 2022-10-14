@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import fire from '../fire.js';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
@@ -8,6 +8,7 @@ const Login = () => {
     const [password, setPassword] = useState();
     const [isError, setErrorMessage] = useState("");
     const navigate = useNavigate();
+
     
     const handleLogin = (e) => {
         e.preventDefault();
@@ -21,8 +22,7 @@ const Login = () => {
 
     return (
         <div className="Auth-form-container">
-          <form className="Auth-form" onSubmit={handleLogin}
-          >
+          <form className="Auth-form" onSubmit={handleLogin}>
             <div className="Auth-form-content">
               <h3 className="Auth-form-title">Log In </h3>
               <p className="text-center mt-2">
@@ -52,10 +52,7 @@ const Login = () => {
                 <button type="submit" className="btn btn-success">
                   Submit
                 </button>
-                
                 <p class = "error red-text center align"> </p>
-
-
               </div>
 
               <div class="forgot-password text-right mt-2">
@@ -68,5 +65,4 @@ const Login = () => {
         </div>
       )
 };
-
-export default Login
+export default Login;
