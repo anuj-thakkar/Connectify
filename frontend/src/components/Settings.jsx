@@ -61,7 +61,7 @@ const Settings = () => {
 
                <fieldset className="form-group">
                <label for="profilePassword" style={{color : 'white'}}>New Password: </label>
-                 <input type="text" onKeyUp={checkRequirements} className="form-control" name="mysettings.general.password" placeholder="Enter new password" id="newPass" />
+                 <input type="text" onKeyUp={checkRequirements} onKeyDown={comparePasswords} className="form-control" name="mysettings.general.password" placeholder="Enter new password" id="newPass" />
                </fieldset>
 
               &nbsp;
@@ -75,7 +75,7 @@ const Settings = () => {
 
                <fieldset className="form-group">
                <label for="profilePassword" style={{color : 'white'}}>Confirm Password: </label>
-                 <input type="text" onKeyUp={comparePasswords} className="form-control" name="mysettings.general.confirmPassword" placeholder="Re-enter new password" id="confirmNewPass" />
+                 <input type="text" onKeyUp={comparePasswords} onKeyDown={checkRequirements} className="form-control" name="mysettings.general.confirmPassword" placeholder="Re-enter new password" id="confirmNewPass" />
                </fieldset>
 
                <p style={{color: "red"}} >  

@@ -114,6 +114,7 @@ const Register = () => {
                   id="pass"
                   className="form-control mt-1"
                   onKeyUp={checkRequirements}
+                  onKeyDown={comparePasswords}
                   onChange={({ target}) => 
                   setPassword(target.value)}
                   placeholder="Create a password"
@@ -135,6 +136,7 @@ const Register = () => {
                   id="confirmPass"
                   className="form-control mt-1"
                   onKeyUp={comparePasswords}
+                  onKeyDown={checkRequirements}
                   onChange = {(e) => checkValidation(e)}
                   name = "confirmPassword"
                   placeholder="Confirm password"
