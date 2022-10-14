@@ -8,6 +8,7 @@ const Login = () => {
     const [password, setPassword] = useState();
     const [isError, setErrorMessage] = useState("");
     const navigate = useNavigate();
+
     
     const handleLogin = (e) => {
         e.preventDefault();
@@ -64,5 +65,4 @@ const Login = () => {
         </div>
       )
 };
-
-export default Login
+export default Login;
