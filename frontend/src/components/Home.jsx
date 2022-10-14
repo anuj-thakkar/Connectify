@@ -47,17 +47,20 @@ const Home = () => {
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
-
-              
                 <a class="nav-link active" aria-current="page" href="/home"><MdHomeFilled/> Home</a>
 
                 <a class="nav-link active" aria-current="page" onClick={Settings} href="/home/settings"><MdBuild/> Settings</a> 
 
                 <a class="nav-link active" aria-current="page" href="../profile"><MdAccountCircle/> Profile</a>
 
-                <a class="nav-link active" aria-current="page" href="../search"><MdSearch/> Search</a>
-                            
                 <a class="nav-link active" aria-current="page" onClick={signOut} href="/#"><MdCompareArrows/> Sign out</a>
+                
+                <a class="nav-link active" aria-current="page"><MdSearch/></a>
+                <form class="d-flex justify-content-end">
+                <input class="form-control me-2" type="search" placeholder="Find Connections..." aria-label="Find Connections"></input>
+                </form>
+                <button class="btn btn-outline-success" type="submit"> Search </button>
+                
               </div>
             </div>
           </div>
