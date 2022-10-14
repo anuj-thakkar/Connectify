@@ -66,9 +66,11 @@ const Settings = () => {
                </fieldset>
 
                <fieldset className="form-group">
-               <label for="profileEmail" style={{color : 'white'}}>Email Address: </label>
+               <label for="profileEmail" style={{color : 'white'}}>Email Address:</label>
+               
                  <input type="text" className="form-control" name="mysettings.general.email" placeholder="Email Address" id="general.em" defaultValue={settings['mysettings.general.email']} />
                </fieldset>
+               <button type="Change Email" className="btn btn-primary">Change Email</button>
 
                <fieldset className="form-group">
                <label for="profilePassword" style={{color : 'white'}}>New Password: </label>
