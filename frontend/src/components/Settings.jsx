@@ -20,10 +20,13 @@ const Settings = () => {
       if (document.getElementById('newPass').value != document.getElementById('confirmNewPass').value) {
         setConfirmPassError("Passwords do not match!");
       } else {
-        fire.auth().updatePassword(document.getElementById('newPass').value);
-        setConfirmPassError("Password successfully changed!");
-      }
+        fire.auth().currentUser.updatePassword(document.getElementById('newPass').value).then(function() {
+          setConfirmPassError("Password successfully changed!");
+        }).catch(function(error) {
+          setConfirmPassError(error.message);
+        });
      }
+    }
 
      function checkRequirements() {
       var regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
