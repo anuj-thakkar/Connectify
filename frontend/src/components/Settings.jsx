@@ -36,9 +36,16 @@ const Settings = () => {
       } else {
         setRequirements("");
       }
-
      }
 
+     const handleChangeEmail = () => {
+      fire.auth().currentUser.updateEmail(document.getElementById('newEmail').value).then(function() {
+        setConfirmPassError("Email successfully changed!");
+      }).catch(function(error) {
+        setConfirmPassError("Email successfully changed!");
+        console.log("Could not change email");
+        setConfirmPassError(error.message);
+      });
     
      return (     
       <form> 
@@ -94,6 +101,7 @@ const Settings = () => {
           </form>
         
      )
-};
+  };
+}
 
 export default Settings
