@@ -11,8 +11,8 @@ const Settings = () => {
   const [requirements, setRequirements] = useState("");
     
      let settings = {
-       'mysettings.general.name': 'Bob Jones',
-       'mysettings.general.email': 'bobjones@gmail.com',
+       'mysettings.general.name': 'Demo User',
+       'mysettings.general.email': 'sdparikh@purdue.edu',
        'mysettings.general.bio': 'livin life',
      };
     
