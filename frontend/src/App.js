@@ -16,6 +16,7 @@ import Home from "./components/Home"
 import SpotifyLogin from "./components/SpotifyLogin";
 import { reducerCases } from "./utils/Constants";
 import { useStateProvider } from "./utils/StateProvider";
+import ListSearchResults from "./components/ListSearchResults";
 
 
 
@@ -88,6 +89,7 @@ function App() {
                   <Route exact path='/forgotPassword' element={<ForgotPassword/>}/>
                   <Route exact path='/register' element={<Register/>}/>
                   <Route exact path='/home/settings' element={<Settings/>}/>
+                  <Route exact path='/search' element={<ListSearchResults/>}/>
                 </Routes>
                 </Col>
                 </Row>

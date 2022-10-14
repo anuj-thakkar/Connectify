@@ -16,10 +16,16 @@ import { useStateProvider } from '../utils/StateProvider';
 import axios from 'axios';
 import styled from "styled-components";
 import ListAllConnections from './ListAllConnections';
+import { searchForUsers } from '../services/usersService';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import ListSearchResults from './ListSearchResults';
 
 
 const Home = () => {
   const [{ token, userInfo, currentPlaying, playerState }, dispatch] = useStateProvider();
+  const [search, setSearch] = useState();
+  const navigate = useNavigate();
   
   useEffect(() => {
     const getUserInfo = async () => {
@@ -157,13 +163,13 @@ const Home = () => {
                 <input class="form-control me-2" type="search" placeholder="Find Connections..." aria-label="searchbar"></input>
                 </form>
                 <button class="btn btn-outline-success" type="submit"> Search </button>
-                
+    
               </div>
             </div>
           </div>
         </nav>
           </div>
-          <div class="item3">Chats 
+          <div class="item3"> 
             <ListAllConnections />
           </div>  
     <div class="item4">

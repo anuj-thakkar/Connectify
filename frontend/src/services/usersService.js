@@ -22,9 +22,23 @@ export const registerUser = async (username, name, email, password) => {
 
 export const getRegisteredUserEntries = async () => {
   const header = await createToken();
-try {
+  try {
     const res = await axios.get(url, header);
     return res.data;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export const searchForUsers = async (username) => {
+  const header = await createToken();
+  const searchUrl = 'http://localhost:3001/api/search';
+  const payload = {
+    username
+  }
+  try {
+    console.log(searchUrl, payload);
+    const res = await axios.get(searchUrl, payload, header)
   } catch (e) {
     console.error(e);
   }
