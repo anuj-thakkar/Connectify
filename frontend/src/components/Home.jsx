@@ -7,10 +7,11 @@ import {MdHomeFilled, MdSearch, MdAccountCircle, MdBuild, MdCompareArrows} from 
 import { reducerCases } from "../utils/Constants";
 import { useStateProvider } from '../utils/StateProvider';
 import axios from 'axios';
+import styled from "styled-components";
 
 const Home = () => {
-  const [{ token }, dispatch] = useStateProvider();
-
+  const [{ token, userInfo, currentPlaying }, dispatch] = useStateProvider();
+  
   useEffect(() => {
     const getUserInfo = async () => {
       const { data } = await axios.get("https://api.spotify.com/v1/me", {
@@ -23,6 +24,7 @@ const Home = () => {
         userId: data.id,
         userUrl: data.external_urls.spotify,
         name: data.display_name,
+        imagesUrl: data.images[0].url,
       };
       dispatch({ type: reducerCases.SET_USER, userInfo });
     };
@@ -33,7 +35,36 @@ const Home = () => {
         fire.auth().signOut();
       };
     
-    console.log(token)
+    useEffect(() => {
+      const getCurrentTrack = async () => {
+        const response = await axios.get(
+          "https://api.spotify.com/v1/me/player/currently-playing",
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+        if (response.data !== "") {
+          console.log("Exists")
+          const currentPlaying = {
+            id: response.data.item.id,
+            name: response.data.item.name,
+            artists: response.data.item.artists.map((artist) => artist.name),
+            image: response.data.item.album.images[2].url,
+          };
+        dispatch({ type: reducerCases.SET_PLAYING, currentPlaying });
+        } else {
+          dispatch({ type: reducerCases.SET_PLAYING, currentPlaying: null });
+        }
+      };
+      getCurrentTrack();
+    }, [token, dispatch]);
+    if (currentPlaying != null) {
+      console.log(currentPlaying.name)
+    } 
+    
     return (
         <>
         <div class="grid-container">
@@ -51,6 +82,7 @@ const Home = () => {
               
                 <a class="nav-link active" aria-current="page" href="/home"><MdHomeFilled/> Home</a>
 
+
                 <a class="nav-link active" aria-current="page" onClick={Settings} href="/home/settings"><MdBuild/> Settings</a> 
 
                 <a class="nav-link active" aria-current="page" href="../profile"><MdAccountCircle/> Profile</a>
@@ -64,12 +96,49 @@ const Home = () => {
         </nav>
           </div>
           <div class="item3">Chats</div>  
-          <div class="item4">Player</div>
+          <div class="item4">
+                          <Container>
+                 {currentPlaying && (
+          <div className="track">
+            <div className="track__image">
+              <img src={currentPlaying.image} alt="currentPlaying" />
+           </div>
+           <div className="track__info">
+            <h4 className="track__info__track__name">{currentPlaying.name}</h4>
+            <h6 className="track__info__track__artists">
+              {currentPlaying.artists.join(", ")}
+            </h6>
+          </div>
+        </div>
+      )}
+    </Container>
+          </div>
           <div class="item6">Poll 1</div>
           <div class="item7">Poll 2</div>  
         </div>          
         </>
     )
 }
+
+const Container = styled.div`
+  .track {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    &__image {
+    }
+    &__info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      &__track__name {
+        color: white;
+      }
+      &__track__artists {
+        color: #b3b3b3;
+      }
+    }
+  }
+`;
 
 export default Home;
