@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getRegisteredUserEntries, searchForUsers } from '../services/usersService';
+import { searchForUsers } from '../services/usersService';
 
-const ListAllConnections = () => {
+const ListSearchResults = (username) => {
+    console.log(username);
   const [entries, setEntries] = useState();
     useEffect(() => {
         const fetchEntries = async () => {
-        const fetchedEntries = await getRegisteredUserEntries();
+        console.log("List Search Results");
+        const fetchedEntries = await searchForUsers(username);
         setEntries(fetchedEntries);
         }
         fetchEntries();
     }, [])
-    if (entries === undefined) {
-        return null;
-    }
     return (
         <div>
         <h2>Connections</h2>
@@ -27,7 +26,7 @@ const ListAllConnections = () => {
             <tbody>
             {entries.map((entry) => (
             <tr>
-                <td key={entry.id}>{entry.username}</td>
+                <td>{entry.username}</td>
             </tr>
             ))}
             </tbody>
@@ -35,4 +34,4 @@ const ListAllConnections = () => {
         </div>
     ) 
 };
-export default ListAllConnections;
+export default ListSearchResults;
