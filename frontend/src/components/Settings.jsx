@@ -26,7 +26,12 @@ const Settings = () => {
     
      return (     
       <form> 
-        <a class="navbar-brand" href="#"><img src={logo} alt="" align="left" height="500" width="900"></img></a>
+        <div>
+          <a  href="#"><img src={logo} alt="" class="settingsLogo" align="left" height="auto" width="auto"></img></a>
+          </div>
+
+          &nbsp;
+          <div className='settingsForm' align='left' height="auto" width="auto">
                <fieldset className="form-group">
                  <label for="profileName" style={{color : 'white'}}>Name: </label>
                  <input type="text"  className="form-control" name="mysettings.general.name" placeholder="Name" id="general.ame" defaultValue={settings['mysettings.general.name']} />
@@ -66,6 +71,7 @@ const Settings = () => {
               
                <Link to="/home" className="btn btn-primary">Save</Link>
                <Link to="/home" className="btn btn-primary">Cancel</Link>
+            </div>
           </form>
         
      )
