@@ -1,6 +1,13 @@
 import React, {useEffect} from 'react';
 import logo from './logo.jpg';
 import fire from '../fire.js';
+import {
+  BsFillPlayCircleFill,
+  BsFillPauseCircleFill,
+  BsShuffle,
+} from "react-icons/bs";
+import { CgPlayTrackNext, CgPlayTrackPrev } from "react-icons/cg";
+import { FiRepeat } from "react-icons/fi";
 import { NavLink, Link } from 'react-router-dom';
 import Settings from './Settings';
 import {MdHomeFilled, MdSearch, MdAccountCircle, MdBuild, MdCompareArrows} from 'react-icons/md';
@@ -10,7 +17,7 @@ import axios from 'axios';
 import styled from "styled-components";
 
 const Home = () => {
-  const [{ token, userInfo, currentPlaying }, dispatch] = useStateProvider();
+  const [{ token, userInfo, currentPlaying, playerState }, dispatch] = useStateProvider();
   
   useEffect(() => {
     const getUserInfo = async () => {
@@ -64,7 +71,59 @@ const Home = () => {
     if (currentPlaying != null) {
       console.log(currentPlaying.name)
     } 
-    
+
+    const changeState = async () => {
+      const state = playerState ? "pause" : "play";
+      await axios.put(
+        `https://api.spotify.com/v1/me/player/${state}`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      dispatch({
+        type: reducerCases.SET_PLAYER_STATE,
+        playerState: !playerState,
+      });
+    };
+
+    const changeTrack = async (type) => {
+      await axios.post(
+        `https://api.spotify.com/v1/me/player/${type}`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      dispatch({ type: reducerCases.SET_PLAYER_STATE, playerState: true });
+      const response1 = await axios.get(
+        "https://api.spotify.com/v1/me/player/currently-playing",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      if (response1.data !== "") {
+        const currentPlaying = {
+          id: response1.data.item.id,
+          name: response1.data.item.name,
+          artists: response1.data.item.artists.map((artist) => artist.name),
+          image: response1.data.item.album.images[2].url,
+        };
+        dispatch({ type: reducerCases.SET_PLAYING, currentPlaying });
+      } else {
+        dispatch({ type: reducerCases.SET_PLAYING, currentPlaying: null });
+      }
+    };
+
     return (
         <>
         <div class="grid-container">
@@ -99,8 +158,8 @@ const Home = () => {
         </nav>
           </div>
           <div class="item3">Chats</div>  
-          <div class="item4">
-                          <Container>
+    <div class="item4">
+          <Container>
                  {currentPlaying && (
           <div className="track">
             <div className="track__image">
@@ -113,9 +172,30 @@ const Home = () => {
             </h6>
           </div>
         </div>
-      )}
-    </Container>
-          </div>
+        )}
+        </Container>
+        <Container2>
+        <div className="shuffle">
+          <BsShuffle />
+        </div>
+        <div className="previous">
+          <CgPlayTrackPrev onClick={() => changeTrack("previous")} />
+        </div>
+        <div className="state">
+          {playerState ? (
+            <BsFillPauseCircleFill onClick={changeState} />
+          ) : (
+            <BsFillPlayCircleFill onClick={changeState} />
+          )}
+        </div>
+        <div className="next">
+          <CgPlayTrackNext onClick={() => changeTrack("next")} />
+        </div>
+        <div className="repeat">
+          <FiRepeat />
+        </div>
+      </Container2>
+    </div>
           <div class="item6">Poll 1</div>
           <div class="item7">Poll 2</div>  
         </div>          
@@ -141,6 +221,30 @@ const Container = styled.div`
         color: #b3b3b3;
       }
     }
+  }
+`;
+
+const Container2 = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  svg {
+    color: #b3b3b3;
+    transition: 0.2s ease-in-out;
+    &:hover {
+      color: white;
+    }
+  }
+  .state {
+    svg {
+      color: white;
+    }
+  }
+  .previous,
+  .next,
+  .state {
+    font-size: 2rem;
   }
 `;
 
