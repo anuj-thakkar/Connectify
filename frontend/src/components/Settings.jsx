@@ -56,6 +56,7 @@ const Settings = () => {
                <label class="labelPass">Password Requirements</label>
                 <ul class="passList">
                   <li>At least 8 characters</li>
+                  <li>At least 1 letter</li>
                   <li>At least 1 number</li>
                   <li>At least 1 special character</li>
                 </ul>

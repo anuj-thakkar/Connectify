@@ -10,6 +10,7 @@ const Register = () => {
     const [name, setName] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [isError, setConfirmPassError] = useState("");
+    const [requirements, setRequirements] = useState("");
     const navigate = useNavigate();
 
     function comparePasswords() {
@@ -108,6 +109,7 @@ const Register = () => {
                 <label>Password Requirements</label>
                 <ul>
                   <li>At least 8 characters</li>
+                  <li>At least 1 letter</li>
                   <li>At least 1 number</li>
                   <li>At least 1 special character</li>
                 </ul>
