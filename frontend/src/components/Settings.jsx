@@ -8,6 +8,7 @@ import "../App.css";
 
 const Settings = () => {
   const [isError, setConfirmPassError] = useState("");
+  const [requirements, setRequirements] = useState("");
     
      let settings = {
        'mysettings.general.name': 'Bob Jones',
@@ -21,6 +22,17 @@ const Settings = () => {
       } else {
         setConfirmPassError("");
       }
+     }
+
+     function checkRequirements() {
+      var regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+
+      if (!regex.test(document.getElementById('newPass').value)) {
+        setRequirements("Password does not meet requirements!");
+      } else {
+        setRequirements("");
+      }
+
      }
 
     
@@ -49,7 +61,7 @@ const Settings = () => {
 
                <fieldset className="form-group">
                <label for="profilePassword" style={{color : 'white'}}>New Password: </label>
-                 <input type="text" className="form-control" name="mysettings.general.password" placeholder="Enter new password" id="newPass" />
+                 <input type="text" onKeyUp={checkRequirements} className="form-control" name="mysettings.general.password" placeholder="Enter new password" id="newPass" />
                </fieldset>
 
               &nbsp;
@@ -68,6 +80,8 @@ const Settings = () => {
 
                <p style={{color: "red"}} >  
                   {isError} </p>
+                  <p style={{color: "red"}} >  
+                  {requirements} </p>
 
               
                <Link to="/home" className="btn btn-primary">Save</Link>
