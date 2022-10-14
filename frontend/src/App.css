@@ -1,5 +1,5 @@
 .container-fluid {
-  background-color: black;
+  background-color: rgb(0, 0, 0);
 }
 .grid-container {
   display: grid;
@@ -10,7 +10,7 @@
 }
 
 .grid-container > div {
-  background-color: black;
+  background-color: rgb(0, 0, 0);
   padding: 12px 0;
   text-align: center;
   font-size: 20px;
@@ -72,20 +72,20 @@
   padding-top: 50px;
   margin: 0px;
   padding: 0px;
-  color: black;
+  color: rgb(0, 0, 0);
   overflow-x: hidden;
   box-sizing: border-box;
   justify-content: center;
   align-items: center;
   display: flex;
-  background-color: black;
+  background-color: rgb(0, 0, 0);
   width: 100%;
   height: 100vh;
 }
 
 html,
 body:focus {
-  background-color: black;
+  background-color: rgb(0, 0, 0);
   margin: 0;
   padding: 0;
   width: 100%;
@@ -161,4 +161,15 @@ label {
   width: 20%;
   margin-top: 3%;
   margin-left: 3%;
+}
+
+.rowProfile {
+  display: flex;
+  border: 10px;
+}
+
+.columnProfile {
+  padding: 20px;
+  flex: 50%;
+  background-color: rgb(6, 223, 17);
 }
