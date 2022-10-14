@@ -17,7 +17,7 @@
 }
 
 .item1 {
-  grid-area: 3 / 2 / span 62 / span 3;
+  grid-area: 12 / 2 / span 58 / span 3;
   max-width: 100%;
   color:white;
 }
@@ -29,12 +29,21 @@
 }
 
 .item3 {
-  grid-area: 2 / 1 / span 63 / span 1;
+  grid-area: 12 / 1 / span 58 / span 1;
   max-width: 100%;
   color:white;
 }
-
-.item4, .item5, .item6 {
+.item4 {
+  grid-area: 2 / 1 / span 10 / span 2;
+  color: white;
+  
+}
+.item6 {
+  color: white;
+  grid-area: 2 / 3 / span 10 / span 1;
+}
+.item7 {
+  grid-area: 2 / 4 / span 10 / span 1;
   color: white;
 }
 

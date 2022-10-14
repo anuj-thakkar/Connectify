@@ -3,7 +3,7 @@ import logo from './logo.jpg';
 import fire from '../fire.js';
 import { NavLink, Link } from 'react-router-dom';
 import Settings from './Settings';
-import {MdHomeFilled, MdSearch} from 'react-icons/md';
+import {MdHomeFilled, MdSearch, MdAccountCircle, MdBuild, MdCompareArrows} from 'react-icons/md';
 import { reducerCases } from "../utils/Constants";
 import { useStateProvider } from '../utils/StateProvider';
 import axios from 'axios';
@@ -82,19 +82,22 @@ const Home = () => {
               
                 <a class="nav-link active" aria-current="page" href="/home"><MdHomeFilled/> Home</a>
 
-                <a class="nav-link active" aria-current="page" onClick={Settings} href="/home/settings">Settings</a> 
-                <Link to='../profile'>
-                <button class="button1" >
-                    <img className="buttonImg" src={require('./profileIcon.png')} />
-                  </button> 
-                </Link>
-                <Link to='../search'>
-                    <button class="button2" >
-                        <img className="buttonImg" src={require('./searchIcon.png')} />
-                    </button>  
-                </Link>                
-                <a class="nav-link active" aria-current="page" onClick={signOut} href="/#">Sign out</a>
-                <Container>
+
+                <a class="nav-link active" aria-current="page" onClick={Settings} href="/home/settings"><MdBuild/> Settings</a> 
+
+                <a class="nav-link active" aria-current="page" href="../profile"><MdAccountCircle/> Profile</a>
+
+                <a class="nav-link active" aria-current="page" href="../search"><MdSearch/> Search</a>
+                            
+                <a class="nav-link active" aria-current="page" onClick={signOut} href="/#"><MdCompareArrows/> Sign out</a>
+              </div>
+            </div>
+          </div>
+        </nav>
+          </div>
+          <div class="item3">Chats</div>  
+          <div class="item4">
+                          <Container>
                  {currentPlaying && (
           <div className="track">
             <div className="track__image">
@@ -109,15 +112,9 @@ const Home = () => {
         </div>
       )}
     </Container>
-              </div>
-            </div>
           </div>
-        </nav>
-          </div>
-          <div class="item3">Chats</div>  
-          <div class="item4">Poll1</div>
-          <div class="item5">Poll2</div>
-          <div class="item6">Poll3</div>
+          <div class="item6">Poll 1</div>
+          <div class="item7">Poll 2</div>  
         </div>          
         </>
     )
