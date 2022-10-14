@@ -15,6 +15,8 @@ import { reducerCases } from "../utils/Constants";
 import { useStateProvider } from '../utils/StateProvider';
 import axios from 'axios';
 import styled from "styled-components";
+import ListAllConnections from './ListAllConnections';
+
 
 const Home = () => {
   const [{ token, userInfo, currentPlaying, playerState }, dispatch] = useStateProvider();
@@ -44,26 +46,30 @@ const Home = () => {
     
     useEffect(() => {
       const getCurrentTrack = async () => {
-        const response = await axios.get(
-          "https://api.spotify.com/v1/me/player/currently-playing",
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + token,
-            },
+        try {
+          const response = await axios.get(
+            "https://api.spotify.com/v1/me/player/currently-playing",
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
+          if (response.data !== "") {
+            console.log("Exists")
+            const currentPlaying = {
+              id: response.data.item.id,
+              name: response.data.item.name,
+              artists: response.data.item.artists.map((artist) => artist.name),
+              image: response.data.item.album.images[2].url,
+            };
+          dispatch({ type: reducerCases.SET_PLAYING, currentPlaying });
+          } else {
+            dispatch({ type: reducerCases.SET_PLAYING, currentPlaying: null });
           }
-        );
-        if (response.data !== "") {
-          console.log("Exists")
-          const currentPlaying = {
-            id: response.data.item.id,
-            name: response.data.item.name,
-            artists: response.data.item.artists.map((artist) => artist.name),
-            image: response.data.item.album.images[2].url,
-          };
-        dispatch({ type: reducerCases.SET_PLAYING, currentPlaying });
-        } else {
-          dispatch({ type: reducerCases.SET_PLAYING, currentPlaying: null });
+        } catch (error) {
+          console.log("API Get Error");
         }
       };
       getCurrentTrack();
@@ -157,7 +163,9 @@ const Home = () => {
           </div>
         </nav>
           </div>
-          <div class="item3">Chats</div>  
+          <div class="item3">Chats 
+            <ListAllConnections />
+          </div>  
     <div class="item4">
           <Container>
                  {currentPlaying && (
