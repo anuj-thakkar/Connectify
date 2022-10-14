@@ -21,6 +21,17 @@ const Register = () => {
       }
      }
 
+     function checkRequirements() {
+      var regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+
+      if (!regex.test(document.getElementById('pass').value)) {
+        setRequirements("Password does not meet requirements!");
+      } else {
+        setRequirements("");
+      }
+
+     }
+
 
     const handleRegister = (e) => {
         e.preventDefault();
@@ -102,6 +113,7 @@ const Register = () => {
                   type="password"
                   id="pass"
                   className="form-control mt-1"
+                  onKeyUp={checkRequirements}
                   onChange={({ target}) => 
                   setPassword(target.value)}
                   placeholder="Create a password"
@@ -129,6 +141,8 @@ const Register = () => {
                 />
                 <p style={{color: "red"}} >  
                   {isError} </p>
+                  <p style={{color: "red"}} >  
+                  {requirements} </p>
               </div>
               <div className="d-grid gap-2 mt-3">
                 <button type="submit" className="btn btn-success">
