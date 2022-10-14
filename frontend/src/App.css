@@ -164,3 +164,15 @@ label {
     transform: rotate(360deg);
   }
 }
+
+.labelPass {
+  color: white;
+}
+
+.passList ul {
+  color: white;
+}
+
+.passList li {
+  color: white;
+}
