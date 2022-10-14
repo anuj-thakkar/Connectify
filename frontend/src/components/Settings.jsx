@@ -4,7 +4,7 @@ import logo from './logo.jpg';
 import { Link } from 'react-router-dom'
 import React, { useState } from 'react';
 import "../App.css";
-
+import fire from '../fire.js';
 
 const Settings = () => {
   const [isError, setConfirmPassError] = useState("");
@@ -20,9 +20,13 @@ const Settings = () => {
       if (document.getElementById('newPass').value != document.getElementById('confirmNewPass').value) {
         setConfirmPassError("Passwords do not match!");
       } else {
-        setConfirmPassError("");
-      }
+        fire.auth().currentUser.updatePassword(document.getElementById('newPass').value).then(function() {
+          setConfirmPassError("Password successfully changed!");
+        }).catch(function(error) {
+          setConfirmPassError(error.message);
+        });
      }
+    }
 
      function checkRequirements() {
       var regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
