@@ -89,7 +89,7 @@ const Home = () => {
                 
                 <a class="nav-link active" aria-current="page"><MdSearch/></a>
                 <form class="d-flex justify-content-end">
-                <input class="form-control me-2" type="search" placeholder="Find Connections..." aria-label="Find Connections"></input>
+                <input class="form-control me-2" type="search" placeholder="Find Connections..." aria-label="searchbar"></input>
                 </form>
                 <button class="btn btn-outline-success" type="submit"> Search </button>
                 
