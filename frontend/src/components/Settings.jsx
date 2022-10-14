@@ -88,8 +88,8 @@ const Settings = () => {
                   {requirements} </p>
 
               
-               <Link to="/home" className="btn btn-primary">Save</Link>
-               <Link to="/home" className="btn btn-primary">Cancel</Link>
+               <Link to="/home" className="btn btn-success">Save</Link>
+               <Link to="/home" className="btn btn-success">Cancel</Link>
             </div>
           </form>
         
