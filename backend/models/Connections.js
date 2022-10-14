@@ -1,9 +1,7 @@
 const mongoose = require("mongoose");
-const User = require("./User");
-
 
 const connectionsSchema = new mongoose.Schema({
-    username: { type: [User], required: true },
+    username: { type: String, required: true },
     status: {
         type: Number,
         enums: [
@@ -15,7 +13,7 @@ const connectionsSchema = new mongoose.Schema({
     }
   }, { timestamps: true });
 
-userSchema.set('toJSON', {
+connectionsSchema.set('toJSON', {
   transform: (doc, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;

@@ -1,122 +1,98 @@
 import { Navigate, useNavigate } from 'react-router-dom';
 import {SettingsPane, SettingsPage, SettingsContent, SettingsMenu} from 'react-settings-pane';
-import Home from './Home'
+import logo from './logo.jpg';
 import { Link } from 'react-router-dom'
 import React, { useState } from 'react';
+import "../App.css";
+import fire from '../fire.js';
 
 const Settings = () => {
   const [isError, setConfirmPassError] = useState("");
-    // You will maybe receive your settings from this.props or do a fetch request in your componentWillMount
-     //let settings = settings;
+  const [requirements, setRequirements] = useState("");
     
      let settings = {
        'mysettings.general.name': 'Bob Jones',
        'mysettings.general.email': 'bobjones@gmail.com',
        'mysettings.general.bio': 'livin life',
-       'mysettings.general.display-theme': 'Dark mode'
      };
     
-     // Define your menu
-     const menu = [
-       {
-         title: 'General',          // Title that is displayed as text in the menu
-         url: '/settings/general'  // Identifier (url-slug)
-       },
-       {
-         title: 'Profile',
-         url: '/settings/profile'
-       }
-     ];
-    
-     // Define one of your Settings pages
-     const dynamicOptionsForProfilePage = [
-       {
-         key: 'mysettings.general.email',
-         label: 'E-Mail address',
-         type: 'text',
-       },
-       {
-         key: 'mysettings.general.password',
-         label: 'Password',
-         type: 'password',
-       }
-     ];
-    
-     // Save settings after close
-     const leavePaneHandler = (wasSaved, newSettings, oldSettings) => {
-       // "wasSaved" indicates wheather the pane was just closed or the save button was clicked.
-    
-       if (wasSaved && newSettings !== oldSettings) {
-         // do something with the settings, e.g. save via ajax.
-       }
-     };
-     
-     const settingsChanged = (changedSettings) => {
-       // this is triggered onChange of the inputs
-     };
-
      function comparePasswords() {
       if (document.getElementById('newPass').value != document.getElementById('confirmNewPass').value) {
         setConfirmPassError("Passwords do not match!");
       } else {
-        setConfirmPassError("");
+        fire.auth().currentUser.updatePassword(document.getElementById('newPass').value).then(function() {
+          setConfirmPassError("Password successfully changed!");
+        }).catch(function(error) {
+          setConfirmPassError(error.message);
+        });
+     }
+    }
+
+     function checkRequirements() {
+      var regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+
+      if (!regex.test(document.getElementById('newPass').value)) {
+        setRequirements("Password does not meet requirements!");
+      } else {
+        setRequirements("");
       }
+
      }
 
     
-     // Return your Settings Pane
-     return (
-        <SettingsPane items={menu} index="/settings/general" settings={settings} onPaneLeave={leavePaneHandler}>
-            <SettingsPage handler="/settings/general">
+     return (     
+      <form> 
+        <div>
+          <a  href="#"><img src={logo} alt="" class="settingsLogo" align="left" height="auto" width="auto"></img></a>
+          </div>
+
+          &nbsp;
+          <div className='settingsForm' align='left' height="auto" width="auto">
                <fieldset className="form-group">
                  <label for="profileName" style={{color : 'white'}}>Name: </label>
-                 <input type="text" className="form-control" name="mysettings.general.name" placeholder="Name" id="general.ame" onChange={settingsChanged} defaultValue={settings['mysettings.general.name']} />
+                 <input type="text"  className="form-control" name="mysettings.general.name" placeholder="Name" id="general.ame" defaultValue={settings['mysettings.general.name']} />
                </fieldset>
 
                <fieldset className="form-group">
                <label for="profileBio" style={{color : 'white'}}>Bio: </label>
-                 <input type="text" className="form-control" name="mysettings.general.bio" placeholder="Bio" id="general.bio" onChange={settingsChanged} defaultValue={settings['mysettings.general.bio']} />
+                 <input type="text" className="form-control" name="mysettings.general.bio" placeholder="Bio" id="general.bio" defaultValue={settings['mysettings.general.bio']} />
                </fieldset>
 
                <fieldset className="form-group">
                <label for="profileEmail" style={{color : 'white'}}>Email Address: </label>
-                 <input type="text" className="form-control" name="mysettings.general.email" placeholder="Email Address" id="general.em" onChange={settingsChanged} defaultValue={settings['mysettings.general.email']} />
+                 <input type="text" className="form-control" name="mysettings.general.email" placeholder="Email Address" id="general.em" defaultValue={settings['mysettings.general.email']} />
                </fieldset>
 
                <fieldset className="form-group">
-               <label for="profileColor" style={{color : 'white'}}>Display: </label>
-               <select name="mysettings.general.color-theme" id="profileDisplay" className="form-control" defaultValue={settings['mysettings.general.display-theme']}>
-               <option value="dark">Dark mode</option>
-               <option value="light">Light mode</option>
-             </select>
-           </fieldset>
-
-           <fieldset className="form-group">
                <label for="profilePassword" style={{color : 'white'}}>New Password: </label>
-                 <input type="text" className="form-control" name="mysettings.general.password" placeholder="Enter new password" id="newPass" onChange={settingsChanged} />
+                 <input type="text" onKeyUp={checkRequirements} onKeyDown={comparePasswords} className="form-control" name="mysettings.general.password" placeholder="Enter new password" id="newPass" />
                </fieldset>
 
-               <label>Password Requirements</label>
-                <ul>
+              &nbsp;
+               <label class="labelPass">Password Requirements</label>
+                <ul class="passList">
                   <li>At least 8 characters</li>
+                  <li>At least 1 letter</li>
                   <li>At least 1 number</li>
                   <li>At least 1 special character</li>
                 </ul>
 
                <fieldset className="form-group">
                <label for="profilePassword" style={{color : 'white'}}>Confirm Password: </label>
-                 <input type="text" onKeyUp={comparePasswords} className="form-control" name="mysettings.general.confirmPassword" placeholder="Re-enter new password" id="confirmNewPass" onChange={settingsChanged} />
+                 <input type="text" onKeyUp={comparePasswords} onKeyDown={checkRequirements} className="form-control" name="mysettings.general.confirmPassword" placeholder="Re-enter new password" id="confirmNewPass" />
                </fieldset>
 
                <p style={{color: "red"}} >  
                   {isError} </p>
+                  <p style={{color: "red"}} >  
+                  {requirements} </p>
 
               
                <Link to="/home" className="btn btn-primary">Save</Link>
                <Link to="/home" className="btn btn-primary">Cancel</Link>
-            </SettingsPage>
-            <SettingsPage handler="/settings/profile" options={dynamicOptionsForProfilePage} />
-        </SettingsPane>
+            </div>
+          </form>
+        
      )
 };
 

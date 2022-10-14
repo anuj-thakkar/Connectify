@@ -14,6 +14,10 @@ import ProfileInfo from "./components/profileInfo";
 import Search from "./components/Search";
 import Home from "./components/Home"
 import SpotifyLogin from "./components/SpotifyLogin";
+import { reducerCases } from "./utils/Constants";
+import { useStateProvider } from "./utils/StateProvider";
+import ListSearchResults from "./components/ListSearchResults";
+
 
 
 function App() {
@@ -21,14 +25,6 @@ function App() {
   const [sent, setSent] = useState(false)
   const [text, setText] = useState("")
 
-  /*
-  const navigate = useNavigate();
-
-  const navigateToSettings = () => {
-    // 👇️ navigate to /settings
-    navigate('/components/Settings');
-  };
-  */
 
   
   fire.auth().onAuthStateChanged((user) => {
@@ -46,7 +42,18 @@ function App() {
 		}
   }
 
-  console.log(isLoggedIn);
+  const [{ token }, dispatch] = useStateProvider();
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const token = hash.substring(1).split("&")[0].split("=")[1];
+      if (token) {
+        dispatch({ type: reducerCases.SET_TOKEN, token });
+      }
+    }
+    document.title = "Spotify";
+  }, [dispatch, token]);
+
   return (
     <Container fluid>
       <div>
@@ -74,6 +81,7 @@ function App() {
                   <Route exact path='/forgotPassword' element={<ForgotPassword/>}/>
                   <Route exact path='/register' element={<Register/>}/>
                   <Route exact path='/home/settings' element={<Settings/>}/>
+                  <Route exact path='/search' element={<ListSearchResults/>}/>
                 </Routes>
                 </Col>
                 </Row>
@@ -90,28 +98,3 @@ function App() {
 
 
 export default App;
-
-/*<button onClick={handleLogin}>
-                Login to Spotify!
-            </button>
-            <span onClick={signOut}>
-                <a href="#">Sign out</a>
-            </span>*/
-/*
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="container-fluid">
-                  <a class="navbar-brand" href="#"><img src={logo} alt="" height="30" class="d-inline-block align-text-top"></img></a>
-                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
-                      <a class="nav-link active" aria-current="page" href="#">Home</a>
-                      <a class="nav-link" href="/Login">Features</a>
-                      <a class="nav-link" href="/Register">Pricing</a>
-                    </div>
-                  </div>
-                </div>
-              </nav>
-
-              */

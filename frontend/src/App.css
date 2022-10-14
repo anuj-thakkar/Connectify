@@ -17,7 +17,7 @@
 }
 
 .item1 {
-  grid-area: 3 / 2 / span 62 / span 3;
+  grid-area: 12 / 2 / span 58 / span 3;
   max-width: 100%;
   color: white;
 }
@@ -29,14 +29,22 @@
 }
 
 .item3 {
-  grid-area: 2 / 1 / span 63 / span 1;
+  grid-area: 12 / 1 / span 58 / span 1;
   max-width: 100%;
   color: white;
 }
 
-.item4,
-.item5,
+.item4 {
+  grid-area: 2 / 1 / span 10 / span 2;
+  color: white;
+  
+}
 .item6 {
+  color: white;
+  grid-area: 2 / 3 / span 10 / span 1;
+}
+.item7 {
+  grid-area: 2 / 4 / span 10 / span 1;
   color: white;
 }
 
@@ -156,7 +164,6 @@ label {
     transform: rotate(360deg);
   }
 }
-
 .ProfileImage {
   width: 20%;
   margin-top: 3%;
@@ -172,4 +179,31 @@ label {
   padding: 20px;
   flex: 50%;
   background-color: rgb(6, 223, 17);
+}
+
+.labelPass {
+  color: white;
+  align-items: center;
+}
+
+.passList ul {
+  color: white;
+  text-align: right;
+}
+
+.passList li {
+  color: white;
+  text-align: left;
+}
+
+.settingsLogo {
+  margin-top: 300px;
+  margin-left: 300px;
+  margin-bottom: 150px;
+}
+
+.settingsForm {
+  width: 1300px;
+  margin-top: 100px;
+  margin-left: 200px;
 }

@@ -10,6 +10,7 @@ const Register = () => {
     const [name, setName] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [isError, setConfirmPassError] = useState("");
+    const [requirements, setRequirements] = useState("");
     const navigate = useNavigate();
 
     function comparePasswords() {
@@ -18,6 +19,17 @@ const Register = () => {
       } else {
         setConfirmPassError("");
       }
+     }
+
+     function checkRequirements() {
+      var regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+
+      if (!regex.test(document.getElementById('pass').value)) {
+        setRequirements("Password does not meet requirements!");
+      } else {
+        setRequirements("");
+      }
+
      }
 
 
@@ -101,6 +113,8 @@ const Register = () => {
                   type="password"
                   id="pass"
                   className="form-control mt-1"
+                  onKeyUp={checkRequirements}
+                  onKeyDown={comparePasswords}
                   onChange={({ target}) => 
                   setPassword(target.value)}
                   placeholder="Create a password"
@@ -108,6 +122,7 @@ const Register = () => {
                 <label>Password Requirements</label>
                 <ul>
                   <li>At least 8 characters</li>
+                  <li>At least 1 letter</li>
                   <li>At least 1 number</li>
                   <li>At least 1 special character</li>
                 </ul>
@@ -121,12 +136,15 @@ const Register = () => {
                   id="confirmPass"
                   className="form-control mt-1"
                   onKeyUp={comparePasswords}
+                  onKeyDown={checkRequirements}
                   onChange = {(e) => checkValidation(e)}
                   name = "confirmPassword"
                   placeholder="Confirm password"
                 />
                 <p style={{color: "red"}} >  
                   {isError} </p>
+                  <p style={{color: "red"}} >  
+                  {requirements} </p>
               </div>
               <div className="d-grid gap-2 mt-3">
                 <button type="submit" className="btn btn-success">
