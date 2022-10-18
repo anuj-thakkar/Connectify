@@ -6,7 +6,7 @@ import "./App.css";
 import fire from './fire.js';
 import Login from "./components/Login";
 import Register from "./components/Register";
-import logo from './components/logo.jpg';
+import logo from './static/logo.jpg';
 import { Row, Col, Container } from 'react-bootstrap';
 import ForgotPassword from "./components/ForgotPassword"
 import Settings from "./components/Settings"

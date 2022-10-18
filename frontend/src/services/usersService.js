@@ -46,7 +46,7 @@ export const searchForUsers = async (username) => {
 
 const createToken = async () => {
   const user = fire.auth().currentUser;
-  const token = user && (await user.getIdToken());
+  const token = await user.getIdToken();
   const payloadHeader = {
     headers: {
       'Content-Type': 'application/json',

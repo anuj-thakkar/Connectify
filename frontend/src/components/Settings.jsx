@@ -1,6 +1,6 @@
 import { Navigate, useNavigate } from 'react-router-dom';
 import {SettingsPane, SettingsPage, SettingsContent, SettingsMenu} from 'react-settings-pane';
-import logo from './logo.jpg';
+import logo from '../static/logo.jpg';
 import { Link } from 'react-router-dom'
 import React, { useState } from 'react';
 import "../App.css";
@@ -20,7 +20,8 @@ const Settings = () => {
       if (document.getElementById('newPass').value != document.getElementById('confirmNewPass').value) {
         setConfirmPassError("Passwords do not match!");
       } else {
-        fire.auth().currentUser.updatePassword(document.getElementById('newPass').value).then(function() {
+        fire.auth().currentUser.updatePassword(document.getElementById('newPass').value)
+        .then(function() {
           setConfirmPassError("Password successfully changed!");
         }).catch(function(error) {
           setConfirmPassError(error.message);

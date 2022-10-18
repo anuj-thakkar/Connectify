@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import fire from "../fire.js";
-import logo from "./logo.jpg";
+import logo from '../static/logo.jpg';
 import { NavLink, Link } from "react-router-dom";
 import Settings from "./Settings";
 import { MdHomeFilled, MdSearch } from "react-icons/md";
