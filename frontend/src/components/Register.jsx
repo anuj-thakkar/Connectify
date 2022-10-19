@@ -145,12 +145,14 @@ const Register = () => {
                   {isError} </p>
                   <p style={{color: "red"}} >  
                   {requirements} </p>
-              </div>
-              <div className="d-grid gap-2 mt-3">
+
+                  <div className="d-grid gap-2 mt-3">
                 <button type="submit" className="btn btn-success">
                   Register
                 </button>
               </div>
+              </div>
+              
               <p></p>
             </div>
           </form>
