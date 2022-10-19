@@ -4,9 +4,9 @@ const Connections = require("./Connections");
 const userSchema = new mongoose.Schema({
   username: { type: String , required: true },
   name: { type: String , required: true },
-  email: { type: String, required: true, lowercase: true, validate: /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/},
+  email: { type: String, required: true, lowercase: true, validate: /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/, unique: true },
   connections: { type: [{
-    username: { type: String, required: true },
+    username: { type: String, required: true, lowercase: true },
     status: {
         type: Number,
         enums: [

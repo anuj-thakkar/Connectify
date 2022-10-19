@@ -1,4 +1,6 @@
 const userRouter = require('express').Router();
+const { Router } = require('express');
+const { useParams } = require('react-router-dom');
 const User = require('../models/user')
 
 userRouter.get('/', async (req, res) => {
@@ -26,5 +28,30 @@ userRouter.post('/', (req, res) => {
   const savedUser = user.save();
   return res.status(201).json(savedUser);
 });
+
+userRouter.get('/updateEmail', async (req, res) => {
+  var params = req.body;
+  User.findOne({'_id':params._id}, function(err,user) {
+    if (err) {
+      console.log(err);
+      return res.status(400).send('Error updating email');
+    } else {
+      user.email = params.email;
+      User.findOne({email: params.email}, function(err, existingUser) {
+        if(err) return next(err);
+        if(existingUser) {
+          return res.status(404).send('Account with that email already exists.');
+        } else {
+          User.updateOne({"_id":params._id},params, function(err, user) {
+            if (err) return next(err);
+            return res.status(200).send('Email address updated Successfully.');
+          });
+        }
+      });      
+    }
+  });
+});
+
+
 
 module.exports = userRouter;
