@@ -55,6 +55,7 @@ const Login = () => {
                 />
 
           <label htmlFor="checkbox">Show password?</label>
+          &nbsp;
           <input
             id="checkbox"
             type="checkbox"

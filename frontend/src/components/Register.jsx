@@ -149,6 +149,7 @@ const Register = () => {
                 />
 
 <label htmlFor="checkbox">Show passwords?</label>
+          &nbsp;
           <input
             id="checkbox"
             type="checkbox"
