@@ -124,10 +124,17 @@ body:focus {
   border-radius: 8px;
   background-color: white;
 }
+.form-group {
+  padding-left: 20px;
+  padding-right: 40px;
+  align-items: left;
+}
 
+.settingsForm {
+  width: 350px;
+}
 .Auth-form-content {
   padding-left: 12%;
-  padding-right: 12%;
   background-color: white;
 }
 
