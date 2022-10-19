@@ -1,6 +1,7 @@
 .container-fluid {
   background-color: rgb(0, 0, 0);
 }
+
 .grid-container {
   display: grid;
   grid-template-columns: auto auto auto auto;
@@ -46,6 +47,14 @@
 .item7 {
   grid-area: 2 / 4 / span 10 / span 1;
   color: white;
+}
+
+.itemnav {
+  grid-area: 1 / 1 / span 1 / span 5;
+}
+
+.itemrest {
+  grid-area: 2 / 1 / span 68 / span 5;
 }
 
 .button1 {
