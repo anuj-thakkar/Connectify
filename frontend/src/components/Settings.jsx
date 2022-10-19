@@ -112,8 +112,10 @@ const Settings = () => {
                   {requirements} </p>
 
                 <div class="form-group">
+                
+                <Link to="/home" className="btn btn-dark">Cancel</Link>
+                &nbsp;
                 <Link to="/home" className="btn btn-success">Save</Link>
-                <Link to="/home" className="btn btn-danger">Cancel</Link>
                </div>
 
             </div>
