@@ -126,7 +126,6 @@ body:focus {
 }
 .form-group {
   padding-left: 20px;
-  padding-right: 40px;
   align-items: left;
 }
 
@@ -134,7 +133,8 @@ body:focus {
   width: 350px;
 }
 .Auth-form-content {
-  padding-left: 12%;
+  padding-left: 10%;
+  padding-right: 12%;
   background-color: white;
 }
 

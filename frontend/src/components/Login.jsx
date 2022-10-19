@@ -48,13 +48,14 @@ const Login = () => {
                   placeholder="Enter password"
                 />
               </div>
+              <div className="form-group mt-1">
               <div className="d-grid gap-2 mt-3">
                 <button type="submit" onSubmit={handleLogin} className="btn btn-success">
                   Submit
                 </button>
                 <p class = "error red-text center align"> </p>
               </div>
-
+              </div>
               <div class="forgot-password text-right mt-2">
                   <p className="text-center mt-2">
                   Forgot <a href="/forgotPassword">password?</a>
