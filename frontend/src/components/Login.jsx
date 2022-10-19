@@ -20,9 +20,15 @@ const Login = () => {
         navigate('/link');
     }
 
+    const [isShown, setIsSHown] = useState(false);
+
+    const togglePassword = () => {
+      setIsSHown((isShown) => !isShown);
+    };
+
     return (
         <div className="Auth-form-container">
-          <form className="Auth-form">
+          <form className="Auth-form" onSubmit={handleLogin}>
             <div className="Auth-form-content">
               <h3 className="Auth-form-title">Log In </h3>
               <p className="text-center mt-2">
@@ -41,16 +47,24 @@ const Login = () => {
               <div className="form-group mt-3">
                 <label>Password</label>
                 <input
-                  type="password"
+                  type={isShown ? "text" : "password"}
                   className="form-control mt-1"
                   onChange={({ target}) => 
                   setPassword(target.value)}
                   placeholder="Enter password"
                 />
+
+          <label htmlFor="checkbox">Show password?</label>
+          <input
+            id="checkbox"
+            type="checkbox"
+            checked={isShown}
+            onChange={togglePassword}
+          />
               </div>
               <div className="form-group mt-1">
               <div className="d-grid gap-2 mt-3">
-                <button type="submit" onSubmit={handleLogin} className="btn btn-success">
+                <button type="submit" className="btn btn-success">
                   Submit
                 </button>
                 <p class = "error red-text center align"> </p>

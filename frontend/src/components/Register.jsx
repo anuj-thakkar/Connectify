@@ -13,6 +13,12 @@ const Register = () => {
     const [requirements, setRequirements] = useState("");
     const navigate = useNavigate();
 
+    const [isShown, setIsSHown] = useState(false);
+
+    const togglePassword = () => {
+      setIsSHown((isShown) => !isShown);
+    };
+
     function comparePasswords() {
       if (document.getElementById('pass').value != document.getElementById('confirmPass').value) {
         setConfirmPassError("Passwords do not match!");
@@ -110,7 +116,7 @@ const Register = () => {
               <div className="form-group mt-3">
                 <label>Password</label>
                 <input
-                  type="password"
+                  type={isShown ? "text" : "password"}
                   id="pass"
                   className="form-control mt-1"
                   onKeyUp={checkRequirements}
@@ -132,7 +138,7 @@ const Register = () => {
                 <label>Confirm Password</label>
                 <input
                   value={confirmPassword}
-                  type="password"
+                  type={isShown ? "text" : "password"}
                   id="confirmPass"
                   className="form-control mt-1"
                   onKeyUp={comparePasswords}
@@ -141,6 +147,15 @@ const Register = () => {
                   name = "confirmPassword"
                   placeholder="Confirm password"
                 />
+
+<label htmlFor="checkbox">Show passwords?</label>
+          <input
+            id="checkbox"
+            type="checkbox"
+            checked={isShown}
+            onChange={togglePassword}
+            />
+
                 <p style={{color: "red"}} >  
                   {isError} </p>
                   <p style={{color: "red"}} >  
