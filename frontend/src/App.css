@@ -102,6 +102,7 @@ body:focus {
   left: 0;
 }
 .Auth-form-container {
+  display: inline-block;
   justify-content: center;
   align-items: center;
 }
@@ -181,29 +182,14 @@ label {
   background-color: rgb(6, 223, 17);
 }
 
-.labelPass {
-  color: white;
-  align-items: center;
-}
-
-.passList ul {
-  color: white;
-  text-align: right;
-}
-
-.passList li {
-  color: white;
-  text-align: left;
-}
-
 .settingsLogo {
-  margin-top: 300px;
-  margin-left: 300px;
-  margin-bottom: 150px;
+  display: inline-block;
+  padding-right: 30px;
 }
 
-.settingsForm {
-  width: 1300px;
-  margin-top: 100px;
-  margin-left: 200px;
+.parentSett {
+  margin-top: 50px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
 }

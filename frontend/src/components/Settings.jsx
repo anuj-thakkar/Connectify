@@ -1,7 +1,6 @@
-import { Navigate, useNavigate } from 'react-router-dom';
-import {SettingsPane, SettingsPage, SettingsContent, SettingsMenu} from 'react-settings-pane';
 import logo from './logo.jpg';
 import { Link } from 'react-router-dom'
+import { Row, Col, Container } from 'react-bootstrap';
 import React, { useState } from 'react';
 import "../App.css";
 import fire from '../fire.js';
@@ -40,7 +39,77 @@ const Settings = () => {
      }
 
     
-     return (     
+     return (   
+      <div class="parentSett">
+      <div class="settingsLogo"><img src={logo} alt="settingsLogo"></img></div>
+      <div className="Auth-form-container">
+          <form className="Auth-form">
+            <div className="Auth-form-content">
+              <h3 className="Auth-form-title">Settings</h3>
+              <div className="form-group mt-3">
+                <label>Profile Name</label>
+                <input
+                  type="password"
+                  className="form-control mt-1"
+                  placeholder="Enter name"
+                />
+              </div>
+              <div className="form-group mt-3">
+                <label>Bio</label>
+                <input
+                  type="password"
+                  className="form-control mt-1"
+                  placeholder="Enter bio"
+                />
+              </div>
+              <div className="form-group mt-3">
+                <label>Email Address</label>
+                <input
+                  type="email"
+                  className="form-control mt-1"
+                  placeholder="Enter email"
+                />
+              </div>
+              <div className="form-group mt-3">
+                <label>Change Password</label>
+                <input
+                  id="newPass"
+                  className="form-control mt-1"
+                  placeholder="Enter password"
+                />
+              </div>
+              <div className="form-group mt-3">
+                <label>Confirm Password</label>
+                <ul class="passList">
+                  <li>At least 8 characters</li>
+                  <li>At least 1 letter</li>
+                  <li>At least 1 number</li>
+                  <li>At least 1 special character</li>
+                </ul>
+                <input
+                  className="form-control mt-1"
+                  onKeyUp={comparePasswords}
+                  onKeyDown={checkRequirements} 
+                  placeholder="Re-enter password" 
+                  id="confirmNewPass"
+                />
+              </div>
+              <p style={{color: "red"}} >  
+                  {isError} 
+              </p>
+              <p style={{color: "red"}} >  
+                  {requirements} 
+              </p>
+              <div className="d-grid gap-2 mt-3">
+              <Link to="/home" className="btn btn-success">Save</Link>
+              <Link to="/home" className="btn btn-danger">Cancel</Link>
+              </div>
+              
+            </div>
+          </form>
+        </div>
+        </div>
+        /*  
       <form> 
         <div>
           <a  href="#"><img src={logo} alt="" class="settingsLogo" align="left" height="auto" width="auto"></img></a>
@@ -92,7 +161,7 @@ const Settings = () => {
                <Link to="/home" className="btn btn-success">Cancel</Link>
             </div>
           </form>
-        
+        */
      )
 };
 

@@ -173,7 +173,7 @@ const Home = () => {
             <ListAllConnections />
           </div>  
     <div class="item4">
-          <Container>
+      <div>
                  {currentPlaying && (
           <div className="track">
             <div className="track__image">
@@ -187,7 +187,7 @@ const Home = () => {
           </div>
         </div>
         )}
-        </Container>
+        </div>
         <Container2>
         <div className="shuffle">
           <BsShuffle />
