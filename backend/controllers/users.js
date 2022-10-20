@@ -3,6 +3,10 @@ const { express } = require('express');
 const { useParams } = require('react-router-dom');
 const User = require('../models/user')
 
+/*
+* This gets all users from the database
+*/
+
 userRouter.get('/', async (req, res) => {
   const auth = req.currentUser;
   if (auth) {
@@ -12,6 +16,9 @@ userRouter.get('/', async (req, res) => {
   return res.status(403).send('Not authorized');
 });
 
+/**
+ * This gets a user from search bar
+ */
 userRouter.get('/search', async(req, res) => {
   // return req;
   // const auth = req.currentUser;
