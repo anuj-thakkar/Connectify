@@ -4,7 +4,6 @@ import fire from '../fire';
 const url = 'http://localhost:3001/api';
 
 export const registerUser = async (username, name, email, password) => {
-  const header = await createToken();
   const payload = {
     username,
     name,
@@ -12,7 +11,7 @@ export const registerUser = async (username, name, email, password) => {
   }
   console.log(payload);
   try {
-    const res = await axios.post(url, payload, header);
+    const res = await axios.post(url, payload);
     console.log(res.data);
     return res.data;
 } catch (e) {
