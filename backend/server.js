@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require('cors');
-const usersRouter = require('./controllers/users');
+const usersRouter = require('./routes/users');
 const mongoose = require('mongoose');
 const { request } = require('express');
 const decodedToken = require('./authenticateToken')

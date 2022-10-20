@@ -1,6 +1,6 @@
 const userRouter = require('express').Router();
 const { express } = require('express');
-const { useParams } = require('react-router-dom');
+// const { useParams } = require('react-router-dom');
 const User = require('../models/user')
 
 /*
