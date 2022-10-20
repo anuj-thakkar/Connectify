@@ -29,9 +29,9 @@ userRouter.post('/', (req, res) => {
   return res.status(201).json(savedUser);
 });
 
-userRouter.get('/updateEmail', async (req, res) => {
+userRouter.post('/updateEmail', async (req, res) => {
   var params = req.body;
-  User.findOne({'_id':params._id}, function(err,user) {
+  User.findOne({'email':params.email}, function(err,user) {
     if (err) {
       console.log(err);
       return res.status(400).send('Error updating email');
@@ -51,6 +51,30 @@ userRouter.get('/updateEmail', async (req, res) => {
     }
   });
 });
+
+userRouter.post('/updateBio', async (req, res) => {
+  var params = req.body;
+  User.findOne({'email':params.email}, function(err,user) {
+    if (err) {
+      console.log(err);
+      return res.status(400).send('Error updating bio');
+    } else {
+      user.bio = params.bio;
+      User.updateOne({"email":params.email},params, function(err, user) {
+        if (err) return next(err);
+        return res.status(200).send('Bio updated Successfully.');
+      });
+    }
+  });
+});
+
+
+userRouter.post('/updateProfilePicture', async (req, res) => {
+
+  // TODO: Update profile picture
+});
+  
+
 
 
 
