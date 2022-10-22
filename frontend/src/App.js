@@ -25,8 +25,6 @@ function App() {
   const [sent, setSent] = useState(false)
   const [text, setText] = useState("")
 
-
-  
   fire.auth().onAuthStateChanged((user) => {
       return user ? setIsLoggedIn(true) : setIsLoggedIn(false);
   });
@@ -63,10 +61,10 @@ function App() {
               <>
                 <Routes>
                   <Route path='/link' element={<SpotifyLogin/>}/>
-                  <Route path='/home' element={<Home/>}/>
+                  <Route path={`/home`} element={<Home/>}/>
                   <Route path='/home/settings' element={<Settings/>}/>
                   <Route path='/search' element={<Search/>}/>
-                  <Route path='/profile' element={<ProfileInfo/>}/>
+                  <Route path={`/profile`} element={<ProfileInfo/>}/>
                 </Routes>
               </>
             ) 

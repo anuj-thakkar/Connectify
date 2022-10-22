@@ -55,6 +55,8 @@
 
 .itemrest {
   grid-area: 2 / 1 / span 68 / span 5;
+  color:white;
+
 }
 
 .button1 {
@@ -83,6 +85,10 @@
   margin: 5px;
   width: 35px;
   height: 35px;
+}
+
+.unfollow-button {
+  background-color: white;
 }
 
 .App {

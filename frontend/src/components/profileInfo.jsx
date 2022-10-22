@@ -7,12 +7,40 @@ import Settings from "./Settings";
 import { MdHomeFilled, MdBuild, MdAccountCircle, MdSearch, MdCompareArrows} from "react-icons/md";
 import "../App.css";
 import axios from "axios";
+import styled from "styled-components";
+import { useStateProvider } from "../utils/StateProvider";
+import { reducerCases } from "../utils/Constants";
 
 const ProfileInfo = () => {
   const [image, setState] = useState({});
+  const [unfollow, setUnfollow] = useState(false);
+
   const fileOnChange = (e) => {
     console.log(e.target.files[0]);
   };
+  const [{ token, playlists}, dispatch] = useStateProvider();
+  //Get Playlists from Spotify API
+  useEffect(() => {
+    const getPlaylistData = async () => {
+      const response = await axios.get(
+        "https://api.spotify.com/v1/me/playlists",
+        
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const { items } = response.data;
+      const playlists = items.map(({ name, id }) => {
+        return { name, id };
+      });
+      dispatch({ type: reducerCases.SET_PLAYLISTS, playlists });
+    };
+    getPlaylistData();
+  }, [token, dispatch]);
+
 
   const sendImage = (e) => {
     e.preventDefault();
@@ -36,6 +64,29 @@ const ProfileInfo = () => {
   const signOut = () => {
     fire.auth().signOut();
   };
+
+  const unfollowPlaylist = async (id) => {
+    if (unfollow) {
+      await axios.delete(
+        `https://api.spotify.com/v1/playlists/${id}/followers`,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    }
+  };
+
+  const unfollowButton = () => {
+    setUnfollow(true);
+  }
+
+  const cancelUnfollowButton = () => {
+    setUnfollow(false)
+  }
+ 
   return (
     <>
       <div class="grid-container">
@@ -48,7 +99,7 @@ const ProfileInfo = () => {
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="/home"><MdHomeFilled/> Home</a>
+                <a class="nav-link active" aria-current="page" href={`/home#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdHomeFilled/> Home</a>
 
 
                 <a class="nav-link active" aria-current="page" onClick={Settings} href="/home/settings"><MdBuild/> Settings</a> 
@@ -63,12 +114,65 @@ const ProfileInfo = () => {
           </div>
           </nav>
         </div>
-        <div class="itemrest"></div>
+        <div class="itemrest">
+        Current Playlist
+        <div class="unfollow-playlist">
+          Unfollow Playlist?
+        <button type="button" onClick={() => unfollowButton()} className="unfollow-button">
+           Yes
+        </button>
+        <button type="button" onClick={() => cancelUnfollowButton()} className="unfollow-button">
+          Cancel
+        </button>
+        </div>
+
         
-        </div>          
+        <Container>
+          <ul>
+          {playlists.map(({ name, id }) => {
+            return (
+            <li key={id} onClick={() => unfollowPlaylist(id)}>
+              {name}
+            </li>
+            );
+           })}
+        </ul>
+        </Container>
+        </div>
+        </div>         
     </>
   );
 };
+
+const Container = styled.div`
+  color: #b3b3b3;
+  height: 100%;
+  overflow: hidden;
+  ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    height: 55vh;
+    max-height: 100%;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      width: 0.7rem;
+      &-thumb {
+        background-color: rgba(255, 255, 255, 0.6);
+      }
+    }
+    li {
+      transition: 0.3s ease-in-out;
+      cursor: pointer;
+      &:hover {
+        color: white;
+      }
+    }
+  }
+`;
+
 /*
 <div class="rowProfile">
           <div class="columnProfile">

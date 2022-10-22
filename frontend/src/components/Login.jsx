@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import fire from '../fire.js';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,9 +16,11 @@ const Login = () => {
           .catch((error) => {
             setErrorMessage(error);
             console.error('Incorrect username or password');
+            console.log(isError)
         });
-        navigate('/link');
+          navigate('/link');  
     }
+
 
     const [isShown, setIsSHown] = useState(false);
 
