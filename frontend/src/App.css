@@ -17,6 +17,9 @@
   font-size: 20px;
 }
 
+.login-error {
+  color: red;
+}
 .item1 {
   grid-area: 12 / 2 / span 58 / span 3;
   max-width: 100%;
@@ -38,7 +41,6 @@
 .item4 {
   grid-area: 2 / 1 / span 10 / span 2;
   color: white;
-  
 }
 .item6 {
   color: white;

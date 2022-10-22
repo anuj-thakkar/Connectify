@@ -61,7 +61,9 @@ const Login = () => {
               checked={isShown}
               onChange={togglePassword}
             />
-            <p>{isError ? "Invalid Email/Password" : ""}</p>
+            <p className="login-error">
+              {isError ? "Invalid Email/Password" : ""}
+            </p>
           </div>
           <div className="form-group mt-1">
             <div className="d-grid gap-2 mt-3">
