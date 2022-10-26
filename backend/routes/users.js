@@ -35,22 +35,36 @@ userRouter.post('/', (req, res) => {
   return res.status(201).json(savedUser);
 });
 
+import { firestore } from "firebase-admin";
+import { getAuth, updateEmail } from "firebase/auth";
+const auth = getAuth();
+auth.updateEmail(auth.currentUser, "user@example.com").then(() => {
+  // Email updated!
+  // ...
+}).catch((error) => {
+  // An error occurred
+  // ...
+});
+
 userRouter.post('/updateEmail', async (req, res) => {
   var params = req.body;
   User.findOne({'email':params.email}, function(err,existingUser) {
     user.email = params.email;
-    User.findOne({email: params.email}, function(err, existingUser) {
       if(err) return next(err);
       if(existingUser) {
         return res.status(404).send('Account with that email already exists.');
       } else {
         User.updateOne({"email":params.email},params, function(err, user) {
           if (err) return next(err);
-          return res.status(200).send('Email address updated Successfully.');
-        });
-      }
-    });      
-  });
+          fire.auth.updateEmail(user.email, params.email).then(() => {
+            console.log('Email address updated successfully.');
+          }).catch((error) => {
+            console.log(error);
+          });
+          return res.status(200).send('Email address updated successfully.');
+      });
+    }
+  });      
 });
 
 
