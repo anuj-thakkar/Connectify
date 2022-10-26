@@ -1,6 +1,7 @@
 .container-fluid {
   background-color: rgb(0, 0, 0);
 }
+
 .grid-container {
   display: grid;
   grid-template-columns: auto auto auto auto;
@@ -16,6 +17,9 @@
   font-size: 20px;
 }
 
+.login-error {
+  color: red;
+}
 .item1 {
   grid-area: 12 / 2 / span 58 / span 3;
   max-width: 100%;
@@ -37,7 +41,6 @@
 .item4 {
   grid-area: 2 / 1 / span 10 / span 2;
   color: white;
-  
 }
 .item6 {
   color: white;
@@ -46,6 +49,14 @@
 .item7 {
   grid-area: 2 / 4 / span 10 / span 1;
   color: white;
+}
+
+.itemnav {
+  grid-area: 1 / 1 / span 1 / span 5;
+}
+
+.itemrest {
+  grid-area: 2 / 1 / span 68 / span 5;
 }
 
 .button1 {
@@ -102,6 +113,7 @@ body:focus {
   left: 0;
 }
 .Auth-form-container {
+  display: inline-block;
   justify-content: center;
   align-items: center;
 }
@@ -114,9 +126,16 @@ body:focus {
   border-radius: 8px;
   background-color: white;
 }
+.form-group {
+  padding-left: 20px;
+  align-items: left;
+}
 
+.settingsForm {
+  width: 350px;
+}
 .Auth-form-content {
-  padding-left: 12%;
+  padding-left: 10%;
   padding-right: 12%;
   background-color: white;
 }
@@ -181,29 +200,14 @@ label {
   background-color: rgb(6, 223, 17);
 }
 
-.labelPass {
-  color: white;
-  align-items: center;
-}
-
-.passList ul {
-  color: white;
-  text-align: right;
-}
-
-.passList li {
-  color: white;
-  text-align: left;
-}
-
 .settingsLogo {
-  margin-top: 300px;
-  margin-left: 300px;
-  margin-bottom: 150px;
+  display: inline-block;
+  padding-right: 30px;
 }
 
-.settingsForm {
-  width: 1300px;
-  margin-top: 100px;
-  margin-left: 200px;
+.parentSett {
+  margin-top: 50px;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
 }

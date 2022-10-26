@@ -4,7 +4,7 @@ import fire from "../fire.js";
 import logo from '../static/logo.jpg';
 import { NavLink, Link } from "react-router-dom";
 import Settings from "./Settings";
-import { MdHomeFilled, MdSearch } from "react-icons/md";
+import { MdHomeFilled, MdBuild, MdAccountCircle, MdSearch, MdCompareArrows} from "react-icons/md";
 import "../App.css";
 import axios from "axios";
 
@@ -38,73 +38,39 @@ const ProfileInfo = () => {
   };
   return (
     <>
-      <div className="profile">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+      <div class="grid-container">
+          <div class="itemnav">
+          <nav class="navbar navbar-expand-lg navbar-dark bg-black">
           <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-              <img
-                src={logo}
-                alt=""
-                padding-left="10"
-                height="60"
-                class="d-inline-block align-text-top"
-              ></img>
-            </a>
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarNavAltMarkup"
-              aria-controls="navbarNavAltMarkup"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
+            <a class="navbar-brand" href="#"><img src={logo} alt="" padding-left="10" height="60" class="d-inline-block align-text-top"></img></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="/home">
-                  <MdHomeFilled /> Home
-                </a>
+                <a class="nav-link active" aria-current="page" href="/home"><MdHomeFilled/> Home</a>
 
-                <a
-                  class="nav-link active"
-                  aria-current="page"
-                  onClick={Settings}
-                  href="/home/settings"
-                >
-                  Settings
-                </a>
-                <Link to="../profile">
-                  <button class="button1">
-                    <img
-                      className="buttonImg"
-                      src={require("./profileIcon.png")}
-                    />
-                  </button>
-                </Link>
-                <Link to="../search">
-                  <button class="button2">
-                    <img
-                      className="buttonImg"
-                      src={require("./searchIcon.png")}
-                    />
-                  </button>
-                </Link>
-                <a
-                  class="nav-link active"
-                  aria-current="page"
-                  onClick={signOut}
-                  href="/#"
-                >
-                  Sign out
-                </a>
+
+                <a class="nav-link active" aria-current="page" onClick={Settings} href="/home/settings"><MdBuild/> Settings</a> 
+
+                <a class="nav-link active" aria-current="page" href="../profile"><MdAccountCircle/> Profile</a>
+
+                <a class="nav-link active" aria-current="page" onClick={signOut} href="/#"><MdCompareArrows/> Sign out</a>
+                
+                <a class="nav-link active" aria-current="page"><MdSearch/></a>
               </div>
             </div>
           </div>
-        </nav>
-
-        <div class="rowProfile">
+          </nav>
+        </div>
+        <div class="itemrest"></div>
+        
+        </div>          
+    </>
+  );
+};
+/*
+<div class="rowProfile">
           <div class="columnProfile">
             <fieldset className="form-group">
               <label for="profilePicture" style={{ color: "white" }}>
@@ -118,9 +84,5 @@ const ProfileInfo = () => {
             <h3>Connections</h3>
           </div>
         </div>
-      </div>
-    </>
-  );
-};
-
+        */
 export default ProfileInfo;
