@@ -57,16 +57,19 @@ userRouter.post('/updateEmail', async (req, res) => {
         User.updateOne({"email":params.email},params, function(err, user) {
           if (err) return next(err);
           fire.auth.updateEmail(user.email, params.email).then(() => {
-            console.log('Email address updated successfully.');
+            fire.auth.sendEmailVerification(user.email).then(() => {
+              return res.status(200).send('Email updated!');
+            }).catch((error) => {
+              return res.status(404).send('An error occurred');
           }).catch((error) => {
             console.log(error);
           });
           return res.status(200).send('Email address updated successfully.');
-      });
-    }
-  });      
+          });
+        });
+      }
+  });
 });
-
 
 userRouter.post('/updateBio', async (req, res) => {
   var params = req.body;
