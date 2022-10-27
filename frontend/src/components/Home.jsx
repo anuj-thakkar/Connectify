@@ -20,7 +20,7 @@ const Home = () => {
   const [{ token, userInfo, currentPlaying, playerState }, dispatch] = useStateProvider();
   const [search, setSearch] = useState();
   const navigate = useNavigate();
-  console.log(token)
+  //Get User Info from Spotify API
   useEffect(() => {
     const getUserInfo = async () => {
       const { data } = await axios.get("https://api.spotify.com/v1/me", {
@@ -43,7 +43,7 @@ const Home = () => {
     const signOut = () => {
         fire.auth().signOut();
       };
-    
+    //Get Current Track Playing from Spotify API
     useEffect(() => {
       const getCurrentTrack = async () => {
         try {
