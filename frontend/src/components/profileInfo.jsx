@@ -11,22 +11,24 @@ import styled from "styled-components";
 import { useStateProvider } from "../utils/StateProvider";
 import { reducerCases } from "../utils/Constants";
 import {render} from 'react-dom';
+import { ButtonGroup } from "react-bootstrap";
 
 const ProfileInfo = () => {
   const [image, setState] = useState({});
   const [unfollow, setUnfollow] = useState(false);
   const [playlistName, setPlaylistName] = useState("")
+  const [active, setActive] = useState('Cancel')
 
   const fileOnChange = (e) => {
     console.log(e.target.files[0]);
   };
   const [{ token, playlists, userInfo}, dispatch] = useStateProvider();
+
   //Get Playlists from Spotify API
   useEffect(() => {
     const getPlaylistData = async () => {
       const response = await axios.get(
         "https://api.spotify.com/v1/me/playlists",
-        
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -139,7 +141,7 @@ const ProfileInfo = () => {
                 <a class="nav-link active" aria-current="page" href={`/home#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdHomeFilled/> Home</a>
 
 
-                <a class="nav-link active" aria-current="page" onClick={Settings} href="/home/settings"><MdBuild/> Settings</a> 
+                <a class="nav-link active" aria-current="page" onClick={Settings} href={`/home/settings#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdBuild/> Settings</a> 
 
                 <a class="nav-link active" aria-current="page" href={`../profile#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdAccountCircle/> Profile</a>
 
@@ -152,7 +154,6 @@ const ProfileInfo = () => {
           </nav>
         </div>
         <div class="itemrest">
-        Current Playlist
         <div class="unfollow-playlist">
           Unfollow Playlist?
         <button type="button" onClick={() => unfollowButton()} className="unfollow-button">
@@ -161,6 +162,7 @@ const ProfileInfo = () => {
         <button type="button" onClick={() => cancelUnfollowButton()} className="unfollow-button">
           Cancel
         </button>
+        </div>
         <div className = "new-playlist">
         <form>
           Create New Playlist
@@ -168,10 +170,11 @@ const ProfileInfo = () => {
           <button type="button" onClick={() => createPlaylist()} className="create-playlist-button">Create</button>
         </form>
         </div>
-          
-        </div>
+        <br></br>
+        <h2 className="Current-Playlist-Header">
+        Current Playlists
+        </h2>
 
-        
         <Container>
           <ul>
           {playlists.map(({ name, id }) => {

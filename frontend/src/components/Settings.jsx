@@ -5,10 +5,12 @@ import { MdHomeFilled, MdBuild, MdAccountCircle, MdSearch, MdCompareArrows} from
 import React, { useState } from 'react';
 import "../App.css";
 import fire from '../fire.js';
+import { useStateProvider } from "../utils/StateProvider";
 
 const Settings = () => {
   const [isError, setConfirmPassError] = useState("");
   const [requirements, setRequirements] = useState("");
+  const [{ token}] = useStateProvider();
     
      let settings = {
        'mysettings.general.name': 'Demo User',
@@ -55,12 +57,12 @@ const Settings = () => {
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="/home"><MdHomeFilled/> Home</a>
+                <a class="nav-link active" aria-current="page" href={`/home#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdHomeFilled/> Home</a>
 
 
                 <a class="nav-link active" aria-current="page" onClick={Settings} href="/home/settings"><MdBuild/> Settings</a> 
 
-                <a class="nav-link active" aria-current="page" href="../profile"><MdAccountCircle/> Profile</a>
+                <a class="nav-link active" aria-current="page" href={`../profile#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdAccountCircle/> Profile</a>
 
                 <a class="nav-link active" aria-current="page" onClick={signOut} href="/#"><MdCompareArrows/> Sign out</a>
                 
