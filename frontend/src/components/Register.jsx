@@ -41,10 +41,10 @@ const Register = () => {
 
     const handleRegister = (e) => {
         e.preventDefault();
-        if (email && password && username && name) {
+        if (email && password && confirmPassword && username && name) {
            registerUser(username, name, email, password);
         }
-        if (email && password) {
+        if (email && password && confirmPassword) {
           fire.auth().createUserWithEmailAndPassword(email, password)
             .then(() => {
               try {
@@ -61,6 +61,8 @@ const Register = () => {
 
               console.log(email, password);
           });
+        } else {
+          alert("Please fill in all fields");
         }
     }
 
