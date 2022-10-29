@@ -95,6 +95,7 @@ const ProfileInfo = () => {
           },
         }
       );
+      window.location.reload(false);
     }
   };
 
@@ -119,6 +120,7 @@ const ProfileInfo = () => {
         },
       },
     ); 
+    window.location.reload(false);
     return;
   } 
 
