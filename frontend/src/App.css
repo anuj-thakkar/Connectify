@@ -60,6 +60,8 @@
 
 .itemrest {
   grid-area: 2 / 1 / span 68 / span 5;
+  color:white;
+
 }
 
 .button1 {
@@ -89,6 +91,7 @@
   width: 35px;
   height: 35px;
 }
+
 
 .App {
   padding-top: 50px;

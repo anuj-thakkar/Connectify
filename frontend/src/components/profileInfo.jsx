@@ -2,17 +2,64 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import fire from "../fire.js";
 import logo from "./logo.jpg";
-import { NavLink, Link } from "react-router-dom";
 import Settings from "./Settings";
 import { MdHomeFilled, MdBuild, MdAccountCircle, MdSearch, MdCompareArrows} from "react-icons/md";
 import "../App.css";
 import axios from "axios";
+import styled from "styled-components";
+import { useStateProvider } from "../utils/StateProvider";
+import { reducerCases } from "../utils/Constants";
 
 const ProfileInfo = () => {
   const [image, setState] = useState({});
+  const [unfollow, setUnfollow] = useState(false);
+  const [playlistName, setPlaylistName] = useState("")
+  const [active, setActive] = useState('Cancel')
+
   const fileOnChange = (e) => {
     console.log(e.target.files[0]);
   };
+  const [{ token, playlists, userInfo}, dispatch] = useStateProvider();
+
+  //Get Playlists from Spotify API
+  useEffect(() => {
+    const getPlaylistData = async () => {
+      const response = await axios.get(
+        "https://api.spotify.com/v1/me/playlists",
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const { items } = response.data;
+      const playlists = items.map(({ name, id }) => {
+        return { name, id };
+      });
+      dispatch({ type: reducerCases.SET_PLAYLISTS, playlists });
+    };
+    getPlaylistData();
+  }, [token, dispatch]);
+  ///Get user info from Spotify
+  useEffect(() => {
+    const getUserInfo = async () => {
+      const { data } = await axios.get("https://api.spotify.com/v1/me", {
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+      });
+      const userInfo = {
+        userId: data.id,
+        userUrl: data.external_urls.spotify,
+        name: data.display_name,
+        imagesUrl: data.images[0].url,
+      };
+      dispatch({ type: reducerCases.SET_USER, userInfo });
+    };
+    getUserInfo();
+  }, [dispatch, token]); 
 
   const sendImage = (e) => {
     e.preventDefault();
@@ -36,6 +83,45 @@ const ProfileInfo = () => {
   const signOut = () => {
     fire.auth().signOut();
   };
+
+  const unfollowPlaylist = async (id) => {
+    if (unfollow) {
+      await axios.delete(
+        `https://api.spotify.com/v1/playlists/${id}/followers`,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    }
+  };
+
+  const unfollowButton = () => {
+    setUnfollow(true);
+  }
+
+  const cancelUnfollowButton = () => {
+    setUnfollow(false)
+  }
+
+   const createPlaylist = async () => {
+    await axios.post(
+      `https://api.spotify.com/v1/users/${userInfo.userId}/playlists`,
+       {
+          "name":playlistName,
+       },
+       {
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+      },
+    ); 
+    return;
+  } 
+
   return (
     <>
       <div class="grid-container">
@@ -48,12 +134,12 @@ const ProfileInfo = () => {
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="/home"><MdHomeFilled/> Home</a>
+                <a class="nav-link active" aria-current="page" href={`/home#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdHomeFilled/> Home</a>
 
 
-                <a class="nav-link active" aria-current="page" onClick={Settings} href="/home/settings"><MdBuild/> Settings</a> 
+                <a class="nav-link active" aria-current="page" onClick={Settings} href={`/home/settings#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdBuild/> Settings</a> 
 
-                <a class="nav-link active" aria-current="page" href="../profile"><MdAccountCircle/> Profile</a>
+                <a class="nav-link active" aria-current="page" href={`../profile#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdAccountCircle/> Profile</a>
 
                 <a class="nav-link active" aria-current="page" onClick={signOut} href="/#"><MdCompareArrows/> Sign out</a>
                 
@@ -63,12 +149,74 @@ const ProfileInfo = () => {
           </div>
           </nav>
         </div>
-        <div class="itemrest"></div>
-        
-        </div>          
+        <div class="itemrest">
+        <div class="unfollow-playlist">
+          Unfollow Playlist?
+        <button type="button" onClick={() => unfollowButton()} className="btn btn-outline-success">
+           Yes
+        </button>
+        <button type="button" onClick={() => cancelUnfollowButton()} className="btn btn-outline-success">
+          Cancel
+        </button>
+        </div>
+        <div className = "new-playlist">
+        <form>
+          Create New Playlist
+          <input  type="search" placeholder="Playlist Name" onChange={({target}) => setPlaylistName(target.value)} aria-label="searchbar"></input>
+          <button type="button" onClick={() => createPlaylist()} className="btn btn-outline-success">Create</button>
+        </form>
+        </div>
+        <br></br>
+        <h2 className="Current-Playlist-Header">
+        Current Playlists
+        </h2>
+
+        <Container>
+          <ul>
+          {playlists.map(({ name, id }) => {
+            return (
+            <li key={id} onClick={() => unfollowPlaylist(id)}>
+              {name}
+            </li>
+            );
+           })}
+        </ul>
+        </Container>
+        </div>
+        </div>         
     </>
   );
 };
+
+const Container = styled.div`
+  color: #b3b3b3;
+  height: 100%;
+  overflow: hidden;
+  ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    height: 55vh;
+    max-height: 100%;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      width: 0.7rem;
+      &-thumb {
+        background-color: rgba(255, 255, 255, 0.6);
+      }
+    }
+    li {
+      transition: 0.3s ease-in-out;
+      cursor: pointer;
+      &:hover {
+        color: white;
+      }
+    }
+  }
+`;
+
 /*
 <div class="rowProfile">
           <div class="columnProfile">

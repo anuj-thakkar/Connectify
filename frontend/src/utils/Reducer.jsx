@@ -3,8 +3,12 @@ import { reducerCases } from "./Constants";
 export const initialState = {
   token: null,
   userInfo: null,
+  playlists: [],
   currentPlaying: null,
   playerState: false,
+  selectedPlaylist: null,
+  selectedPlaylistId: "37i9dQZF1E37jO8SiMT0yN",
+  selectedPlaylistImage: null,
 };
 
 const reducer = (state, action) => {
@@ -19,6 +23,11 @@ const reducer = (state, action) => {
         ...state,
         userInfo: action.userInfo,
       };
+    case reducerCases.SET_PLAYLISTS:
+      return {
+        ...state,
+        playlists: action.playlists,
+      };
     case reducerCases.SET_PLAYING:
       return {
         ...state,
@@ -29,6 +38,21 @@ const reducer = (state, action) => {
         ...state,
         playerState: action.playerState,
       };
+    case reducerCases.SET_PLAYLIST:
+      return {
+        ...state,
+        selectedPlaylist: action.selectedPlaylist,
+      };
+    case reducerCases.SET_PLAYLIST_ID:
+      return {
+        ...state,
+        selectedPlaylistId: action.selectedPlaylistId,
+      };
+    case reducerCases.SET_PLAYLIST_IMAGE:
+      return {
+        ...state,
+        selectedPlaylistImage: action.selectedPlaylistImage,
+      }
     default:
       return state;
   }

@@ -20,6 +20,7 @@ import ListSearchResults from "./components/ListSearchResults";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const [sent, setSent] = useState(false);
   const [text, setText] = useState("");
 
@@ -54,18 +55,22 @@ function App() {
     <Container fluid>
       <div>
         <Router>
-          {isLoggedIn ? (
-            <>
-              <Routes>
-                <Route path="/link" element={<SpotifyLogin />} />
-                <Route path="/home" element={<Home />} />
-                <Route path="/home/settings" element={<Settings />} />
-                <Route path="/search" element={<Search />} />
-                <Route path="/profile" element={<ProfileInfo />} />
-              </Routes>
-            </>
-          ) : (
-            <>
+
+          {isLoggedIn
+            ? (
+              <>
+                <Routes>
+                  <Route path='/link' element={<SpotifyLogin/>}/>
+                  <Route path={`/home`} element={<Home/>}/>
+                  <Route path='/home/settings' element={<Settings/>}/>
+                  <Route path='/search' element={<Search/>}/>
+                  <Route path={`/profile`} element={<ProfileInfo/>}/>
+                </Routes>
+              </>
+            ) 
+            : (
+              <>
+
               <div class="App">
                 <Row>
                   <Col>
