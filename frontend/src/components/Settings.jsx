@@ -49,12 +49,17 @@ const Settings = () => {
   }
 
   function deleteSignedUser() {
+
+    if (window.confirm('Are you sure you want to delete your account?' + '\n' + 'This action cannot be undone.')) {
+
     deleteUser(getAuth().currentUser).then(function () {
       window.location.href = "/";
     }).catch(function (error) {
       console.log(error.message);
     }
     );
+
+  }
 
   
   }
