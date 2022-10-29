@@ -17,6 +17,12 @@
   font-size: 20px;
 }
 
+.login-error {
+  text-align: center;
+  color: red;
+  background-color: rgb(255, 161, 161);
+  border-radius: 15px;
+}
 .item1 {
   grid-area: 12 / 2 / span 58 / span 3;
   max-width: 100%;
@@ -38,7 +44,6 @@
 .item4 {
   grid-area: 2 / 1 / span 10 / span 2;
   color: white;
-  
 }
 .item6 {
   color: white;
@@ -201,14 +206,13 @@ label {
   background-color: rgb(6, 223, 17);
 }
 
-.settingsLogo {
-  display: inline-block;
-  padding-right: 30px;
-}
-
 .parentSett {
   margin-top: 50px;
   justify-content: center;
   display: flex;
   flex-direction: row;
+}
+
+.delete {
+  margin-top: 500px;
 }
