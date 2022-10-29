@@ -18,7 +18,10 @@
 }
 
 .login-error {
+  text-align: center;
   color: red;
+  background-color: rgb(255, 161, 161);
+  border-radius: 15px;
 }
 .item1 {
   grid-area: 12 / 2 / span 58 / span 3;
