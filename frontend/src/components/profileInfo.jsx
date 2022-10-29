@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import fire from "../fire.js";
 import logo from "./logo.jpg";
-import { NavLink, Link } from "react-router-dom";
 import Settings from "./Settings";
 import { MdHomeFilled, MdBuild, MdAccountCircle, MdSearch, MdCompareArrows} from "react-icons/md";
 import "../App.css";
@@ -10,8 +9,6 @@ import axios from "axios";
 import styled from "styled-components";
 import { useStateProvider } from "../utils/StateProvider";
 import { reducerCases } from "../utils/Constants";
-import {render} from 'react-dom';
-import { ButtonGroup } from "react-bootstrap";
 
 const ProfileInfo = () => {
   const [image, setState] = useState({});
@@ -121,8 +118,7 @@ const ProfileInfo = () => {
           "Content-Type": "application/json",
         },
       },
-
-    );
+    ); 
     return;
   } 
 
@@ -156,10 +152,10 @@ const ProfileInfo = () => {
         <div class="itemrest">
         <div class="unfollow-playlist">
           Unfollow Playlist?
-        <button type="button" onClick={() => unfollowButton()} className="unfollow-button">
+        <button type="button" onClick={() => unfollowButton()} className="btn btn-outline-success">
            Yes
         </button>
-        <button type="button" onClick={() => cancelUnfollowButton()} className="unfollow-button">
+        <button type="button" onClick={() => cancelUnfollowButton()} className="btn btn-outline-success">
           Cancel
         </button>
         </div>
@@ -167,7 +163,7 @@ const ProfileInfo = () => {
         <form>
           Create New Playlist
           <input  type="search" placeholder="Playlist Name" onChange={({target}) => setPlaylistName(target.value)} aria-label="searchbar"></input>
-          <button type="button" onClick={() => createPlaylist()} className="create-playlist-button">Create</button>
+          <button type="button" onClick={() => createPlaylist()} className="btn btn-outline-success">Create</button>
         </form>
         </div>
         <br></br>
