@@ -97,7 +97,7 @@ const Settings = () => {
           </div>
         </nav>
       </div>
-      <div class="itemrest">
+      <div class="itemleft">
         <form>
           <div className='settingsForm' align="left">
             <fieldset className="form-group">
@@ -153,7 +153,9 @@ const Settings = () => {
           </div>
         </form>
       </div>
+      
     </div>
+    
 
     //rama old code below:
     /*

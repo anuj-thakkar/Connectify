@@ -61,27 +61,24 @@ const ProfileInfo = () => {
     getUserInfo();
   }, [dispatch, token]); 
 
-  const sendImage = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("avater", image);
-    console.log(formData);
-
-    axios
-      .post("http://localhost:3001/api/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        console.log(res.json());
-      })
-      .catch((err) => {
-        console.log(err.json());
-      });
-  };
   const signOut = () => {
     fire.auth().signOut();
+  };
+
+  const uploadedImage = React.useRef(null);
+  const imageUploader = React.useRef(null);
+
+  const handleImageUpload = e => {
+    const [file] = e.target.files;
+    if (file) {
+      const reader = new FileReader();
+      const { current } = uploadedImage;
+      current.file = file;
+      reader.onload = e => {
+        current.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const unfollowPlaylist = async (id) => {
@@ -145,7 +142,6 @@ const ProfileInfo = () => {
 
                   <a class="nav-link active" aria-current="page" onClick={signOut} href="/#"><MdCompareArrows/> Sign out</a>
                   
-                  <a class="nav-link active" aria-current="page"><MdSearch/></a>
                 </div>
               </div>
             </div>
@@ -173,7 +169,7 @@ const ProfileInfo = () => {
           Current Playlists
           </h2>
 
-          <Container>
+          <div>
             <ul>
             {playlists.map(({ name, id }) => {
               return (
@@ -183,12 +179,47 @@ const ProfileInfo = () => {
               );
             })}
           </ul>
-          </Container>
+          </div>
         </div>
         <div class="itemrest">
-          
+          <div
+            style={{
+              display: "block",
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+          >
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImageUpload}
+          ref={imageUploader}
+          style={{
+            display: "none"
+          }}
+        />
+        <div
+          style={{
+            color: "white",
+            paddingTop: "5px",
+            height: "60px",
+            width: "60px",
+            border: "1px dashed black"
+          }}
+          onClick={() => imageUploader.current.click()}
+        >
+        <img
+          ref={uploadedImage}
+          style={{
+            paddingTop: "5px",
+            width: "150px",
+            height: "150px",
+            position: "absolute"
+          }}
+        />
+      </div>
+    </div>
         </div>
-              
         </div>
            
     </>
