@@ -1,3 +1,6 @@
+import { Navigate, useNavigate } from 'react-router-dom';
+import {SettingsPane, SettingsPage, SettingsContent, SettingsMenu} from 'react-settings-pane';
+import logo from '../static/logo.jpg';
 import logo from './logo.jpg';
 import { Link } from 'react-router-dom'
 import { Row, Col, Container, Button } from 'react-bootstrap';

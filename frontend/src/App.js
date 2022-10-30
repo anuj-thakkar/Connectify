@@ -6,10 +6,17 @@ import "./App.css";
 import fire from "./fire.js";
 import Login from "./components/Login";
 import Register from "./components/Register";
+<<<<<<< HEAD
+import logo from './static/logo.jpg';
+import { Row, Col, Container } from 'react-bootstrap';
+import ForgotPassword from "./components/ForgotPassword"
+import Settings from "./components/Settings"
+=======
 import logo from "./components/logo.jpg";
 import { Row, Col, Container } from "react-bootstrap";
 import ForgotPassword from "./components/ForgotPassword";
 import Settings from "./components/Settings";
+>>>>>>> 25b2fe77956fa27e2b63ffedb73e382fbd395a06
 import ProfileInfo from "./components/profileInfo";
 import Search from "./components/Search";
 import Home from "./components/Home";

@@ -1,6 +1,5 @@
 /**
- * @fileoverview Just a file to store some constants. Let me know if this should be put somewhere else
- * 
+ * @fileoverview Store some constants regarding users.
  */
 
  module.exports = Object.freeze({
@@ -13,5 +12,5 @@
     U_INVALID_CREDENTIALS: 'Invalid credentials!',
     U_UPDATE_FAILURE: 'User update failure!',
     U_DELETION_FAILURE: 'User deletion faulure!',
-    U_DOES_NOT_EXIST: 'User does not exist!',
- })
+    U_DOES_NOT_EXIST: 'User does not exist!'
+});

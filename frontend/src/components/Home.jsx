@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import logo from './logo.jpg';
+import logo from '../static/logo.jpg';
 import fire from '../fire.js';
 import Settings from './Settings';
 import {MdHomeFilled, MdSearch, MdAccountCircle, MdBuild, MdCompareArrows} from 'react-icons/md';
