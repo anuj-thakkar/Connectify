@@ -209,6 +209,7 @@ const ProfileInfo = () => {
           onClick={() => imageUploader.current.click()}
         >
         <img
+          src={userInfo? userInfo.imagesUrl : null}
           ref={uploadedImage}
           style={{
             paddingTop: "5px",
