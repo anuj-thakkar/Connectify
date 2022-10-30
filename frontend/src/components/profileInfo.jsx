@@ -41,6 +41,8 @@ const ProfileInfo = () => {
     };
     getPlaylistData();
   }, [token, dispatch]);
+
+   
   ///Get user info from Spotify
   useEffect(() => {
     const getUserInfo = async () => {
@@ -56,6 +58,7 @@ const ProfileInfo = () => {
         userUrl: data.external_urls.spotify,
         name: data.display_name,
         imagesUrl: data.images[0].url,
+        followers: data.followers,
       };
       dispatch({ type: reducerCases.SET_USER, userInfo });
     };
@@ -227,7 +230,9 @@ const ProfileInfo = () => {
           
           <div class="trial" align="left" style={{ color: 'white', paddingLeft: '30px' }}>
             <h3>hello, {userInfo ? userInfo.name : null}</h3>
+            <h6>@{userInfo ? userInfo.userId : null}</h6>
             <h6>{userInfo ? userInfo.email : null}</h6>
+            <h6>spotify followers: {userInfo ? userInfo.followers.total : null}</h6>
           </div>
         </div>
       </div>
