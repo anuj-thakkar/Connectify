@@ -128,64 +128,69 @@ const ProfileInfo = () => {
     <>
       <div class="grid-container">
           <div class="itemnav">
-          <nav class="navbar navbar-expand-lg navbar-dark bg-black">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img src={logo} alt="" padding-left="10" height="60" class="d-inline-block align-text-top"></img></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-              <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href={`/home#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdHomeFilled/> Home</a>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#"><img src={logo} alt="" padding-left="10" height="60" class="d-inline-block align-text-top"></img></a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                  <a class="nav-link active" aria-current="page" href={`/home#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdHomeFilled/> Home</a>
 
 
-                <a class="nav-link active" aria-current="page" onClick={Settings} href={`/home/settings#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdBuild/> Settings</a> 
+                  <a class="nav-link active" aria-current="page" onClick={Settings} href={`/home/settings#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdBuild/> Settings</a> 
 
-                <a class="nav-link active" aria-current="page" href={`../profile#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdAccountCircle/> Profile</a>
+                  <a class="nav-link active" aria-current="page" href={`../profile#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdAccountCircle/> Profile</a>
 
-                <a class="nav-link active" aria-current="page" onClick={signOut} href="/#"><MdCompareArrows/> Sign out</a>
-                
-                <a class="nav-link active" aria-current="page"><MdSearch/></a>
+                  <a class="nav-link active" aria-current="page" onClick={signOut} href="/#"><MdCompareArrows/> Sign out</a>
+                  
+                  <a class="nav-link active" aria-current="page"><MdSearch/></a>
+                </div>
               </div>
             </div>
+            </nav>
+        </div>
+        <div class="itemright">
+        <div class="unfollow-playlist">
+            Unfollow Playlist?
+          <button type="button" onClick={() => unfollowButton()} className="btn btn-outline-success">
+            Yes
+          </button>
+          <button type="button" onClick={() => cancelUnfollowButton()} className="btn btn-outline-success">
+            Cancel
+          </button>
           </div>
-          </nav>
+          <div className = "new-playlist">
+          <form>
+            Create New Playlist
+            <input  type="search" placeholder="Playlist Name" onChange={({target}) => setPlaylistName(target.value)} aria-label="searchbar"></input>
+            <button type="button" onClick={() => createPlaylist()} className="btn btn-outline-success">Create</button>
+          </form>
+          </div>
+          <br></br>
+          <h2 className="Current-Playlist-Header">
+          Current Playlists
+          </h2>
+
+          <Container>
+            <ul>
+            {playlists.map(({ name, id }) => {
+              return (
+              <li key={id} onClick={() => unfollowPlaylist(id)}>
+                {name}
+              </li>
+              );
+            })}
+          </ul>
+          </Container>
         </div>
         <div class="itemrest">
-        <div class="unfollow-playlist">
-          Unfollow Playlist?
-        <button type="button" onClick={() => unfollowButton()} className="btn btn-outline-success">
-           Yes
-        </button>
-        <button type="button" onClick={() => cancelUnfollowButton()} className="btn btn-outline-success">
-          Cancel
-        </button>
+          
         </div>
-        <div className = "new-playlist">
-        <form>
-          Create New Playlist
-          <input  type="search" placeholder="Playlist Name" onChange={({target}) => setPlaylistName(target.value)} aria-label="searchbar"></input>
-          <button type="button" onClick={() => createPlaylist()} className="btn btn-outline-success">Create</button>
-        </form>
+              
         </div>
-        <br></br>
-        <h2 className="Current-Playlist-Header">
-        Current Playlists
-        </h2>
-
-        <Container>
-          <ul>
-          {playlists.map(({ name, id }) => {
-            return (
-            <li key={id} onClick={() => unfollowPlaylist(id)}>
-              {name}
-            </li>
-            );
-           })}
-        </ul>
-        </Container>
-        </div>
-        </div>         
+           
     </>
   );
 };

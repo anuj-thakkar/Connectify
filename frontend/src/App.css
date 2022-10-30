@@ -59,11 +59,15 @@
 }
 
 .itemrest {
-  grid-area: 2 / 1 / span 68 / span 5;
+  grid-area: 2 / 1 / span 68 / span 2;
   color:white;
 
 }
 
+.itemright {
+	grid-area: 2 / 3 / span 68 / span 3;										
+    
+}
 .button1 {
   border: solid;
   background: white;
