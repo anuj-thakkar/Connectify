@@ -3,7 +3,7 @@ import { useState } from "react";
 import fire from "../fire.js";
 import logo from "./logo.jpg";
 import Settings from "./Settings";
-import { MdHomeFilled, MdBuild, MdAccountCircle, MdSearch, MdCompareArrows} from "react-icons/md";
+import { MdHomeFilled, MdBuild, MdAccountCircle, MdSearch, MdCompareArrows } from "react-icons/md";
 import "../App.css";
 import axios from "axios";
 import styled from "styled-components";
@@ -19,7 +19,7 @@ const ProfileInfo = () => {
   const fileOnChange = (e) => {
     console.log(e.target.files[0]);
   };
-  const [{ token, playlists, userInfo}, dispatch] = useStateProvider();
+  const [{ token, playlists, userInfo }, dispatch] = useStateProvider();
 
   //Get Playlists from Spotify API
   useEffect(() => {
@@ -52,6 +52,7 @@ const ProfileInfo = () => {
       });
       const userInfo = {
         userId: data.id,
+        email: data.email,
         userUrl: data.external_urls.spotify,
         name: data.display_name,
         imagesUrl: data.images[0].url,
@@ -59,7 +60,7 @@ const ProfileInfo = () => {
       dispatch({ type: reducerCases.SET_USER, userInfo });
     };
     getUserInfo();
-  }, [dispatch, token]); 
+  }, [dispatch, token]);
 
   const signOut = () => {
     fire.auth().signOut();
@@ -104,28 +105,28 @@ const ProfileInfo = () => {
     setUnfollow(false)
   }
 
-   const createPlaylist = async () => {
+  const createPlaylist = async () => {
     await axios.post(
       `https://api.spotify.com/v1/users/${userInfo.userId}/playlists`,
-       {
-          "name":playlistName,
-       },
-       {
+      {
+        "name": playlistName,
+      },
+      {
         headers: {
           Authorization: "Bearer " + token,
           "Content-Type": "application/json",
         },
       },
-    ); 
+    );
     window.location.reload(false);
     return;
-  } 
+  }
 
   return (
     <>
       <div class="grid-container">
-          <div class="itemnav">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+        <div class="itemnav">
+          <nav class="navbar navbar-expand-lg navbar-dark bg-black">
             <div class="container-fluid">
               <a class="navbar-brand" href="#"><img src={logo} alt="" padding-left="10" height="60" class="d-inline-block align-text-top"></img></a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -133,52 +134,52 @@ const ProfileInfo = () => {
               </button>
               <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                  <a class="nav-link active" aria-current="page" href={`/home#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdHomeFilled/> Home</a>
+                  <a class="nav-link active" aria-current="page" href={`/home#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdHomeFilled /> Home</a>
 
 
-                  <a class="nav-link active" aria-current="page" onClick={Settings} href={`/home/settings#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdBuild/> Settings</a> 
+                  <a class="nav-link active" aria-current="page" onClick={Settings} href={`/home/settings#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdBuild /> Settings</a>
 
-                  <a class="nav-link active" aria-current="page" href={`../profile#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdAccountCircle/> Profile</a>
+                  <a class="nav-link active" aria-current="page" href={`../profile#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdAccountCircle /> Profile</a>
 
-                  <a class="nav-link active" aria-current="page" onClick={signOut} href="/#"><MdCompareArrows/> Sign out</a>
-                  
+                  <a class="nav-link active" aria-current="page" onClick={signOut} href="/#"><MdCompareArrows /> Sign out</a>
+
                 </div>
               </div>
             </div>
-            </nav>
+          </nav>
         </div>
         <div class="itemright">
-        <div class="unfollow-playlist">
+          <div class="unfollow-playlist">
             Unfollow Playlist?
-          <button type="button" onClick={() => unfollowButton()} className="btn btn-outline-success">
-            Yes
-          </button>
-          <button type="button" onClick={() => cancelUnfollowButton()} className="btn btn-outline-success">
-            Cancel
-          </button>
+            <button type="button" onClick={() => unfollowButton()} className="btn btn-outline-success">
+              Yes
+            </button>
+            <button type="button" onClick={() => cancelUnfollowButton()} className="btn btn-outline-success">
+              Cancel
+            </button>
           </div>
-          <div className = "new-playlist">
-          <form>
-            Create New Playlist
-            <input  type="search" placeholder="Playlist Name" onChange={({target}) => setPlaylistName(target.value)} aria-label="searchbar"></input>
-            <button type="button" onClick={() => createPlaylist()} className="btn btn-outline-success">Create</button>
-          </form>
+          <div className="new-playlist">
+            <form>
+              Create New Playlist
+              <input type="search" placeholder="Playlist Name" onChange={({ target }) => setPlaylistName(target.value)} aria-label="searchbar"></input>
+              <button type="button" onClick={() => createPlaylist()} className="btn btn-outline-success">Create</button>
+            </form>
           </div>
           <br></br>
           <h2 className="Current-Playlist-Header">
-          Current Playlists
+            Current Playlists
           </h2>
 
           <div>
             <ul>
-            {playlists.map(({ name, id }) => {
-              return (
-              <li key={id} onClick={() => unfollowPlaylist(id)}>
-                {name}
-              </li>
-              );
-            })}
-          </ul>
+              {playlists.map(({ name, id }) => {
+                return (
+                  <li key={id} onClick={() => unfollowPlaylist(id)}>
+                    {name}
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         </div>
         <div class="itemrest">
@@ -189,40 +190,48 @@ const ProfileInfo = () => {
               justifyContent: "center"
             }}
           >
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleImageUpload}
-          ref={imageUploader}
-          style={{
-            display: "none"
-          }}
-        />
-        <div
-          style={{
-            color: "white",
-            paddingTop: "5px",
-            height: "60px",
-            width: "60px",
-            border: "1px dashed black"
-          }}
-          onClick={() => imageUploader.current.click()}
-        >
-        <img
-          src={userInfo? userInfo.imagesUrl : null}
-          ref={uploadedImage}
-          style={{
-            paddingTop: "5px",
-            width: "150px",
-            height: "150px",
-            position: "absolute"
-          }}
-        />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              ref={imageUploader}
+              style={{
+                display: "none"
+              }}
+            />
+            <div
+              style={{
+                color: "white",
+                paddingTop: "5px",
+                height: "60px",
+                width: "60px",
+              }}
+              onClick={() => imageUploader.current.click()}
+            >
+              <img
+                src={userInfo ? userInfo.imagesUrl : null}
+                ref={uploadedImage}
+                style={{
+                  paddingTop: "5px",
+                  width: "150px",
+                  height: "150px",
+                  position: "absolute"
+                }}
+              />
+            </div>
+          </div>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          
+          <div class="trial" align="left" style={{ color: 'white', paddingLeft: '30px' }}>
+            <h3>hello, {userInfo ? userInfo.name : null}</h3>
+            <h6>{userInfo ? userInfo.email : null}</h6>
+          </div>
+        </div>
       </div>
-    </div>
-        </div>
-        </div>
-           
+
     </>
   );
 };
