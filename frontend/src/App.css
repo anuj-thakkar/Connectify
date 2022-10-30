@@ -18,7 +18,10 @@
 }
 
 .login-error {
+  text-align: center;
   color: red;
+  background-color: rgb(255, 161, 161);
+  border-radius: 15px;
 }
 .item1 {
   grid-area: 12 / 2 / span 58 / span 3;
@@ -57,6 +60,8 @@
 
 .itemrest {
   grid-area: 2 / 1 / span 68 / span 5;
+  color:white;
+
 }
 
 .button1 {
@@ -86,6 +91,7 @@
   width: 35px;
   height: 35px;
 }
+
 
 .App {
   padding-top: 50px;
@@ -200,14 +206,13 @@ label {
   background-color: rgb(6, 223, 17);
 }
 
-.settingsLogo {
-  display: inline-block;
-  padding-right: 30px;
-}
-
 .parentSett {
   margin-top: 50px;
   justify-content: center;
   display: flex;
   flex-direction: row;
+}
+
+.delete {
+  margin-top: 500px;
 }

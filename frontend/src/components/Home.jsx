@@ -20,7 +20,7 @@ const Home = () => {
   const [{ token, userInfo, currentPlaying, playerState }, dispatch] = useStateProvider();
   const [search, setSearch] = useState();
   const navigate = useNavigate();
-  
+  //Get User Info from Spotify API
   useEffect(() => {
     const getUserInfo = async () => {
       const { data } = await axios.get("https://api.spotify.com/v1/me", {
@@ -43,7 +43,7 @@ const Home = () => {
     const signOut = () => {
         fire.auth().signOut();
       };
-    
+    //Get Current Track Playing from Spotify API
     useEffect(() => {
       const getCurrentTrack = async () => {
         try {
@@ -82,7 +82,8 @@ const Home = () => {
     return (
         <>
         <div class="grid-container">
-          <div class="item1">Feed</div>
+          <div class="item1">Feed
+          </div>
           <div class="item2">
           <nav class="navbar navbar-expand-lg navbar-dark bg-black">
           <div class="container-fluid">
@@ -92,12 +93,12 @@ const Home = () => {
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="/home"><MdHomeFilled/> Home</a>
+                <a class="nav-link active" aria-current="page" href={`/home#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdHomeFilled/> Home</a>
 
 
-                <a class="nav-link active" aria-current="page" onClick={Settings} href="/home/settings"><MdBuild/> Settings</a> 
+                <a class="nav-link active" aria-current="page" onClick={Settings} href={`/home/settings#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdBuild/> Settings</a> 
 
-                <a class="nav-link active" aria-current="page" href="../profile"><MdAccountCircle/> Profile</a>
+                <a class="nav-link active" aria-current="page" href={`../profile#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdAccountCircle/> Profile</a>
 
                 <a class="nav-link active" aria-current="page" onClick={signOut} href="/#"><MdCompareArrows/> Sign out</a>
                 

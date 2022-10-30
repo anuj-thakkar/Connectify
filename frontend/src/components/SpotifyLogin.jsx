@@ -16,6 +16,9 @@ export default function SpotifyLogin() {
       "user-read-currently-playing",
       "user-read-recently-played",
       "user-top-read",
+      "user-follow-modify",
+      "playlist-modify-public",
+      "playlist-modify-private",
     ];
     window.location.href = `${api_uri}?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scope.join(
       " "
