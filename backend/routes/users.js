@@ -35,17 +35,6 @@ userRouter.post('/', (req, res) => {
   return res.status(201).json(savedUser);
 });
 
-import { firestore } from "firebase-admin";
-import { getAuth, updateEmail } from "firebase/auth";
-const auth = getAuth();
-auth.updateEmail(auth.currentUser, "user@example.com").then(() => {
-  // Email updated!
-  // ...
-}).catch((error) => {
-  // An error occurred
-  // ...
-});
-
 userRouter.post('/updateEmail', async (req, res) => {
   var params = req.body;
   User.findOne({'email':params.email}, function(err,existingUser) {
