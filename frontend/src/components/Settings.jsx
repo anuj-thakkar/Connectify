@@ -21,7 +21,7 @@ const Settings = () => {
 
   let settings = {
     'mysettings.general.name': 'Demo User',
-    'mysettings.general.email': 'sdparikh@purdue.edu',
+    'mysettings.general.email': localStorage.getItem('email'),
     'mysettings.general.bio': 'livin life',
   };
 
@@ -33,11 +33,7 @@ const Settings = () => {
     if (document.getElementById('newPass').value != document.getElementById('confirmNewPass').value) {
       setConfirmPassError("Passwords do not match!");
     } else {
-      fire.auth().currentUser.updatePassword(document.getElementById('newPass').value).then(function () {
-        setConfirmPassError("Password successfully changed!");
-      }).catch(function (error) {
-        setConfirmPassError(error.message);
-      });
+      setConfirmPassError("");
     }
   }
 
@@ -62,10 +58,22 @@ const Settings = () => {
       console.log(error.message);
     }
     );
-
+  }
   }
 
-  
+  function updateInfo(e) {
+    e.preventDefault();
+    if (document.getElementById('newPass').value == document.getElementById('confirmNewPass').value) {
+      if (document.getElementById('newPass').value != localStorage.getItem('password')) {
+        fire.auth().currentUser.updatePassword(document.getElementById('newPass').value).then(function () {
+          setConfirmPassError("Password successfully changed!");
+        }).catch(function (error) {
+          setConfirmPassError(error.message);
+        });
+      } else {
+        setConfirmPassError("New password cannot be the same as old");
+      }
+    }
   }
 
 
@@ -133,7 +141,7 @@ const Settings = () => {
               <input type="text" onKeyUp={comparePasswords} onKeyDown={checkRequirements} className="form-control" name="mysettings.general.confirmPassword" placeholder="Re-enter new password" id="confirmNewPass" />
             </fieldset>
 
-            <p style={{ color: "red" }} >
+            <p style={{ color: "red"}} >
               {isError} </p>
             <p style={{ color: "red" }} >
               {requirements} </p>
@@ -142,7 +150,7 @@ const Settings = () => {
 
               <Link to="/home" className="btn btn-dark">Cancel</Link>
               &nbsp;
-              <Link to="/home" className="btn btn-success">Save</Link>
+              <button to="/home" className="btn btn-success" onClick={(e) => {updateInfo(e)}}>Save</button>
             </div>
 
             &nbsp;

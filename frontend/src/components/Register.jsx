@@ -41,14 +41,12 @@ const Register = () => {
 
     const handleRegister = (e) => {
         e.preventDefault();
-        if (email && password && confirmPassword && username && name) {
-           registerUser(username, name, email, password);
-        }
         if (email && password && confirmPassword) {
           fire.auth().createUserWithEmailAndPassword(email, password)
             .then(() => {
               try {
                 fire.auth().currentUser.sendEmailVerification();
+                registerUser(username, name, email, password);
                 console.log("Verification Sent");
                 navigate('/home');
               } catch (error) {
