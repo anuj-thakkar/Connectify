@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import fire from "../fire.js";
 import logo from "./logo.jpg";
 import Settings from "./Settings";
@@ -15,11 +16,12 @@ const ProfileInfo = () => {
   const [unfollow, setUnfollow] = useState(false);
   const [playlistName, setPlaylistName] = useState("")
   const [active, setActive] = useState('Cancel')
+  let navigate = useNavigate();
 
   const fileOnChange = (e) => {
     console.log(e.target.files[0]);
   };
-  const [{ token, playlists, userInfo }, dispatch] = useStateProvider();
+  const [{ token, playlists, userInfo, selectedPlaylist, selectedPlaylistId }, dispatch] = useStateProvider();
 
   //Get Playlists from Spotify API
   useEffect(() => {
@@ -85,10 +87,10 @@ const ProfileInfo = () => {
     }
   };
 
-  const unfollowPlaylist = async (id) => {
+  const unfollowPlaylist = async (selectedPlaylistId) => {
     if (unfollow) {
       await axios.delete(
-        `https://api.spotify.com/v1/playlists/${id}/followers`,
+        `https://api.spotify.com/v1/playlists/${selectedPlaylistId}/followers`,
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -98,6 +100,10 @@ const ProfileInfo = () => {
       );
       window.location.reload(false);
     }
+    else {
+      //dispatch({ type: reducerCases.SET_PLAYLIST_ID, selectedPlaylistId });
+      navigate(`/playlist#access_token=${token}&token_type=Bearer&expires_in=3600`)
+    } 
   };
 
   const unfollowButton = () => {
@@ -172,7 +178,6 @@ const ProfileInfo = () => {
           <h2 className="Current-Playlist-Header">
             Current Playlists
           </h2>
-
           <div>
             <ul>
               {playlists.map(({ name, id }) => {

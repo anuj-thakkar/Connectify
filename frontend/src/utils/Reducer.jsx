@@ -52,7 +52,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         selectedPlaylistImage: action.selectedPlaylistImage,
-      }
+      };
     default:
       return state;
   }

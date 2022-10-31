@@ -17,6 +17,7 @@ import SpotifyLogin from "./components/SpotifyLogin";
 import { reducerCases } from "./utils/Constants";
 import { useStateProvider } from "./utils/StateProvider";
 import ListSearchResults from "./components/ListSearchResults";
+import Playlist from "./components/Playlist";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -65,6 +66,7 @@ function App() {
                   <Route path='/home/settings' element={<Settings/>}/>
                   <Route path='/search' element={<Search/>}/>
                   <Route path={`/profile`} element={<ProfileInfo/>}/>
+                  <Route path={`/playlist`} element={<Playlist/>}/>
                 </Routes>
               </>
             ) 
