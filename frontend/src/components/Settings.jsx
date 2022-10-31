@@ -127,7 +127,7 @@ const Settings = () => {
 
             <fieldset className="form-group">
               <label for="profilePassword" style={{ color: 'white' }}>New Password: </label>
-              <input type="text" onKeyUp={checkRequirements} onKeyDown={comparePasswords} className="form-control" name="mysettings.general.password" placeholder="Enter new password" id="newPass" />
+              <input type="text" onKeyUp={checkRequirements} onKeyDown={comparePasswords} className="form-control" name="mysettings.general.password" placeholder="Enter new password" id="newPass" data-testid="newPass" />
             </fieldset>
 
             <label style={{ color: 'white', padding: '20px' }}>Password Requirements</label>

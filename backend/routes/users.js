@@ -2,6 +2,9 @@ const userRouter = require('express').Router();
 const { express } = require('express');
 // const { useParams } = require('react-router-dom');
 const User = require('../models/user')
+// const userService = require(
+//   '../Services/userServices.js'
+// );
 
 /*
 * This gets all users from the database

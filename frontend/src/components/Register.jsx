@@ -27,7 +27,7 @@ const Register = () => {
       }
      }
 
-     function checkRequirements() {
+    function checkRequirements() {
       var regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
 
       if (!regex.test(document.getElementById('pass').value)) {
@@ -35,9 +35,7 @@ const Register = () => {
       } else {
         setRequirements("");
       }
-
-     }
-
+    }
 
     const handleRegister = (e) => {
         e.preventDefault();
@@ -67,7 +65,6 @@ const Register = () => {
           alert("Please fill in all fields");
         }
     }
-
     
     const checkValidation = (e) => {
       if (password !== confirmPassword) {
