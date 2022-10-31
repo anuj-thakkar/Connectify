@@ -84,7 +84,13 @@ const ProfileInfo = () => {
       reader.readAsDataURL(file);
     }
   };
-
+  const [bio, setBio] = useState("");
+    const [istrue, Setistrue] = useState(false);
+    
+    function handleclick(){
+       Setistrue(true);
+    };
+    
   const unfollowPlaylist = async (id) => {
     if (unfollow) {
       await axios.delete(
@@ -218,6 +224,8 @@ const ProfileInfo = () => {
                   paddingTop: "5px",
                   width: "150px",
                   height: "150px",
+                  borderRadius: 30,
+                  overflow: 'hidden',
                   position: "absolute"
                 }}
               />
@@ -228,11 +236,22 @@ const ProfileInfo = () => {
           <br></br>
           <br></br>
           
-          <div class="trial" align="left" style={{ color: 'white', paddingLeft: '30px' }}>
+          <div class="trial" align="left" style={{ color: 'white', paddingLeft: '30px', paddingRight: '30px'}}>
             <h3>hello, {userInfo ? userInfo.name : null}</h3>
             <h6>@{userInfo ? userInfo.userId : null}</h6>
             <h6>{userInfo ? userInfo.email : null}</h6>
             <h6>spotify followers: {userInfo ? userInfo.followers.total : null}</h6>
+            <hr></hr>
+        <div>
+            {istrue ? <div><h6>{bio}</h6> </div> : 
+            <div>
+              <fieldset class="d-flex justify-content-start">
+                <input type="text" placeholder="change bio" bio="bio" onChange={e =>setBio(e.target.value)}/>
+                &nbsp;
+               <button class="btn btn-success"  type="submit" onClick={handleclick}>submit</button>
+              </fieldset>
+            </div>}
+        </div>
           </div>
         </div>
       </div>
