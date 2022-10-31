@@ -48,6 +48,10 @@ const Register = () => {
                 fire.auth().currentUser.sendEmailVerification();
                 registerUser(username, name, email, password);
                 console.log("Verification Sent");
+                localStorage.setItem('email', email);
+                localStorage.setItem('password', password);
+                localStorage.setItem('name', name);
+                localStorage.setItem('username', username);
                 navigate('/home');
               } catch (error) {
                 console.log(error);
