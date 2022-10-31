@@ -42,7 +42,7 @@ const ProfileInfo = () => {
     getPlaylistData();
   }, [token, dispatch]);
 
-   
+
   ///Get user info from Spotify
   useEffect(() => {
     const getUserInfo = async () => {
@@ -85,12 +85,12 @@ const ProfileInfo = () => {
     }
   };
   const [bio, setBio] = useState("");
-    const [istrue, Setistrue] = useState(false);
-    
-    function handleclick(){
-       Setistrue(true);
-    };
-    
+  const [istrue, Setistrue] = useState(false);
+
+  function handleclick() {
+    Setistrue(true);
+  };
+
   const unfollowPlaylist = async (id) => {
     if (unfollow) {
       await axios.delete(
@@ -158,28 +158,24 @@ const ProfileInfo = () => {
           </nav>
         </div>
         <div class="itemright">
-          <div class="unfollow-playlist">
+          <div class="trial" align="left" style={{ color: 'white', paddingTop: '5px', paddingLeft: '30px', paddingRight: '30px' }}>
             Unfollow Playlist?
+            &nbsp;
             <button type="button" onClick={() => unfollowButton()} className="btn btn-outline-success">
               Yes
             </button>
+            &nbsp;
             <button type="button" onClick={() => cancelUnfollowButton()} className="btn btn-outline-success">
               Cancel
             </button>
+            <hr></hr>
           </div>
-          <div className="new-playlist">
-            <form>
-              Create New Playlist
-              <input type="search" placeholder="Playlist Name" onChange={({ target }) => setPlaylistName(target.value)} aria-label="searchbar"></input>
-              <button type="button" onClick={() => createPlaylist()} className="btn btn-outline-success">Create</button>
-            </form>
-          </div>
-          <br></br>
-          <h2 className="Current-Playlist-Header">
+          
+          <h5 class="trial" align="left" style={{ color: 'white', paddingLeft: '30px', paddingRight: '30px' }}>
             Current Playlists
-          </h2>
+          </h5>
 
-          <div>
+          <div class="trial" align="left" style={{ color: 'white', paddingLeft: '30px', paddingRight: '30px' }}>
             <ul>
               {playlists.map(({ name, id }) => {
                 return (
@@ -235,23 +231,33 @@ const ProfileInfo = () => {
           <br></br>
           <br></br>
           <br></br>
-          
-          <div class="trial" align="left" style={{ color: 'white', paddingLeft: '30px', paddingRight: '30px'}}>
+
+          <div class="trial" align="left" style={{ color: 'white', paddingLeft: '30px', paddingRight: '30px' }}>
             <h3>hello, {userInfo ? userInfo.name : null}</h3>
             <h6>@{userInfo ? userInfo.userId : null}</h6>
             <h6>{userInfo ? userInfo.email : null}</h6>
             <h6>spotify followers: {userInfo ? userInfo.followers.total : null}</h6>
             <hr></hr>
-        <div>
-            {istrue ? <div><h6>{bio}</h6> </div> : 
             <div>
-              <fieldset class="d-flex justify-content-start">
-                <input type="text" placeholder="change bio" bio="bio" onChange={e =>setBio(e.target.value)}/>
-                &nbsp;
-               <button class="btn btn-success"  type="submit" onClick={handleclick}>submit</button>
-              </fieldset>
-            </div>}
-        </div>
+              {istrue ? <div><h6>{bio}</h6> </div> :
+                <div>
+                  <fieldset class="d-flex justify-content-start">
+                    <input type="text" placeholder="change bio" bio="bio" onChange={e => setBio(e.target.value)} />
+                    &nbsp;
+                    <button class="btn btn-outline-success" type="submit" onClick={handleclick}>submit</button>
+                  </fieldset>
+                </div>
+              }
+                <hr></hr>
+            </div>
+            
+            <div>
+            <fieldset class="d-flex justify-content-start">
+              <input type="text" placeholder="new playlist name" onChange={({ target }) => setPlaylistName(target.value)} aria-label="searchbar"></input>
+              &nbsp;
+              <button type="button" onClick={() => createPlaylist()} className="btn btn-outline-success">create</button>
+            </fieldset>
+          </div>
           </div>
         </div>
       </div>
