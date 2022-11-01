@@ -18,6 +18,7 @@ import CurrentTrack from './CurrentTrack';
 
 const Home = () => {
   const [{ token, userInfo, currentPlaying, playerState }, dispatch] = useStateProvider();
+  const searchModal = useRef(null)
   const [search, setSearch] = useState();
   const navigate = useNavigate();
   //Get User Info from Spotify API
@@ -78,6 +79,22 @@ const Home = () => {
       console.log(currentPlaying.name)
     } 
 
+    const fetchUsers = (query)=>{
+      setSearch(query)
+      fetch('/search-users',{
+        method:"post",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+          query
+        })
+      }).then(res=>res.json())
+      .then(results=>{
+        setUserDetails(results.user)
+      })
+   }
+
 
     return (
         <>
@@ -104,7 +121,17 @@ const Home = () => {
                 
                 <a class="nav-link active" aria-current="page"><MdSearch/></a>
                 <form class="d-flex justify-content-end">
-                <input class="form-control me-2" type="search" placeholder="Find Connections..." aria-label="searchbar"></input>
+                <input 
+                  class="form-control me-2" 
+                  type="search" placeholder="Find Connections..."  
+                  value = {search}
+                  onChange={(e)=>fetchUsers(e.target.value)}
+                  aria-label="searchbar">
+
+                  
+
+
+                </input>
                 </form>
                 <button class="btn btn-outline-success" type="submit"> Search </button>
     

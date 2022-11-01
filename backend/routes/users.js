@@ -19,9 +19,16 @@ userRouter.get('/', async (req, res) => {
  * This gets a user from search bar
  */
 userRouter.get('/search', async(req, res) => {
-  // return req;
-  // const auth = req.currentUser;
-  // if (auth) {
+    let userPattern = new RegExp("^" + req.body.query);
+    User.find({email: {$regex: userPattern}})
+    .select("username email")
+    .then(user => {
+      res.json({user})
+    })
+    .catch(err => {
+      console.log(err);
+    })
+
     console.log(req.username);
     const users = await User.find({username:req.username});
     return res.json(users.map((users) => users.toJSON()));
@@ -106,6 +113,29 @@ userRouter.post('/updateProfilePicture', upload.single("avatar"), async (req, re
   res.send("200")
 
 });
+
+// endpoint to update username
+// username should not change given that it exists in database
+userRouter.post('/updateUsername', async (req, res) => {
+  var params = req.body;
+ 
+  User.findOne({'username':params.username}, function(err,user) {
+    if (err) {
+      console.log(err);
+      return res.status(400).send('Error updating username');
+    } 
+    if (user) {
+      return res.status(400).send('Username already exists');
+    } else {
+      user.username = params.username;
+      User.updateOne({"username":params.username},params, function(err, user) {
+        if (err) return next(err);
+        return res.status(200).send('Username updated Successfully.');
+      });
+    }
+  });
+});
+
 
 //follow a user
 userRouter.put("/:username/follow", async (req, res) => {
