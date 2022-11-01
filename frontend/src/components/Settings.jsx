@@ -83,24 +83,29 @@ const Settings = () => {
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
-
+                &nbsp;
+                &nbsp;
+                &nbsp;
                 <a class="nav-link active" aria-current="page" href={`/home#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdHomeFilled/> Home</a>
 
-
+                &nbsp;
+                &nbsp;
+                &nbsp;
                 <a class="nav-link active" aria-current="page" onClick={Settings} href="/home/settings"><MdBuild /> Settings</a>
-
+                &nbsp;
+                &nbsp;
+                &nbsp;
                 <a class="nav-link active" aria-current="page" href={`../profile#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdAccountCircle/> Profile</a>
-
+                &nbsp;
+                &nbsp;
+                &nbsp;
                 <a class="nav-link active" aria-current="page" onClick={signOut} href="/#"><MdCompareArrows /> Sign out</a>
-
-
-                <a class="nav-link active" aria-current="page"><MdSearch /></a>
               </div>
             </div>
           </div>
         </nav>
       </div>
-      <div class="itemrest">
+      <div class="itemleft">
         <form>
           <div className='settingsForm' align="left">
             <fieldset className="form-group">
@@ -142,21 +147,22 @@ const Settings = () => {
               {requirements} </p>
 
             <div class="form-group">
-
-              <Link to="/home" className="btn btn-dark">Cancel</Link>
+              <Link to="/home" className="btn btn-outline-success">Save</Link>
               &nbsp;
-              <Link to="/home" className="btn btn-success">Save</Link>
+              <Link to="/home" className="btn btn-outline-danger">Cancel</Link>
+              &nbsp;
+              <button className="btn btn-danger" id="delete" onClick={deleteSignedUser}>Delete Account</button>
+              
+
             </div>
 
-            &nbsp;
-            &nbsp;
-            &nbsp;
-            <Button className="btn btn-danger" id="delete" onClick={deleteSignedUser}>Delete Account</Button>
-
+            
           </div>
         </form>
       </div>
+      
     </div>
+    
 
     //rama old code below:
     /*

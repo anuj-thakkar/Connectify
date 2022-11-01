@@ -55,14 +55,25 @@
 }
 
 .itemnav {
-  grid-area: 1 / 1 / span 1 / span 5;
+  grid-area: 1 / 1 / span 1 / span 6;
 }
 
 .itemrest {
-  grid-area: 2 / 1 / span 68 / span 5;
+  grid-area: 2 / 1 / span 65 / span 1;
   color:white;
-
 }
+
+.itemleft {
+  grid-area: 2 / 1 / span 65 / span 6;
+  color:white;
+}
+
+.itemright {
+	grid-area: 2 / 2 / span 65 / span 5;										
+  color: white;
+}
+
+
 
 .button1 {
   border: solid;
