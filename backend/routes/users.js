@@ -108,7 +108,7 @@ userRouter.post('/updateProfilePicture', upload.single("avatar"), async (req, re
 });
 
 //follow a user
-router.put("/:username/follow", async (req, res) => {
+userRouter.put("/:username/follow", async (req, res) => {
   if (req.body.username !== req.params.username) {
     try {
       const user = await User.findById(req.params.username);
@@ -129,7 +129,7 @@ router.put("/:username/follow", async (req, res) => {
 });
 
 //unfollow a user
-router.put("/:username/unfollow", async (req, res) => {
+userRouter.put("/:username/unfollow", async (req, res) => {
     if (req.body.username !== req.params.username) {
       try {
         const user = await User.findById(req.params.id);
