@@ -84,41 +84,6 @@ const Home = () => {
     console.log(currentPlaying.name);
   }
 
-  const events = [
-    "load",
-    "mousemove",
-    "mousedown",
-    "click",
-    "scroll",
-    "keypress",
-  ];
-
-  let timer;
-
-  const handleLogoutTimer = () => {
-    timer = setTimeout(() => {
-      resetTimer();
-      Object.values(events).forEach((item) => {
-        window.removeEventListener(item, resetTimer);
-      });
-      signOut();
-      navigate("/");
-    }, 5000);
-  };
-
-  const resetTimer = () => {
-    if (timer) clearTimeout(timer);
-  };
-
-  useEffect(() => {
-    Object.values(events).forEach((item) => {
-      window.addEventListener(item, () => {
-        resetTimer();
-        handleLogoutTimer();
-      });
-    });
-  }, []);
-
   return (
     <>
       <div class="grid-container">

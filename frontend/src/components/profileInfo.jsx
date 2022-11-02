@@ -4,9 +4,17 @@ import fire from "../fire.js";
 import logo from "./logo.jpg";
 import { NavLink, Link } from "react-router-dom";
 import Settings from "./Settings";
-import { MdHomeFilled, MdBuild, MdAccountCircle, MdSearch, MdCompareArrows} from "react-icons/md";
+import {
+  MdHomeFilled,
+  MdBuild,
+  MdAccountCircle,
+  MdSearch,
+  MdCompareArrows,
+} from "react-icons/md";
 import "../App.css";
 import axios from "axios";
+import { useStreak } from "use-streak";
+import Streak from "./Streak";
 
 const ProfileInfo = () => {
   const [image, setState] = useState({});
@@ -39,33 +47,73 @@ const ProfileInfo = () => {
   return (
     <>
       <div class="grid-container">
-          <div class="itemnav">
+        <div class="itemnav">
           <nav class="navbar navbar-expand-lg navbar-dark bg-black">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img src={logo} alt="" padding-left="10" height="60" class="d-inline-block align-text-top"></img></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-              <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="/home"><MdHomeFilled/> Home</a>
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">
+                <img
+                  src={logo}
+                  alt=""
+                  padding-left="10"
+                  height="60"
+                  class="d-inline-block align-text-top"
+                ></img>
+              </a>
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                  <a class="nav-link active" aria-current="page" href="/home">
+                    <MdHomeFilled /> Home
+                  </a>
 
+                  <a
+                    class="nav-link active"
+                    aria-current="page"
+                    onClick={Settings}
+                    href="/home/settings"
+                  >
+                    <MdBuild /> Settings
+                  </a>
 
-                <a class="nav-link active" aria-current="page" onClick={Settings} href="/home/settings"><MdBuild/> Settings</a> 
+                  <a
+                    class="nav-link active"
+                    aria-current="page"
+                    href="../profile"
+                  >
+                    <MdAccountCircle /> Profile
+                  </a>
 
-                <a class="nav-link active" aria-current="page" href="../profile"><MdAccountCircle/> Profile</a>
+                  <a
+                    class="nav-link active"
+                    aria-current="page"
+                    onClick={signOut}
+                    href="/#"
+                  >
+                    <MdCompareArrows /> Sign out
+                  </a>
 
-                <a class="nav-link active" aria-current="page" onClick={signOut} href="/#"><MdCompareArrows/> Sign out</a>
-                
-                <a class="nav-link active" aria-current="page"><MdSearch/></a>
+                  <a class="nav-link active" aria-current="page">
+                    <MdSearch />
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
           </nav>
         </div>
-        <div class="itemrest"></div>
-        
-        </div>          
+        <div class="itemrest loginStreak">
+          <Streak streak={useStreak(localStorage, new Date())} />
+        </div>
+      </div>
     </>
   );
 };

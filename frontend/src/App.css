@@ -214,3 +214,7 @@ label {
   display: flex;
   flex-direction: row;
 }
+
+.loginStreak {
+  color: aliceblue;
+}
