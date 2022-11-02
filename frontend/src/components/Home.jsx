@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import logo from '../static/logo.jpg';
 import fire from '../fire.js';
 import Settings from './Settings';
@@ -9,6 +9,7 @@ import axios from 'axios';
 import styled from "styled-components";
 import ListAllConnections from './ListAllConnections';
 import { useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import ListSearchResults from './ListSearchResults';
 import Volume from './Volume';
@@ -18,6 +19,7 @@ import CurrentTrack from './CurrentTrack';
 
 const Home = () => {
   const [{ token, userInfo, currentPlaying, playerState }, dispatch] = useStateProvider();
+  const [setUserDetails] = useState();
   const searchModal = useRef(null)
   const [search, setSearch] = useState();
   const navigate = useNavigate();
