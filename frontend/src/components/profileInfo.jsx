@@ -12,16 +12,16 @@ import { useStateProvider } from "../utils/StateProvider";
 import { reducerCases } from "../utils/Constants";
 
 const ProfileInfo = () => {
+  const [{ token, playlists, userInfo}, dispatch] = useStateProvider();
+  var [playlistId] = useState("4VeOV08x3iNXrERRLt8SJl")
   const [image, setState] = useState({});
   const [unfollow, setUnfollow] = useState(false);
   const [playlistName, setPlaylistName] = useState("")
-  const [active, setActive] = useState('Cancel')
   let navigate = useNavigate();
 
   const fileOnChange = (e) => {
     console.log(e.target.files[0]);
   };
-  const [{ token, playlists, userInfo, selectedPlaylist, selectedPlaylistId }, dispatch] = useStateProvider();
 
   //Get Playlists from Spotify API
   useEffect(() => {
@@ -44,7 +44,6 @@ const ProfileInfo = () => {
     getPlaylistData();
   }, [token, dispatch]);
 
-   
   ///Get user info from Spotify
   useEffect(() => {
     const getUserInfo = async () => {
@@ -103,7 +102,22 @@ const ProfileInfo = () => {
     else {
       //dispatch({ type: reducerCases.SET_PLAYLIST_ID, selectedPlaylistId });
       navigate(`/playlist#access_token=${token}&token_type=Bearer&expires_in=3600`)
-    } 
+    }
+  };
+
+  const viewPlaylist = (selectedPlaylistId) => {  
+    //dispatch({ type: reducerCases.SET_PLAYLIST_ID, selectedPlaylistId });
+    playlistId = selectedPlaylistId;
+    console.log(selectedPlaylistId)
+    console.log(playlistId)
+    navigate(`/playlist#access_token=${token}&token_type=Bearer&expires_in=3600`,
+      {
+        state: {
+          PlaylistId: selectedPlaylistId,
+        }
+      }      
+    )
+    
   };
 
   const unfollowButton = () => {
@@ -179,15 +193,17 @@ const ProfileInfo = () => {
             Current Playlists
           </h2>
           <div>
+            <Container>
             <ul>
               {playlists.map(({ name, id }) => {
                 return (
-                  <li key={id} onClick={() => unfollowPlaylist(id)}>
+                  <li key={id} onClick={() => viewPlaylist(id)}>
                     {name}
                   </li>
                 );
               })}
             </ul>
+            </Container>
           </div>
         </div>
         <div class="itemrest">
