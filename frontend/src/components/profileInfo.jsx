@@ -86,7 +86,7 @@ const ProfileInfo = () => {
     }
   };
 
-  const unfollowPlaylist = async (selectedPlaylistId) => {
+  const viewOrUnfollow = async (selectedPlaylistId) => {
     if (unfollow) {
       await axios.delete(
         `https://api.spotify.com/v1/playlists/${selectedPlaylistId}/followers`,
@@ -100,24 +100,16 @@ const ProfileInfo = () => {
       window.location.reload(false);
     }
     else {
-      //dispatch({ type: reducerCases.SET_PLAYLIST_ID, selectedPlaylistId });
-      navigate(`/playlist#access_token=${token}&token_type=Bearer&expires_in=3600`)
-    }
-  };
-
-  const viewPlaylist = (selectedPlaylistId) => {  
-    //dispatch({ type: reducerCases.SET_PLAYLIST_ID, selectedPlaylistId });
-    playlistId = selectedPlaylistId;
-    console.log(selectedPlaylistId)
-    console.log(playlistId)
-    navigate(`/playlist#access_token=${token}&token_type=Bearer&expires_in=3600`,
-      {
-        state: {
-          PlaylistId: selectedPlaylistId,
-        }
-      }      
-    )
-    
+      playlistId = selectedPlaylistId;
+      navigate(`/playlist#access_token=${token}&token_type=Bearer&expires_in=3600`,
+        {
+          state: {
+            PlaylistId: selectedPlaylistId,
+          }
+        }      
+      )
+      
+    };
   };
 
   const unfollowButton = () => {
@@ -197,7 +189,7 @@ const ProfileInfo = () => {
             <ul>
               {playlists.map(({ name, id }) => {
                 return (
-                  <li key={id} onClick={() => viewPlaylist(id)}>
+                  <li key={id} onClick={() => viewOrUnfollow(id)}>
                     {name}
                   </li>
                 );
