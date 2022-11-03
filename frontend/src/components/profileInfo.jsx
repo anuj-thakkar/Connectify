@@ -255,7 +255,7 @@ const ProfileInfo = () => {
               {istrue ? <div><h6>{bio}</h6> </div> :
                 <div>
                   <fieldset class="d-flex justify-content-start">
-                    <input type="text" placeholder="change bio" bio="bio" onChange={e => setBio(e.target.value)} />
+                    <input type="text" placeholder="status update song" bio="bio" onChange={e => setBio(e.target.value)} />
                     &nbsp;
                     <button class="btn btn-outline-success" type="submit" onClick={handleclick}>submit</button>
                   </fieldset>
