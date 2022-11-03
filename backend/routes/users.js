@@ -3,6 +3,7 @@ const { express } = require('express');
 // const { useParams } = require('react-router-dom');
 const User = require('../models/user')
 
+
 /*
 * This gets all users from the database
 */
@@ -136,6 +137,19 @@ userRouter.post('/updateUsername', async (req, res) => {
   });
 });
 
+userRouter.get('/users/:id', async function (req, res) {
+
+  try {
+    const user = await Users.findById(req.params.id)
+    res.json(user.toJSON()).status(200)
+    if (!user) {
+      return res.status(400).json({ msg: "requested user does not exist." });
+    }
+    res.json({ user });
+  } catch (err) {
+    return res.status(500).json({ msg: err.message });
+  }
+});
 
 //follow a user
 userRouter.put("/:username/follow", async (req, res) => {
