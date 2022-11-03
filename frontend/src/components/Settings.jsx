@@ -24,7 +24,6 @@ const Settings = () => {
   let settings = {
     'mysettings.general.name': 'Demo User',
     'mysettings.general.email': 'sdparikh@purdue.edu',
-    'mysettings.general.bio': 'livin life',
   };
 
   const signOut = () => {
@@ -110,11 +109,6 @@ const Settings = () => {
             <fieldset className="form-group">
               <label for="profileName" style={{ color: 'white' }}>Name: </label>
               <input type="text" className="form-control" name="mysettings.general.name" placeholder="Name" id="general.ame" defaultValue={settings['mysettings.general.name']} />
-            </fieldset>
-
-            <fieldset className="form-group">
-              <label for="profileBio" style={{ color: 'white' }}>Bio: </label>
-              <input type="text" className="form-control" name="mysettings.general.bio" placeholder="Bio" id="general.bio" defaultValue={settings['mysettings.general.bio']} />
             </fieldset>
 
             <fieldset className="form-group">
