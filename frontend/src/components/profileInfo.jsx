@@ -250,6 +250,7 @@ const ProfileInfo = () => {
             <h6>@{userInfo ? userInfo.userId : null}</h6>
             <h6>{userInfo ? userInfo.email : null}</h6>
             <h6>spotify followers: {userInfo ? userInfo.followers.total : null}</h6>
+            <h6>fav song of all time: BACKEND TEAM DISPLAY FAV SONG HERE</h6>
             <hr></hr>
             <div>
               {istrue ? <div><h6>{bio}</h6> </div> :
