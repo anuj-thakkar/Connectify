@@ -14,6 +14,7 @@ import ProfileInfo from "./components/profileInfo";
 import Search from "./components/Search";
 import Home from "./components/Home";
 import SpotifyLogin from "./components/SpotifyLogin";
+import UserProfile from "./components/UserProfile";
 import { reducerCases } from "./utils/Constants";
 import { useStateProvider } from "./utils/StateProvider";
 import ListSearchResults from "./components/ListSearchResults";
@@ -60,11 +61,12 @@ function App() {
             ? (
               <>
                 <Routes>
+                  <Route exact path="/profile/:userid" element={<UserProfile />} />
                   <Route path='/link' element={<SpotifyLogin/>}/>
                   <Route path={`/home`} element={<Home/>}/>
                   <Route path='/home/settings' element={<Settings/>}/>
                   <Route path='/search' element={<Search/>}/>
-                  <Route path={`/profile`} element={<ProfileInfo/>}/>
+                  <Route path={`/profile`} element={<ProfileInfo/>}/>                  
                 </Routes>
               </>
             ) 
