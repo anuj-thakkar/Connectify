@@ -24,7 +24,6 @@ const Settings = () => {
   let settings = {
     'mysettings.general.name': 'Demo User',
     'mysettings.general.email': 'sdparikh@purdue.edu',
-    'mysettings.general.bio': 'livin life',
   };
 
   const signOut = () => {
@@ -113,11 +112,6 @@ const Settings = () => {
             </fieldset>
 
             <fieldset className="form-group">
-              <label for="profileBio" style={{ color: 'white' }}>Bio: </label>
-              <input type="text" className="form-control" name="mysettings.general.bio" placeholder="Bio" id="general.bio" defaultValue={settings['mysettings.general.bio']} />
-            </fieldset>
-
-            <fieldset className="form-group">
               <label for="profileEmail" style={{ color: 'white' }}>Email Address: </label>
               <input type="text" className="form-control" name="mysettings.general.email" placeholder="Email Address" id="general.em" defaultValue={settings['mysettings.general.email']} />
             </fieldset>
@@ -127,25 +121,31 @@ const Settings = () => {
               <input type="text" onKeyUp={checkRequirements} onKeyDown={comparePasswords} className="form-control" name="mysettings.general.password" placeholder="Enter new password" id="newPass" />
             </fieldset>
 
-            <label style={{ color: 'white', padding: '20px' }}>Password Requirements</label>
+            <label style={{ color: 'white', paddingLeft: '20px' }}>Password Requirements</label>
             <ul style={{ color: 'white', fontSize: '15px' }}>
               <li>At least 8 characters</li>
               <li>At least 1 letter</li>
               <li>At least 1 number</li>
               <li>At least 1 special character</li>
             </ul>
-
+            <p style={{ color: "red" }} >
+              {isError} </p>
+            <p style={{ color: "red" }} >
+              {requirements} </p>
+              
             <fieldset className="form-group">
               <label for="profilePassword" style={{ color: 'white' }}>Confirm Password: </label>
               <input type="text" onKeyUp={comparePasswords} onKeyDown={checkRequirements} className="form-control" name="mysettings.general.confirmPassword" placeholder="Re-enter new password" id="confirmNewPass" />
             </fieldset>
 
-            <p style={{ color: "red" }} >
-              {isError} </p>
-            <p style={{ color: "red" }} >
-              {requirements} </p>
+            
 
-            <div class="form-group">
+            <fieldset className="form-group">
+              <label for="profileFavSong" style={{ color: 'white'}}>Fav Song of All Time: </label>
+              <input type="text" className="form-control" placeholder="Fav Song of All Time" id="profileSong" />
+            </fieldset>  
+
+            <div class="form-group" style={{paddingTop: "20px"}}>
               <Link to="/home" className="btn btn-outline-success">Save</Link>
               &nbsp;
               <Link to="/home" className="btn btn-outline-danger">Cancel</Link>

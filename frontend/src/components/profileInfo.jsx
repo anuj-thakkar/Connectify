@@ -325,12 +325,15 @@ const ProfileInfo = () => {
             <h3>hello, {userInfo ? userInfo.name : null}</h3>
             <h6>@{userInfo ? userInfo.userId : null}</h6>
             <h6>{userInfo ? userInfo.email : null}</h6>
+
             <h6>
               spotify followers: {userInfo ? userInfo.followers.total : null}
             </h6>
             <h6>
               <Streak streak={useStreak(localStorage, new Date())} />
-            </h6>
+            </h6>    
+            <h6>fav song of all time: BACKEND TEAM DISPLAY FAV SONG HERE</h6>
+
             <hr></hr>
             <div>
               {istrue ? (
@@ -340,12 +343,8 @@ const ProfileInfo = () => {
               ) : (
                 <div>
                   <fieldset class="d-flex justify-content-start">
-                    <input
-                      type="text"
-                      placeholder="change bio"
-                      bio="bio"
-                      onChange={(e) => setBio(e.target.value)}
-                    />
+
+                    <input type="text" placeholder="status update song" bio="bio" onChange={e => setBio(e.target.value)} />
                     &nbsp;
                     <button
                       class="btn btn-outline-success"
