@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Connections = require("./Connections");
 const {ObjectId} = mongoose.Schema.Types
 const userSchema = new mongoose.Schema({
 

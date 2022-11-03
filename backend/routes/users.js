@@ -137,51 +137,30 @@ userRouter.post('/updateUsername', async (req, res) => {
   });
 });
 
-  
-  /**
- * endpoint for getting a user by their id
- */
-userRouter.get('/users/:id', async function (req, res) {
-  let id = req.params.id;
-  let result = await userService.getUserById(id);
-  if (result instanceof Error) {
-    res.status(400).send(result.message);
-  } else {
-    res.status(200).send(result);
-  }
-});
-
-
 
 //follow a user
-userRouter.put('/follow/', async (req, res) => {
-
-  // if request of current user is not equal to the user to be followed
+userRouter.put("/:username/follow", async (req, res) => {
   if (req.body.username !== req.params.username) {
     try {
-      const user = await User.findOne({ username: req.params.username });
-      const currentUser = await User.findOne(req.body.username);
-      
-      // if the current user is not already following the user to be followed
-      if (!currentUser.following.includes(req.params.id)) {
-
-        await currentUser.updateOne({ $push: { following: user._id } });
-        await user.updateOne({ $push: { followers: currentUser._id } });
-
-        res.status(200).json(user);
+      const user = await User.findById(req.params.username);
+      const currentUser = await User.findById(req.body.username);
+      if (!user.followers.includes(req.body.username)) {
+        await user.updateOne({ $push: { followers: req.body.username } });
+        await currentUser.updateOne({ $push: { followings: req.params.username } });
+        res.status(200).json("user has been followed");
       } else {
-        res.status(403).json("You already follow this user");
+        res.status(403).json("you allready follow this user");
       }
     } catch (err) {
       res.status(500).json(err);
-    } 
+    }
   } else {
-    res.status(403).json("You can't follow yourself");
+    res.status(403).json("you cant follow yourself");
   }
 });
 
 //unfollow a user
-userRouter.put("/unfollow", async (req, res) => {
+userRouter.put("/:username/unfollow", async (req, res) => {
     if (req.body.username !== req.params.username) {
       try {
         const user = await User.findById(req.params.id);
