@@ -371,13 +371,20 @@ const ProfileInfo = () => {
               <Streak streak={useStreak(localStorage, new Date())} />
             </h6>    
             <h6>Favorite Song: {window.localStorage.getItem('FavSong')}</h6>
-            <h6>Biography: {window.localStorage.getItem('bio')}</h6>
+            <h6>Bio: {window.localStorage.getItem('bio')}</h6>
 
             <hr></hr>
             <div>
-              {istrue ? (
+              {window.localStorage.getItem('status') !== null  ? (
                 <div>
-                  <h6>{bio}</h6>{" "}
+                  <form>
+                  <h6>Status: {window.localStorage.getItem('status')}</h6>
+                  <button
+                      class="btn btn-outline-success"
+                      type="submit"
+                      onClick={clearStatus}
+                    >clear</button>
+                    </form>
                 </div>
               ) : (
                 <div>
@@ -392,6 +399,7 @@ const ProfileInfo = () => {
                     >
                       submit
                     </button>
+                    </form>
                   </fieldset>
                 </div>
               )}
@@ -454,6 +462,8 @@ const Container = styled.div`
 
 /*
 <div class="rowProfile">
+<h3>hello, {window.localStorage.getItem('name')}</h3>
+            <h6>@{window.localStorage.getItem('username')}</h6>
           <div class="columnProfile">
             <fieldset className="form-group">
               <label for="profilePicture" style={{ color: "white" }}>

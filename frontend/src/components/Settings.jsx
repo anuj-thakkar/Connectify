@@ -64,17 +64,23 @@ const Settings = () => {
 
   function updateInfo(e) {
     e.preventDefault();
-    if (document.getElementById('newPass').value !== "") {
-      if (document.getElementById('newPass').value === document.getElementById('confirmNewPass').value) {
-        if (document.getElementById('newPass').value !== localStorage.getItem('password')) {
-          fire.auth().currentUser.updatePassword(document.getElementById('newPass').value).then(function () {
-            setConfirmPassError("Password successfully changed!");
-          }).catch(function (error) {
-            setConfirmPassError(error.message);
-          });
-        } else {
-          setConfirmPassError("New password cannot be the same as old");
+    const newPass = document.getElementById('newPass').value;
+    if (newPass !== "") {
+      if (document.getElementById('oldPass').value === window.localStorage.getItem('password')) {
+        if (document.getElementById('newPass').value === document.getElementById('confirmNewPass').value) {
+          if (document.getElementById('newPass').value !== localStorage.getItem('password')) {
+            fire.auth().currentUser.updatePassword(document.getElementById('newPass').value).then(function () {
+              setConfirmPassError("Password successfully changed!");
+              window.localStorage.setItem('password', newPass);
+            }).catch(function (error) {
+              setConfirmPassError(error.message);
+            });
+          } else {
+            setConfirmPassError("New password cannot be the same as old");
+          }
         }
+      } else {
+        setConfirmPassError("Old Password Does Not Match");
       }
     }
     if (document.getElementById('general.username').value !== localStorage.getItem('username')) {
@@ -148,27 +154,37 @@ const Settings = () => {
             </fieldset>
 
             <fieldset className="form-group">
+              <label for="profileOldPassword" style={{ color: 'white' }}>Old Password: </label>
+              <input type="text" className="form-control" name="mysettings.general.password" placeholder="Enter old password" id="oldPass" data-testid="oldPass" />
+            </fieldset>
+
+            <fieldset className="form-group">
               <label for="profilePassword" style={{ color: 'white' }}>New Password: </label>
               <input type="text" onKeyUp={checkRequirements} onKeyDown={comparePasswords} className="form-control" name="mysettings.general.password" placeholder="Enter new password" id="newPass" data-testid="newPass" />
             </fieldset>
 
-            <label style={{ color: 'white', paddingLeft: '20px' }}>Password Requirements</label>
-            <ul style={{ color: 'white', fontSize: '15px' }}>
-              <li>At least 8 characters</li>
-              <li>At least 1 letter</li>
-              <li>At least 1 number</li>
-              <li>At least 1 special character</li>
-            </ul>
+            <label title="At least 8 characters&#10;At least 1 letter&#10;At least 1 number&#10;At least 1 special character" style={{ color: 'white', paddingLeft: '20px' }}>Password Requirements</label>        
               
             <fieldset className="form-group">
               <label for="profilePassword" style={{ color: 'white' }}>Confirm Password: </label>
               <input type="text" onKeyUp={comparePasswords} onKeyDown={checkRequirements} className="form-control" name="mysettings.general.confirmPassword" placeholder="Re-enter new password" id="confirmNewPass" />
             </fieldset>
             
-            <p style={{ color: "red"}} >
-              {isError} </p>
-            <p style={{ color: "red" }} >
-              {requirements} </p>
+            <div class="form-group">
+            <label style={{ fontSize: '15px', paddingTop: '10px', color: "red"}} >
+              {isError} </label>
+            <label style={{fontSize: '15px', paddingTop: '5px', color: "red"}} >
+              {requirements} </label>
+            </div>
+
+            <label class="form-group" style={{ color: 'white'}}>Password Requirements</label>
+            <ul style={{ color: 'white', fontSize: '15px' }}>
+              <li>At least 8 characters</li>
+              <li>At least 1 letter</li>
+              <li>At least 1 number</li>
+              <li>At least 1 special character</li>
+            </ul>
+            
             <fieldset className="form-group">
               <label for="profileBio" style={{ color: 'white' }}>Bio: </label>
               <input type="text" className="form-control" name="mysettings.general.bio" placeholder="Bio" id="general.bio" defaultValue={settings['mysettings.general.bio']} />
@@ -179,7 +195,7 @@ const Settings = () => {
               <input type="text" className="form-control" placeholder="Fav Song of All Time" id="profileSong" defaultValue={settings['mysettings.general.favSong']} />
             </fieldset>  
 
-            <div class="form-group" style={{paddingTop: "20px"}}>
+            <div class="form-group" style={{paddingTop: "10px"}}>
               <Link to="/home" className="btn btn-outline-danger">Cancel</Link>
               &nbsp;
               <button to="/home" className="btn btn-success" onClick={(e) => {updateInfo(e)}}>Save</button>
