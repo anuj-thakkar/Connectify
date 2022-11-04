@@ -168,12 +168,14 @@ const Settings = () => {
               <input type="text" onKeyUp={comparePasswords} onKeyDown={checkRequirements} className="form-control" name="mysettings.general.confirmPassword" placeholder="Re-enter new password" id="confirmNewPass" />
             </fieldset>
             
-            <p style={{ color: "red"}} >
-              {isError} </p>
-            <p style={{ color: "red" }} >
-              {requirements} </p>
+            <div class="form-group">
+            <label style={{ fontSize: '15px', paddingTop: '10px', color: "red"}} >
+              {isError} </label>
+            <label style={{fontSize: '15px', paddingTop: '5px', color: "red"}} >
+              {requirements} </label>
+            </div>
 
-            <label style={{ color: 'white', paddingLeft: '20px' }}>Password Requirements</label>
+            <label class="form-group" style={{ color: 'white'}}>Password Requirements</label>
             <ul style={{ color: 'white', fontSize: '15px' }}>
               <li>At least 8 characters</li>
               <li>At least 1 letter</li>
