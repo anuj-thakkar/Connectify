@@ -2,8 +2,8 @@ const userRouter = require('express').Router();
 const { express } = require('express');
 // const { useParams } = require('react-router-dom');
 const User = require('../models/user')
-
-
+const bodyParser = require('body-parser')
+const jsonParser = bodyParser.json()
 /*
 * This gets all users from the database
 */
@@ -72,15 +72,13 @@ userRouter.post('/updateEmail', async (req, res) => {
 });
 
 // endpoint to updateBio
-userRouter.post('/updateBio', async (req, res) => {
-  var params = req.body;
-  User.findOne({'email':params.email}, function(err,user) {
+userRouter.post('/updateBio', jsonParser, async (req, res) => {
+  User.findOne({'email':req.body.email}, function(err,user) {
     if (err) {
       console.log(err);
       return res.status(400).send('Error updating bio');
     } else {
-      user.bio = params.bio;
-      User.updateOne({"bio":params.bio},params, function(err, user) {
+        User.updateOne({ "email" : req.body.email }, { $set: { "bio" : req.body.bio } }, function(err, user) {
         if (err) return next(err);
         return res.status(200).send('Bio updated Successfully.');
       });

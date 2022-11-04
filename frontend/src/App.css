@@ -24,7 +24,7 @@
   border-radius: 15px;
 }
 .item1 {
-  grid-area: 12 / 2 / span 58 / span 3;
+  grid-area: 12 / 2 / span 41 / span 3;
   max-width: 100%;
   color: white;
 }
@@ -36,14 +36,18 @@
 }
 
 .item3 {
-  grid-area: 12 / 1 / span 58 / span 1;
+  grid-area: 12 / 1 / span 41 / span 1;
   max-width: 100%;
   color: white;
 }
 
 .item4 {
-  grid-area: 2 / 1 / span 10 / span 2;
+  grid-area: 2 / 1 / span 10 / span 1;
   color: white;
+}
+.item6left {
+  color: white;
+  grid-area: 2 / 2 / span 10 / span 1;
 }
 .item6 {
   color: white;
