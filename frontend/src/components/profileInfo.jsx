@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import fire from "../fire.js";
 import logo from "../static/logo.jpg";
 import { NavLink, Link } from "react-router-dom";
@@ -16,17 +17,24 @@ import axios from "axios";
 import styled from "styled-components";
 import { useStateProvider } from "../utils/StateProvider";
 import { reducerCases } from "../utils/Constants";
+import { useStreak } from "use-streak";
+import Streak from "./Streak";
 
 const ProfileInfo = () => {
+  const [{ token, playlists, userInfo}, dispatch] = useStateProvider();
+  var [playlistId] = useState("4VeOV08x3iNXrERRLt8SJl")
   const [image, setState] = useState({});
   const [unfollow, setUnfollow] = useState(false);
-  const [playlistName, setPlaylistName] = useState("");
+
   const [active, setActive] = useState("Cancel");
 
+
+  const [playlistName, setPlaylistName] = useState("")
+  let navigate = useNavigate();
+  
   const fileOnChange = (e) => {
     console.log(e.target.files[0]);
   };
-  const [{ token, playlists, userInfo }, dispatch] = useStateProvider();
 
   //Get Playlists from Spotify API
   useEffect(() => {
@@ -71,6 +79,7 @@ const ProfileInfo = () => {
     getUserInfo();
   }, [dispatch, token]);
 
+
   const signOut = () => {
     fire.auth().signOut();
   };
@@ -90,17 +99,22 @@ const ProfileInfo = () => {
       reader.readAsDataURL(file);
     }
   };
-  const [bio, setBio] = useState("");
-  const [istrue, Setistrue] = useState(false);
+
 
   function handleclick() {
-    Setistrue(true);
+
+    window.localStorage.setItem('status', document.getElementById('statusUpdate').value);
+
   }
 
-  const unfollowPlaylist = async (id) => {
+  function clearStatus() {
+    window.localStorage.removeItem('status');
+  }
+
+  const viewOrUnfollow = async (selectedPlaylistId) => {
     if (unfollow) {
       await axios.delete(
-        `https://api.spotify.com/v1/playlists/${id}/followers`,
+        `https://api.spotify.com/v1/playlists/${selectedPlaylistId}/followers`,
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -110,6 +124,17 @@ const ProfileInfo = () => {
       );
       window.location.reload(false);
     }
+    else {
+      playlistId = selectedPlaylistId;
+      navigate(`/playlist#access_token=${token}&token_type=Bearer&expires_in=3600`,
+        {
+          state: {
+            PlaylistId: selectedPlaylistId,
+          }
+        }      
+      )
+      
+    };
   };
 
   const unfollowButton = () => {
@@ -165,6 +190,7 @@ const ProfileInfo = () => {
               </button>
               <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
+
                   &nbsp; &nbsp; &nbsp;
                   <a
                     class="nav-link active"
@@ -244,6 +270,7 @@ const ProfileInfo = () => {
             }}
           >
             Current Playlists
+
           </h5>
 
           <div
@@ -255,15 +282,19 @@ const ProfileInfo = () => {
               paddingRight: "30px",
             }}
           >
+
+          <Container>
+
             <ul>
               {playlists.map(({ name, id }) => {
                 return (
-                  <li key={id} onClick={() => unfollowPlaylist(id)}>
+                  <li key={id} onClick={() => viewOrUnfollow(id)}>
                     {name}
                   </li>
                 );
               })}
             </ul>
+            </Container>
           </div>
         </div>
         <div class="itemrest">
@@ -271,6 +302,7 @@ const ProfileInfo = () => {
             style={{
               display: "block",
               alignItems: "center",
+
               justifyContent: "center",
             }}
           >
@@ -320,27 +352,41 @@ const ProfileInfo = () => {
               paddingRight: "30px",
             }}
           >
-            <h3>hello, {userInfo ? userInfo.name : null}</h3>
-            <h6>@{userInfo ? userInfo.userId : null}</h6>
-            <h6>{userInfo ? userInfo.email : null}</h6>
+
+            <h3>hello, {window.localStorage.getItem('name')}</h3>
+            <h6>@{window.localStorage.getItem('username')}</h6>
+            <h6>{window.localStorage.getItem('email')}</h6>
+
             <h6>
               spotify followers: {userInfo ? userInfo.followers.total : null}
             </h6>
+            <h6>
+              <Streak streak={useStreak(localStorage, new Date())} />
+            </h6>    
+            <h6>Favorite Song: {window.localStorage.getItem('FavSong')}</h6>
+            <h6>Bio: {window.localStorage.getItem('bio')}</h6>
+
             <hr></hr>
             <div>
-              {istrue ? (
+              {window.localStorage.getItem('status') !== null  ? (
                 <div>
-                  <h6>{bio}</h6>{" "}
+                  <form>
+                  <h6>Status: {window.localStorage.getItem('status')}</h6>
+                  <button
+                      class="btn btn-outline-success"
+                      type="submit"
+                      onClick={clearStatus}
+                    >clear</button>
+                    </form>
+
                 </div>
               ) : (
                 <div>
                   <fieldset class="d-flex justify-content-start">
-                    <input
-                      type="text"
-                      placeholder="change bio"
-                      bio="bio"
-                      onChange={(e) => setBio(e.target.value)}
-                    />
+
+                    <form>
+                    <input type="text" placeholder="status update song" bio="bio" id='statusUpdate'/>
+
                     &nbsp;
                     <button
                       class="btn btn-outline-success"
@@ -349,6 +395,9 @@ const ProfileInfo = () => {
                     >
                       submit
                     </button>
+
+                    </form>
+
                   </fieldset>
                 </div>
               )}
@@ -411,6 +460,8 @@ const Container = styled.div`
 
 /*
 <div class="rowProfile">
+<h3>hello, {window.localStorage.getItem('name')}</h3>
+            <h6>@{window.localStorage.getItem('username')}</h6>
           <div class="columnProfile">
             <fieldset className="form-group">
               <label for="profilePicture" style={{ color: "white" }}>

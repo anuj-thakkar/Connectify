@@ -12,7 +12,7 @@
 
 .grid-container > div {
   background-color: rgb(0, 0, 0);
-  padding: 12px 0;
+  padding: 10px 0;
   text-align: center;
   font-size: 20px;
 }
@@ -24,8 +24,9 @@
   border-radius: 15px;
 }
 .item1 {
-  grid-area: 12 / 2 / span 58 / span 3;
-  min-width: 900px;
+
+  grid-area: 12 / 2 / span 49 / span 3;
+
   max-width: 100%;
   color: white;
 }
@@ -37,14 +38,18 @@
 }
 
 .item3 {
-  grid-area: 12 / 1 / span 58 / span 1;
+  grid-area: 12 / 1 / span 49 / span 1;
   max-width: 100%;
   color: white;
 }
 
 .item4 {
-  grid-area: 2 / 1 / span 10 / span 2;
+  grid-area: 2 / 1 / span 10 / span 1;
   color: white;
+}
+.item6left {
+  color: white;
+  grid-area: 2 / 2 / span 10 / span 1;
 }
 .item6 {
   color: white;
@@ -60,6 +65,7 @@
 }
 
 .itemrest {
+
   grid-area: 2 / 1 / span 65 / span 1;
   color: white;
 }
@@ -144,10 +150,11 @@ body:focus {
 .form-group {
   padding-left: 20px;
   align-items: left;
+  width: 350px;
 }
 
 .settingsForm {
-  width: 350px;
+  width: 300px;
 }
 .Auth-form-content {
   padding-left: 10%;
@@ -224,4 +231,9 @@ label {
 
 .delete {
   margin-top: 500px;
+}
+
+.remove-song {
+  color: white;
+  font-size: 25px;
 }

@@ -1,33 +1,36 @@
-import React, { useEffect } from "react";
-import logo from "../static/logo.jpg";
-import fire from "../fire.js";
-import Settings from "./Settings";
-import {
-  MdHomeFilled,
-  MdSearch,
-  MdAccountCircle,
-  MdBuild,
-  MdCompareArrows,
-} from "react-icons/md";
+
+
+import React, {useEffect, useRef} from 'react';
+import logo from '../static/logo.jpg';
+import fire from '../fire.js';
+import Settings from './Settings';
+import {MdHomeFilled, MdSearch, MdAccountCircle, MdBuild, MdCompareArrows} from 'react-icons/md';
+
 import { reducerCases } from "../utils/Constants";
 import { useStateProvider } from "../utils/StateProvider";
 import axios from "axios";
 import styled from "styled-components";
-import ListAllConnections from "./ListAllConnections";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import ListSearchResults from "./ListSearchResults";
-import Volume from "./Volume";
-import PlayerControls from "./PlayerControls";
-import CurrentTrack from "./CurrentTrack";
-import Search from "./Search";
+
+
+import ListAllConnections from './ListAllConnections';
+import { useState } from 'react';
+
+import { useNavigate } from 'react-router-dom';
+import ListSearchResults from './ListSearchResults';
+import Volume from './Volume';
+import PlayerControls from './PlayerControls';
+import CurrentTrack from './CurrentTrack';
+
 
 const Home = () => {
-  const [{ token, userInfo, currentPlaying, playerState }, dispatch] =
-    useStateProvider();
-  //const searchModal = useRef(null)
+  const [{ token, userInfo, currentPlaying, playerState }, dispatch] = useStateProvider();
+  const [setUserDetails] = useState();
+  const searchModal = useRef(null)
+
+
   const [search, setSearch] = useState();
   const navigate = useNavigate();
+  
   //Get User Info from Spotify API
   useEffect(() => {
     const getUserInfo = async () => {
@@ -86,6 +89,9 @@ const Home = () => {
     console.log(currentPlaying.name);
   }
 
+
+
+
   const fetchUsers = (query) => {
     setSearch(query);
     fetch("/search-users", {
@@ -108,6 +114,9 @@ const Home = () => {
       <div class="grid-container">
         <div class="item1">Feed</div>
         <div class="item2">
+
+
+
           <nav class="navbar navbar-expand-lg navbar-dark bg-black">
             <div class="container-fluid">
               <a class="navbar-brand" href="#">
@@ -191,17 +200,19 @@ const Home = () => {
         </div>
         <div class="item3">
           <ListAllConnections />
-          <Search />
+          <Search/>
         </div>
         <div class="item4">
-          <Container>
+          <div>
             <CurrentTrack />
             <PlayerControls />
             <Volume />
-          </Container>
+          </div>
         </div>
-        <div class="item6">Poll 1</div>
-        <div class="item7">Poll 2</div>
+        <div class="item6left">Poll 1</div>
+        <div class="item6">Poll 2</div>
+        <div class="item7">Poll 3</div>
+
       </div>
     </>
   );

@@ -27,7 +27,7 @@ const Register = () => {
       }
      }
 
-     function checkRequirements() {
+    function checkRequirements() {
       var regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
 
       if (!regex.test(document.getElementById('pass').value)) {
@@ -35,22 +35,24 @@ const Register = () => {
       } else {
         setRequirements("");
       }
-
-     }
-
+    }
 
     const handleRegister = (e) => {
         e.preventDefault();
-        if (email && password && confirmPassword && username && name) {
-           registerUser(username, name, email, password);
-        }
         if (email && password && confirmPassword) {
           fire.auth().createUserWithEmailAndPassword(email, password)
             .then(() => {
               try {
                 fire.auth().currentUser.sendEmailVerification();
+                registerUser(username, name, email, password);
                 console.log("Verification Sent");
-                navigate('/home');
+                localStorage.setItem('email', email);
+                localStorage.setItem('password', password);
+                localStorage.setItem('name', name);
+                localStorage.setItem('username', username);
+                localStorage.setItem('bio', " ");
+                navigate('/login');
+
               } catch (error) {
                 console.log(error);
               }
@@ -65,7 +67,6 @@ const Register = () => {
           alert("Please fill in all fields");
         }
     }
-
     
     const checkValidation = (e) => {
       if (password !== confirmPassword) {
@@ -127,13 +128,7 @@ const Register = () => {
                   setPassword(target.value)}
                   placeholder="Create a password"
                 />
-                <label>Password Requirements</label>
-                <ul>
-                  <li>At least 8 characters</li>
-                  <li>At least 1 letter</li>
-                  <li>At least 1 number</li>
-                  <li>At least 1 special character</li>
-                </ul>
+                <label title="At least 8 characters&#10;At least 1 letter&#10;At least 1 number&#10;At least 1 special character">Password Requirements</label>
               
               </div>
               <div className="form-group mt-3">

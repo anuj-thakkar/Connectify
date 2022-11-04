@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const { request } = require('express');
 const decodedToken = require('./authenticateToken')
 
+
 mongoose.connect(
     'mongodb+srv://admin:connectify@connectify.vdzw2bf.mongodb.net/?retryWrites=true&w=majority',
     { useNewUrlParser: true, useUnifiedTopology: true })
