@@ -26,6 +26,9 @@ const ProfileInfo = () => {
   const [image, setState] = useState({});
   const [unfollow, setUnfollow] = useState(false);
 
+  const [active, setActive] = useState("Cancel");
+
+
   const [playlistName, setPlaylistName] = useState("")
   let navigate = useNavigate();
   
@@ -291,7 +294,9 @@ const ProfileInfo = () => {
               paddingRight: "30px",
             }}
           >
+
           <Container>
+
             <ul>
               {playlists.map(({ name, id }) => {
                 return (
@@ -359,6 +364,7 @@ const ProfileInfo = () => {
               paddingRight: "30px",
             }}
           >
+
             <h3>hello, {window.localStorage.getItem('name')}</h3>
             <h6>@{window.localStorage.getItem('username')}</h6>
             <h6>{window.localStorage.getItem('email')}</h6>
@@ -384,10 +390,12 @@ const ProfileInfo = () => {
                       onClick={clearStatus}
                     >clear</button>
                     </form>
+
                 </div>
               ) : (
                 <div>
                   <fieldset class="d-flex justify-content-start">
+
                     <form>
                     <input type="text" placeholder="status update song" bio="bio" id='statusUpdate' onChange={e => setStatusUpdate(e.target.value)}/>
                     &nbsp;
@@ -398,7 +406,9 @@ const ProfileInfo = () => {
                     >
                       submit
                     </button>
+
                     </form>
+
                   </fieldset>
                 </div>
               )}
