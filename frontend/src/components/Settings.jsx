@@ -138,7 +138,10 @@ const Settings = () => {
               <input type="text" onKeyUp={comparePasswords} onKeyDown={checkRequirements} className="form-control" name="mysettings.general.confirmPassword" placeholder="Re-enter new password" id="confirmNewPass" />
             </fieldset>
 
-            
+            <fieldset className="form-group">
+              <label for="profileBio" style={{ color: 'white' }}>Bio: </label>
+              <input type="text" className="form-control" name="mysettings.general.bio" placeholder="Bio" id="general.bio" defaultValue={settings['mysettings.general.bio']} />
+            </fieldset>
 
             <fieldset className="form-group">
               <label for="profileFavSong" style={{ color: 'white'}}>Fav Song of All Time: </label>
