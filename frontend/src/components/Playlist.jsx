@@ -63,21 +63,28 @@ export default function Body() {
   ) => {
     console.log(remove)
     if (remove) {
-      const tracks = [{"uri": `${uri}`}]
-      const argUrl = `https://api.spotify.com/v1/playlists/${state.PlaylistId}/tracks`
-      console.log(tracks)
-      console.log(token)
-      await axios.delete(`https://api.spotify.com/v1/playlists/${state.PlaylistId}/tracks`,
-       {
-        "tracks": tracks,
-      },
-    {
-      headers: {
-        Authorization: "Bearer " + token,
-        "Content-Type": "application/json",
-      },
-    });
-      window.location.reload(false)
+      const tracks = [{"uri": uri}]
+      var parameters = {
+        method: "DELETE",
+        body: "{\"tracks\":[{\"uri\":\"" + uri + "\"}]}",  
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      };
+      await fetch(
+        "https://api.spotify.com/v1/playlists/" +
+          state.PlaylistId +
+          "/tracks",
+        parameters,
+      ) 
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          
+        }); 
+    window.location.reload(false)
     }
     else {
       const response = await axios.put(
