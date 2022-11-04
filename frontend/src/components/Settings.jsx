@@ -163,16 +163,8 @@ const Settings = () => {
               <input type="text" onKeyUp={checkRequirements} onKeyDown={comparePasswords} className="form-control" name="mysettings.general.password" placeholder="Enter new password" id="newPass" data-testid="newPass" />
             </fieldset>
 
-            <label style={{ color: 'white', paddingLeft: '20px' }}>Password Requirements</label>
-            <ul style={{ color: 'white', fontSize: '15px' }}>
-              <li>At least 8 characters</li>
-              <li>At least 1 letter</li>
-              <li>At least 1 number</li>
-              <li>At least 1 special character</li>
-            </ul>
-              
             <fieldset className="form-group">
-              <label for="profilePassword" style={{ color: 'white' }}>Confirm Password: </label>
+              <label for="profilePassword" style={{ paddingTop: '0px', color: 'white' }}>Confirm Password: </label>
               <input type="text" onKeyUp={comparePasswords} onKeyDown={checkRequirements} className="form-control" name="mysettings.general.confirmPassword" placeholder="Re-enter new password" id="confirmNewPass" />
             </fieldset>
             
@@ -180,6 +172,15 @@ const Settings = () => {
               {isError} </p>
             <p style={{ color: "red" }} >
               {requirements} </p>
+
+            <label style={{ color: 'white', paddingLeft: '20px' }}>Password Requirements</label>
+            <ul style={{ color: 'white', fontSize: '15px' }}>
+              <li>At least 8 characters</li>
+              <li>At least 1 letter</li>
+              <li>At least 1 number</li>
+              <li>At least 1 special character</li>
+            </ul>
+            
             <fieldset className="form-group">
               <label for="profileBio" style={{ color: 'white' }}>Bio: </label>
               <input type="text" className="form-control" name="mysettings.general.bio" placeholder="Bio" id="general.bio" defaultValue={settings['mysettings.general.bio']} />
@@ -190,7 +191,7 @@ const Settings = () => {
               <input type="text" className="form-control" placeholder="Fav Song of All Time" id="profileSong" defaultValue={settings['mysettings.general.favSong']} />
             </fieldset>  
 
-            <div class="form-group" style={{paddingTop: "20px"}}>
+            <div class="form-group" style={{paddingTop: "10px"}}>
               <Link to="/home" className="btn btn-outline-danger">Cancel</Link>
               &nbsp;
               <button to="/home" className="btn btn-success" onClick={(e) => {updateInfo(e)}}>Save</button>
