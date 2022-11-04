@@ -1,8 +1,6 @@
 import { Navigate, useNavigate } from 'react-router-dom';
-import {SettingsPane, SettingsPage, SettingsContent, SettingsMenu} from 'react-settings-pane';
 import logo from '../static/logo.jpg';
 import { Link } from 'react-router-dom'
-import { Row, Col, Container, Button } from 'react-bootstrap';
 import { MdHomeFilled, MdBuild, MdAccountCircle, MdSearch, MdCompareArrows } from "react-icons/md";
 import React, { useState } from 'react';
 import "../App.css";
@@ -32,7 +30,7 @@ const Settings = () => {
   };
 
   function comparePasswords() {
-    if (document.getElementById('newPass').value != document.getElementById('confirmNewPass').value) {
+    if (document.getElementById('newPass').value !== document.getElementById('confirmNewPass').value) {
       setConfirmPassError("Passwords do not match!");
     } else {
       setConfirmPassError("");
@@ -52,7 +50,7 @@ const Settings = () => {
 
   function deleteSignedUser() {
 
-    if (window.confirm('Are you sure you want to delete your account?' + '\n' + 'This action cannot be undone.')) {
+    if (window.confirm('Are you sure you want to delete your account? \n This action cannot be undone.')) {
 
     deleteUser(getAuth().currentUser).then(function () {
       window.location.href = "/";
@@ -65,8 +63,8 @@ const Settings = () => {
 
   function updateInfo(e) {
     e.preventDefault();
-    if (document.getElementById('newPass').value == document.getElementById('confirmNewPass').value) {
-      if (document.getElementById('newPass').value != localStorage.getItem('password')) {
+    if (document.getElementById('newPass').value === document.getElementById('confirmNewPass').value) {
+      if (document.getElementById('newPass').value !== localStorage.getItem('password')) {
         fire.auth().currentUser.updatePassword(document.getElementById('newPass').value).then(function () {
           setConfirmPassError("Password successfully changed!");
         }).catch(function (error) {
@@ -162,23 +160,22 @@ const Settings = () => {
             </fieldset>  
 
             <div class="form-group" style={{paddingTop: "20px"}}>
-              <Link to="/home" className="btn btn-outline-success">Save</Link>
-              &nbsp;
-              <button to="/home" className="btn btn-success" onClick={(e) => {updateInfo(e)}}>Save</button>
-            </div>
-            &nbsp;
               <Link to="/home" className="btn btn-outline-danger">Cancel</Link>
               &nbsp;
+              <button to="/home" className="btn btn-success" onClick={(e) => {updateInfo(e)}}>Save</button>
+              &nbsp;
               <button className="btn btn-danger" id="delete" onClick={deleteSignedUser}>Delete Account</button>
-
             </div>
 
+            </div>
+            </form>
             
           </div>
-        </form>
+        
       </div>
       
-    </div>
+  
+  
     
 
     //rama old code below:
