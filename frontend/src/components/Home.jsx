@@ -20,7 +20,7 @@ import ListSearchResults from './ListSearchResults';
 import Volume from './Volume';
 import PlayerControls from './PlayerControls';
 import CurrentTrack from './CurrentTrack';
-
+import Search from './Search';
 
 const Home = () => {
   const [{ token, userInfo, currentPlaying, playerState }, dispatch] = useStateProvider();
