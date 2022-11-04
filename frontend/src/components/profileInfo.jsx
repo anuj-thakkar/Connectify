@@ -99,9 +99,26 @@ const ProfileInfo = () => {
 
   const [bio, setBio] = useState("");
   const [istrue, Setistrue] = useState(false);
+  const [statusUpdate, setStatusUpdate] = useState("");
 
-  function handleclick() {
+  function handleStatusUpdateSubmit() {
     Setistrue(true);
+    console.log(statusUpdate);
+    
+    axios
+      .post('http://localhost:3001/setStatusUpdate', 
+      
+      {
+        email: userInfo.email,
+        statusUpdate: statusUpdate
+      },
+      
+      )
+      .then(() => console.log('Status Update Sent to Backend'))
+      .catch(err => {
+        console.error(err);
+      });
+
   }
 
   const viewOrUnfollow = async (selectedPlaylistId) => {
@@ -366,12 +383,12 @@ const ProfileInfo = () => {
                 <div>
                   <fieldset class="d-flex justify-content-start">
 
-                    <input type="text" placeholder="status update song" bio="bio" onChange={e => setBio(e.target.value)} />
+                    <input type="text" placeholder="status update song" bio="bio" onChange={e => setStatusUpdate(e.target.value)} />
                     &nbsp;
                     <button
                       class="btn btn-outline-success"
                       type="submit"
-                      onClick={handleclick}
+                      onSubmit={handleStatusUpdateSubmit}
                     >
                       submit
                     </button>

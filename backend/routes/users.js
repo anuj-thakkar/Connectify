@@ -201,5 +201,20 @@ userRouter.put("/:username/unfollow", async (req, res) => {
     }
   });
 
+userRouter.post('/setStatusUpdate', async (req, res) => {
+  var params = req.body;
+  User.findOne({'email':params.email}, function(err,user) {
+    if (err) {
+      console.log(err);
+      return res.status(400).send('Error updating status');
+    } else {
+      user.status = params.status;
+      User.updateOne({"statusUpdate":params.status}, {$set: { "statusUpdate" : req.body.status }} , function(err, user) {
+        if (err) return next(err);
+        return res.status(200).send('Status updated Successfully.');
+      });
+    }
+  });
+});
 
 module.exports = userRouter;
