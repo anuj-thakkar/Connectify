@@ -16,7 +16,6 @@ import axios from "axios";
 import styled from "styled-components";
 import { useStateProvider } from "../utils/StateProvider";
 import { reducerCases } from "../utils/Constants";
-import Search from "./Search";
 
 const ProfileInfo = () => {
   const [image, setState] = useState({});
@@ -373,10 +372,6 @@ const ProfileInfo = () => {
                   create
                 </button>
               </fieldset>
-            </div>
-            <div>
-              <br />
-              <Search />
             </div>
           </div>
         </div>

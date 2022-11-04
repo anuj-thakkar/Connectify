@@ -25,6 +25,7 @@
 }
 .item1 {
   grid-area: 12 / 2 / span 58 / span 3;
+  min-width: 900px;
   max-width: 100%;
   color: white;
 }
@@ -60,20 +61,18 @@
 
 .itemrest {
   grid-area: 2 / 1 / span 65 / span 1;
-  color:white;
+  color: white;
 }
 
 .itemleft {
   grid-area: 2 / 1 / span 65 / span 6;
-  color:white;
-}
-
-.itemright {
-	grid-area: 2 / 2 / span 65 / span 5;										
   color: white;
 }
 
-
+.itemright {
+  grid-area: 2 / 2 / span 65 / span 5;
+  color: white;
+}
 
 .button1 {
   border: solid;
@@ -102,7 +101,6 @@
   width: 35px;
   height: 35px;
 }
-
 
 .App {
   padding-top: 50px;

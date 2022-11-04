@@ -75,7 +75,7 @@ const Search = () => {
                 <Card className="text-black">
                   <Card.Img src={album.images[0].url} />
                   <Card.Body>
-                    <Card.Title>{album.name}</Card.Title>
+                    <Card.Text className="fs-6">{album.name}</Card.Text>
                   </Card.Body>
                 </Card>
               );
