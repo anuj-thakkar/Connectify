@@ -32,7 +32,7 @@ export default function Volume() {
 
 const Container = styled.div`
   display: block;
-  justify-content: flex-end;
+  justify-content: center;
   align-content: center;
   input {
     width: 20rem;

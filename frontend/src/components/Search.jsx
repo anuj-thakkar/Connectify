@@ -68,9 +68,9 @@ const Search = () => {
   }
   return (
     <>
-      <div className="search">
+      <div align="center">
         <Container>
-          <InputGroup className="mb-3" size="small">
+          <InputGroup className="search-group" size="small">
             <FormControl
               placeholder="Search for Artist"
               type="input"
@@ -85,7 +85,7 @@ const Search = () => {
           </InputGroup>
         </Container>
         <Container>
-          <Row className="form-group" style={{paddingRight:"15px"}}>
+          <Row className="search-group">
             {albums.map((album, i) => {
               return (
                 <Card className="text-white bg-dark" style={{marginTop: "15px", color: "black"}}>
