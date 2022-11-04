@@ -170,10 +170,21 @@ const Settings = () => {
               <input type="text" onKeyUp={comparePasswords} onKeyDown={checkRequirements} className="form-control" name="mysettings.general.confirmPassword" placeholder="Re-enter new password" id="confirmNewPass" />
             </fieldset>
             
-            <p style={{ color: "red"}} >
-              {isError} </p>
-            <p style={{ color: "red" }} >
-              {requirements} </p>
+            <div class="form-group">
+            <label style={{ fontSize: '15px', paddingTop: '10px', color: "red"}} >
+              {isError} </label>
+            <label style={{fontSize: '15px', paddingTop: '5px', color: "red"}} >
+              {requirements} </label>
+            </div>
+
+            <label class="form-group" style={{ color: 'white'}}>Password Requirements</label>
+            <ul style={{ color: 'white', fontSize: '15px' }}>
+              <li>At least 8 characters</li>
+              <li>At least 1 letter</li>
+              <li>At least 1 number</li>
+              <li>At least 1 special character</li>
+            </ul>
+            
             <fieldset className="form-group">
               <label for="profileBio" style={{ color: 'white' }}>Bio: </label>
               <input type="text" className="form-control" name="mysettings.general.bio" placeholder="Bio" id="general.bio" defaultValue={settings['mysettings.general.bio']} />
