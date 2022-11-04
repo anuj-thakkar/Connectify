@@ -63,6 +63,7 @@
 }
 
 .itemrest {
+
   grid-area: 2 / 1 / span 65 / span 1;
   color: white;
 }
@@ -150,7 +151,7 @@ body:focus {
 }
 
 .settingsForm {
-  width: 350px;
+  width: 300px;
 }
 .Auth-form-content {
   padding-left: 10%;

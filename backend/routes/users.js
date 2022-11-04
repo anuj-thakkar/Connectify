@@ -2,8 +2,10 @@ const userRouter = require('express').Router();
 const { express } = require('express');
 // const { useParams } = require('react-router-dom');
 const User = require('../models/user')
+
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
+
 /*
 * This gets all users from the database
 */

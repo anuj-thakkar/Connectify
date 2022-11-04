@@ -76,6 +76,7 @@ const ProfileInfo = () => {
     getUserInfo();
   }, [dispatch, token]);
 
+
   const signOut = () => {
     fire.auth().signOut();
   };
@@ -95,6 +96,7 @@ const ProfileInfo = () => {
       reader.readAsDataURL(file);
     }
   };
+
   const [bio, setBio] = useState("");
   const [istrue, Setistrue] = useState(false);
 
@@ -181,6 +183,7 @@ const ProfileInfo = () => {
               </button>
               <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
+
                   &nbsp; &nbsp; &nbsp;
                   <a
                     class="nav-link active"
@@ -290,6 +293,7 @@ const ProfileInfo = () => {
             style={{
               display: "block",
               alignItems: "center",
+
               justifyContent: "center",
             }}
           >

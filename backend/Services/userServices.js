@@ -3,19 +3,10 @@
  */
 
  const mongoose = require('mongoose');
- mongoose.set('useFindAndModify', false);
- const User = require('../Models/User');
+ const User = require('../models/User');
  const constants = require('../constants');
  
  /**
-  * require bcrypt for hashing
-  */
- const bcrypt = require('bcrypt');
- 
- /**
-  * require jsonwebtoken for authentication
-  */
- const jwt = require('jsonwebtoken');
  
  /**
   * This function takes in an email and password and attempts to create a user

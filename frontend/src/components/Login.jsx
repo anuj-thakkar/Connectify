@@ -15,6 +15,8 @@ const Login = () => {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
+        localStorage.setItem('email', email);
+        localStorage.setItem('password', password);
         navigate("/link");
       })
       .catch((error) => {
