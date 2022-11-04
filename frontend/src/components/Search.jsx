@@ -62,7 +62,7 @@ const Search = () => {
       .then((data) => {
         console.log(data);
         setAlbums(data.tracks.items);
-        setAlbums([...albums, data.artists.items]);
+        setAlbums((albums) => [...albums, ...data.artists.items]);
         console.log("it worked");
       });
   }
