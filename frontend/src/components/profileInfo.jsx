@@ -97,11 +97,13 @@ const ProfileInfo = () => {
     }
   };
 
-  const [bio, setBio] = useState("");
-  const [istrue, Setistrue] = useState(false);
 
   function handleclick() {
-    Setistrue(true);
+    window.localStorage.setItem('status', document.getElementById('statusUpdate').value);
+  }
+
+  function clearStatus() {
+    window.localStorage.removeItem('status');
   }
 
   const viewOrUnfollow = async (selectedPlaylistId) => {
@@ -358,15 +360,22 @@ const ProfileInfo = () => {
 
             <hr></hr>
             <div>
-              {istrue ? (
+              {window.localStorage.getItem('status') !== null  ? (
                 <div>
-                  <h6>{bio}</h6>{" "}
+                  <form>
+                  <h6>Status: {window.localStorage.getItem('status')}</h6>
+                  <button
+                      class="btn btn-outline-success"
+                      type="submit"
+                      onClick={clearStatus}
+                    >clear</button>
+                    </form>
                 </div>
               ) : (
                 <div>
                   <fieldset class="d-flex justify-content-start">
-
-                    <input type="text" placeholder="status update song" bio="bio" onChange={e => setBio(e.target.value)} />
+                    <form>
+                    <input type="text" placeholder="Status update song" bio="bio" id='statusUpdate'/>
                     &nbsp;
                     <button
                       class="btn btn-outline-success"
@@ -375,6 +384,7 @@ const ProfileInfo = () => {
                     >
                       submit
                     </button>
+                    </form>
                   </fieldset>
                 </div>
               )}
