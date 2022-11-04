@@ -184,7 +184,7 @@ const Settings = () => {
               <input type="text" className="form-control" placeholder="Fav Song of All Time" id="profileSong" defaultValue={settings['mysettings.general.favSong']} />
             </fieldset>  
 
-            <div class="form-group" style={{paddingTop: "20px"}}>
+            <div class="form-group" style={{paddingTop: "10px"}}>
               <Link to="/home" className="btn btn-outline-danger">Cancel</Link>
               &nbsp;
               <button to="/home" className="btn btn-success" onClick={(e) => {updateInfo(e)}}>Save</button>

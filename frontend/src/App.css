@@ -148,6 +148,7 @@ body:focus {
 .form-group {
   padding-left: 20px;
   align-items: left;
+  width: 350px;
 }
 
 .settingsForm {

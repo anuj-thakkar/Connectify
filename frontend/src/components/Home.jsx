@@ -194,11 +194,11 @@ const Home = () => {
           <ListAllConnections />
         </div>
         <div class="item4">
-          <Container>
+          <div>
             <CurrentTrack />
             <PlayerControls />
             <Volume />
-          </Container>
+          </div>
         </div>
         <div class="item6left">Poll 1</div>
         <div class="item6">Poll 2</div>
