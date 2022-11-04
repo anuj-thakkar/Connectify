@@ -20,6 +20,7 @@ const Home = () => {
   const [{ token, userInfo, currentPlaying, playerState }, dispatch] = useStateProvider();
   const [search, setSearch] = useState();
   const navigate = useNavigate();
+  
   //Get User Info from Spotify API
   useEffect(() => {
     const getUserInfo = async () => {
@@ -77,7 +78,6 @@ const Home = () => {
     if (currentPlaying != null) {
       console.log(currentPlaying.name)
     } 
-
 
     return (
         <>

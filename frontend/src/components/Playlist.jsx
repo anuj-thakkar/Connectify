@@ -13,11 +13,10 @@ import fire from "../fire.js";
 
 export default function Body() {
   const [{ token, selectedPlaylist}, dispatch] = useStateProvider();
+  const [remove, setRemove] = useState(false);
   const { state } = useLocation();
-  console.log(state.PlaylistId)
-
+  
   useEffect(() => {
-    console.log(state.PlaylistId)
     if (state.PlaylistId) {
       const getInitialPlaylist = async () => {
         const response = await axios.get(
@@ -45,6 +44,7 @@ export default function Body() {
             album: track.album.name,
             context_uri: track.album.uri,
             track_number: track.track_number,
+            uri: track.uri,
           })),
         };
         dispatch({ type: reducerCases.SET_PLAYLIST, selectedPlaylist });
@@ -59,47 +59,72 @@ export default function Body() {
   };
 
   const playTrack = async (
-    id,
-    name,
-    artists,
-    image,
-    context_uri,
-    track_number
+    id, name, artists, image, context_uri, track_number, uri,
   ) => {
-    const response = await axios.put(
-      `https://api.spotify.com/v1/me/player/play`,
-      {
-        context_uri,
-        offset: {
-          position: track_number - 1,
-        },
-        position_ms: 0,
+    console.log(remove)
+    if (remove) {
+      const tracks = [{"uri": `${uri}`}]
+      const argUrl = `https://api.spotify.com/v1/playlists/${state.PlaylistId}/tracks`
+      console.log(tracks)
+      console.log(token)
+      await axios.delete(`https://api.spotify.com/v1/playlists/${state.PlaylistId}/tracks`,
+       {
+        "tracks": tracks,
       },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+    });
+      window.location.reload(false)
+    }
+    else {
+      const response = await axios.put(
+        `https://api.spotify.com/v1/me/player/play`,
+        {
+          context_uri,
+          offset: {
+            position: track_number - 1,
+          },
+          position_ms: 0,
         },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.status === 204) {
+        const currentPlaying = {
+          id,
+          name,
+          artists,
+          image,
+        };
+        dispatch({ type: reducerCases.SET_PLAYING, currentPlaying });
+        dispatch({ type: reducerCases.SET_PLAYER_STATE, playerState: true });
+      } else {
+        dispatch({ type: reducerCases.SET_PLAYER_STATE, playerState: true });
       }
-    );
-    if (response.status === 204) {
-      const currentPlaying = {
-        id,
-        name,
-        artists,
-        image,
-      };
-      dispatch({ type: reducerCases.SET_PLAYING, currentPlaying });
-      dispatch({ type: reducerCases.SET_PLAYER_STATE, playerState: true });
-    } else {
-      dispatch({ type: reducerCases.SET_PLAYER_STATE, playerState: true });
     }
   };
+
   const msToMinutesAndSeconds = (ms) => {
     var minutes = Math.floor(ms / 60000);
     var seconds = ((ms % 60000) / 1000).toFixed(0);
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   };
+
+  const removeButton = () => {
+    setRemove(true);
+  }
+
+  const cancelRemoveButton = () => {
+    setRemove(false)
+  }
+
   return (
     
     <Container >
@@ -137,6 +162,15 @@ export default function Body() {
               <h1 className="title">{selectedPlaylist.name}</h1>
               <p className="description">{selectedPlaylist.description}</p>
             </div>
+            <div class="remove-song">
+            Remove Song?
+            <button type="button" onClick={() => removeButton()} className="btn btn-outline-success">
+              Yes
+            </button>
+            <button type="button" onClick={() => cancelRemoveButton()} className="btn btn-outline-success">
+              Cancel
+            </button>
+          </div>
           </div>
           <div className="list">
             <div className="header-row">
@@ -167,6 +201,7 @@ export default function Body() {
                     album,
                     context_uri,
                     track_number,
+                    uri,
                   },
                   index
                 ) => {
@@ -181,7 +216,8 @@ export default function Body() {
                           artists,
                           image,
                           context_uri,
-                          track_number
+                          track_number,
+                          uri
                         )
                       }
                     >

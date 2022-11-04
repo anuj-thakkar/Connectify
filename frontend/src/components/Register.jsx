@@ -50,7 +50,7 @@ const Register = () => {
               try {
                 fire.auth().currentUser.sendEmailVerification();
                 console.log("Verification Sent");
-                navigate('/home');
+                navigate('/login');
               } catch (error) {
                 console.log(error);
               }
