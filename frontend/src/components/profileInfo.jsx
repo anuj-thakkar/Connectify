@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import fire from "../fire.js";
 import logo from "../static/logo.jpg";
 import { NavLink, Link } from "react-router-dom";
@@ -20,15 +21,17 @@ import { useStreak } from "use-streak";
 import Streak from "./Streak";
 
 const ProfileInfo = () => {
+  const [{ token, playlists, userInfo}, dispatch] = useStateProvider();
+  var [playlistId] = useState("4VeOV08x3iNXrERRLt8SJl")
   const [image, setState] = useState({});
   const [unfollow, setUnfollow] = useState(false);
-  const [playlistName, setPlaylistName] = useState("");
-  const [active, setActive] = useState("Cancel");
 
+  const [playlistName, setPlaylistName] = useState("")
+  let navigate = useNavigate();
+  
   const fileOnChange = (e) => {
     console.log(e.target.files[0]);
   };
-  const [{ token, playlists, userInfo }, dispatch] = useStateProvider();
 
   //Get Playlists from Spotify API
   useEffect(() => {
@@ -99,10 +102,10 @@ const ProfileInfo = () => {
     Setistrue(true);
   }
 
-  const unfollowPlaylist = async (id) => {
+  const viewOrUnfollow = async (selectedPlaylistId) => {
     if (unfollow) {
       await axios.delete(
-        `https://api.spotify.com/v1/playlists/${id}/followers`,
+        `https://api.spotify.com/v1/playlists/${selectedPlaylistId}/followers`,
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -112,6 +115,17 @@ const ProfileInfo = () => {
       );
       window.location.reload(false);
     }
+    else {
+      playlistId = selectedPlaylistId;
+      navigate(`/playlist#access_token=${token}&token_type=Bearer&expires_in=3600`,
+        {
+          state: {
+            PlaylistId: selectedPlaylistId,
+          }
+        }      
+      )
+      
+    };
   };
 
   const unfollowButton = () => {
@@ -246,6 +260,7 @@ const ProfileInfo = () => {
             }}
           >
             Current Playlists
+
           </h5>
 
           <div
@@ -257,15 +272,17 @@ const ProfileInfo = () => {
               paddingRight: "30px",
             }}
           >
+
             <ul>
               {playlists.map(({ name, id }) => {
                 return (
-                  <li key={id} onClick={() => unfollowPlaylist(id)}>
+                  <li key={id} onClick={() => viewOrUnfollow(id)}>
                     {name}
                   </li>
                 );
               })}
             </ul>
+            </Container>
           </div>
         </div>
         <div class="itemrest">

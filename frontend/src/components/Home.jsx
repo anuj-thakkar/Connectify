@@ -26,6 +26,7 @@ const Home = () => {
 
   const [search, setSearch] = useState();
   const navigate = useNavigate();
+  
   //Get User Info from Spotify API
   useEffect(() => {
     const getUserInfo = async () => {
@@ -84,6 +85,7 @@ const Home = () => {
     console.log(currentPlaying.name);
   }
 
+
   const fetchUsers = (query) => {
     setSearch(query);
     fetch("/search-users", {
@@ -106,6 +108,7 @@ const Home = () => {
       <div class="grid-container">
         <div class="item1">Feed</div>
         <div class="item2">
+
           <nav class="navbar navbar-expand-lg navbar-dark bg-black">
             <div class="container-fluid">
               <a class="navbar-brand" href="#">

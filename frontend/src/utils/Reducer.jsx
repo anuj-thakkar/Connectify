@@ -7,8 +7,7 @@ export const initialState = {
   currentPlaying: null,
   playerState: false,
   selectedPlaylist: null,
-  selectedPlaylistId: "37i9dQZF1E37jO8SiMT0yN",
-  selectedPlaylistImage: null,
+  selectedPlaylistId: "4VeOV08x3iNXrERRLt8SJl",
 };
 
 const reducer = (state, action) => {
@@ -43,16 +42,11 @@ const reducer = (state, action) => {
         ...state,
         selectedPlaylist: action.selectedPlaylist,
       };
-    case reducerCases.SET_PLAYLIST_ID:
+   /*  case reducerCases.SET_PLAYLIST_ID:
       return {
         ...state,
         selectedPlaylistId: action.selectedPlaylistId,
-      };
-    case reducerCases.SET_PLAYLIST_IMAGE:
-      return {
-        ...state,
-        selectedPlaylistImage: action.selectedPlaylistImage,
-      }
+      }; */
     default:
       return state;
   }
