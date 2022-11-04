@@ -10,9 +10,19 @@ import Settings from "./Settings";
 import { MdHomeFilled, MdBuild, MdAccountCircle, MdSearch, MdCompareArrows } from "react-icons/md";
 import "../App.css";
 import fire from "../fire.js";
+import "bootstrap/dist/css/bootstrap.min.css";
+import {
+  InputGroup,
+  FormControl,
+  Button,
+  Row,
+  Card,
+} from "react-bootstrap";
 
 export default function Body() {
   const [{ token, selectedPlaylist}, dispatch] = useStateProvider();
+  const [searchInput, setSearchInput] = useState("");
+  const [albums, setAlbums] = useState([]);
   const [remove, setRemove] = useState(false);
   const { state } = useLocation();
   
@@ -57,6 +67,33 @@ export default function Body() {
   const signOut = () => {
     fire.auth().signOut();
   };
+
+  //search
+  async function search() {
+    console.log("Searching for " + searchInput);
+
+    //Get request using search to get Artist ID
+    var searchParameters = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    var results = await fetch(
+      "https://api.spotify.com/v1/search?q=" +
+        searchInput +
+        "&type=track&limit=4",
+      searchParameters
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setAlbums(data.tracks.items);
+        //setAlbums((albums) => [...albums, ...data.artists.items]);
+        console.log("it worked");
+      });
+    }
 
   const playTrack = async (
     id, name, artists, image, context_uri, track_number, uri,
@@ -132,6 +169,10 @@ export default function Body() {
     setRemove(false)
   }
 
+  const refresh = () => {
+    window.location.reload(false);
+  }
+
   return (
     
     <Container >
@@ -177,6 +218,34 @@ export default function Body() {
             <button type="button" onClick={() => cancelRemoveButton()} className="btn btn-outline-success">
               Cancel
             </button>
+            <div className="search">
+          <InputGroup className="mb-3" size="small">
+            <FormControl
+              placeholder="Search for Song"
+              type="input"
+              onKeyPress={(event) => {
+                if (event.key === "Enter") {
+                  search();
+                }
+              }}
+              onChange={(event) => setSearchInput(event.target.value)}
+            />
+            <Button onClick={search}>Search</Button>
+          </InputGroup>
+          <Row className="mx-2 row row-cols-4">
+            {albums.map((album, i) => {
+              return (
+                <Card className="text-black" onClick={() => refresh()}>
+                                    {<Card.Img src={album.album.images[0].url} /> }
+                                    <Card.Img/>
+                  <Card.Body>
+                    <Card.Text className="fs-6">{album.name}</Card.Text>
+                  </Card.Body>
+                </Card>
+              );
+            })}
+          </Row>
+      </div>
           </div>
           </div>
           <div className="list">
