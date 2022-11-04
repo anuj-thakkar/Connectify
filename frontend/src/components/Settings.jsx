@@ -20,9 +20,10 @@ const Settings = () => {
     
 
   let settings = {
-    'mysettings.general.name': 'Demo User',
+    'mysettings.general.name': localStorage.getItem('username'),
     'mysettings.general.email': localStorage.getItem('email'),
-    'mysettings.general.bio': 'livin life',
+    'mysettings.general.bio': localStorage.getItem('bio'),
+    'mysettings.general.favSong': localStorage.getItem('FavSong')
   };
 
   const signOut = () => {
@@ -63,16 +64,39 @@ const Settings = () => {
 
   function updateInfo(e) {
     e.preventDefault();
-    if (document.getElementById('newPass').value === document.getElementById('confirmNewPass').value) {
-      if (document.getElementById('newPass').value !== localStorage.getItem('password')) {
-        fire.auth().currentUser.updatePassword(document.getElementById('newPass').value).then(function () {
-          setConfirmPassError("Password successfully changed!");
-        }).catch(function (error) {
-          setConfirmPassError(error.message);
-        });
-      } else {
-        setConfirmPassError("New password cannot be the same as old");
+    if (document.getElementById('newPass').value !== "") {
+      if (document.getElementById('newPass').value === document.getElementById('confirmNewPass').value) {
+        if (document.getElementById('newPass').value !== localStorage.getItem('password')) {
+          fire.auth().currentUser.updatePassword(document.getElementById('newPass').value).then(function () {
+            setConfirmPassError("Password successfully changed!");
+          }).catch(function (error) {
+            setConfirmPassError(error.message);
+          });
+        } else {
+          setConfirmPassError("New password cannot be the same as old");
+        }
       }
+    }
+    if (document.getElementById('general.username').value !== localStorage.getItem('username')) {
+      window.localStorage.setItem('username', document.getElementById('general.username').value);
+      setConfirmPassError("Username sucessfully changed");
+    }
+
+    if (document.getElementById('general.email').value !== localStorage.getItem('email')) {
+      fire.auth().currentUser.updateEmail(document.getElementById('general.email').value).then(function () {
+        window.localStorage.setItem('email', document.getElementById('general.email').value)
+        setConfirmPassError("Email successfully changed!");
+      }).catch(function (error) {
+        setConfirmPassError(error.message);
+      });
+    }
+    if (document.getElementById('profileSong').value !== localStorage.getItem('FavSong')) {
+      window.localStorage.setItem("FavSong", document.getElementById('profileSong').value);
+      setConfirmPassError("Favorite Song Sucessfully Changed");
+    }
+    if (document.getElementById('general.bio').value !== localStorage.getItem('bio')) {
+      window.localStorage.setItem('bio', document.getElementById('general.bio').value);
+      setConfirmPassError("Bio Successfully Changed");
     }
   }
 
@@ -114,13 +138,13 @@ const Settings = () => {
         <form>
           <div className='settingsForm' align="left">
             <fieldset className="form-group">
-              <label for="profileName" style={{ color: 'white' }}>Name: </label>
-              <input type="text" className="form-control" name="mysettings.general.name" placeholder="Name" id="general.ame" defaultValue={settings['mysettings.general.name']} />
+              <label for="profileName" style={{ color: 'white' }}>Username: </label>
+              <input type="text" className="form-control" name="mysettings.general.name" placeholder="Name" id="general.username" defaultValue={settings['mysettings.general.name']} />
             </fieldset>
 
             <fieldset className="form-group">
               <label for="profileEmail" style={{ color: 'white' }}>Email Address: </label>
-              <input type="text" className="form-control" name="mysettings.general.email" placeholder="Email Address" id="general.em" defaultValue={settings['mysettings.general.email']} />
+              <input type="text" className="form-control" name="mysettings.general.email" placeholder="Email Address" id="general.email" defaultValue={settings['mysettings.general.email']} />
             </fieldset>
 
             <fieldset className="form-group">
@@ -135,16 +159,12 @@ const Settings = () => {
               <li>At least 1 number</li>
               <li>At least 1 special character</li>
             </ul>
-            <p style={{ color: "red" }} >
-              {isError} </p>
-            <p style={{ color: "red" }} >
-              {requirements} </p>
               
             <fieldset className="form-group">
               <label for="profilePassword" style={{ color: 'white' }}>Confirm Password: </label>
               <input type="text" onKeyUp={comparePasswords} onKeyDown={checkRequirements} className="form-control" name="mysettings.general.confirmPassword" placeholder="Re-enter new password" id="confirmNewPass" />
             </fieldset>
-
+            
             <p style={{ color: "red"}} >
               {isError} </p>
             <p style={{ color: "red" }} >
@@ -156,7 +176,7 @@ const Settings = () => {
 
             <fieldset className="form-group">
               <label for="profileFavSong" style={{ color: 'white'}}>Fav Song of All Time: </label>
-              <input type="text" className="form-control" placeholder="Fav Song of All Time" id="profileSong" />
+              <input type="text" className="form-control" placeholder="Fav Song of All Time" id="profileSong" defaultValue={settings['mysettings.general.favSong']} />
             </fieldset>  
 
             <div class="form-group" style={{paddingTop: "20px"}}>

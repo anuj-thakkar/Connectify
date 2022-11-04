@@ -37,7 +37,21 @@ export const searchForUsers = async (username) => {
   }
   try {
     console.log(searchUrl, payload);
-    const res = await axios.get(searchUrl, payload, header)
+    const res = await axios.get(searchUrl, payload, header);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export async function login(email) {
+  const header = await createToken();
+  const loginUrl = 'http://localhost:3001/api/login';
+  alert("logging in");
+  const payload = {
+    email
+  }
+  try {
+    return await axios.post(loginUrl, payload, header);
   } catch (e) {
     console.error(e);
   }

@@ -343,9 +343,9 @@ const ProfileInfo = () => {
               paddingRight: "30px",
             }}
           >
-            <h3>hello, {userInfo ? userInfo.name : null}</h3>
-            <h6>@{userInfo ? userInfo.userId : null}</h6>
-            <h6>{userInfo ? userInfo.email : null}</h6>
+            <h3>hello, {window.localStorage.getItem('name')}</h3>
+            <h6>@{window.localStorage.getItem('username')}</h6>
+            <h6>{window.localStorage.getItem('email')}</h6>
 
             <h6>
               spotify followers: {userInfo ? userInfo.followers.total : null}
@@ -353,7 +353,8 @@ const ProfileInfo = () => {
             <h6>
               <Streak streak={useStreak(localStorage, new Date())} />
             </h6>    
-            <h6>fav song of all time: BACKEND TEAM DISPLAY FAV SONG HERE</h6>
+            <h6>Favorite Song: {window.localStorage.getItem('FavSong')}</h6>
+            <h6>Biography: {window.localStorage.getItem('bio')}</h6>
 
             <hr></hr>
             <div>

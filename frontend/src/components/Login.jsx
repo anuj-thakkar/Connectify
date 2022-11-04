@@ -2,12 +2,14 @@
 import React, { useState } from "react";
 import fire from "../fire.js";
 import { useNavigate } from "react-router-dom";
+import { login } from "../services/usersService.js";
 
 const Login = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [isError, setErrorMessage] = useState(0);
   const navigate = useNavigate();
+  const [user, setUser] = useState();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -17,6 +19,9 @@ const Login = () => {
       .then(() => {
         localStorage.setItem('email', email);
         localStorage.setItem('password', password);
+        localStorage.setItem('bio', " ");
+        localStorage.setItem('username', "Googolat");
+        localStorage.setItem('name', "Suraj Parikh");
         navigate("/link");
       })
       .catch((error) => {
