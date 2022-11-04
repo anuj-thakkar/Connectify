@@ -2,18 +2,20 @@ const userRouter = require('express').Router();
 const { express } = require('express');
 // const { useParams } = require('react-router-dom');
 const User = require('../models/user')
+
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
+
 /*
 * This gets all users from the database
 */
 userRouter.get('/', async (req, res) => {
-  const auth = req.currentUser;
-  if (auth) {
+  // const auth = req.currentUser;
+  // if (auth) {
     const users = await User.find({});
     return res.json(users.map((users) => users.toJSON()));
-  }
-  return res.status(403).send('Not authorized');
+  // }
+  // return res.status(403).send('Not authorized');
 });
 
 /**
@@ -84,6 +86,27 @@ userRouter.post('/updateBio', jsonParser, async (req, res) => {
       });
     }
   });
+});
+
+userRouter.post('/login', jsonParser, async (req, res) => {
+  var user = await User.findOne({'email':req.body.email});
+  console.log(req.body.email);
+  if (user) {
+    console.log(user.toJSON);
+    return res.json(user.toJSON());
+  } else {
+    console.log("failed");
+    return res.status(404).send('user not found');
+  }
+  // const foundUser = User.findOne({'email':req.body.email}, function(err,user) {
+  //   if (err) {
+  //     console.log(err);
+  //     return res.status(400).send('Error logging in');
+  //   } else {
+  //     c
+  //       res.status(200).send("Found it");
+  //   }
+  // });
 });
 
 

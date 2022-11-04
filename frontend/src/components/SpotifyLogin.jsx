@@ -10,6 +10,7 @@ export default function SpotifyLogin() {
     const api_uri = "https://accounts.spotify.com/authorize";
     const scope = [
       "user-read-private",
+      "user-library-modify",
       "user-read-email",
       "user-modify-playback-state",
       "user-read-playback-state",
