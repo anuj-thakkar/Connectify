@@ -163,8 +163,10 @@ const Settings = () => {
               <input type="text" onKeyUp={checkRequirements} onKeyDown={comparePasswords} className="form-control" name="mysettings.general.password" placeholder="Enter new password" id="newPass" data-testid="newPass" />
             </fieldset>
 
+            <label title="At least 8 characters&#10;At least 1 letter&#10;At least 1 number&#10;At least 1 special character" style={{ color: 'white', paddingLeft: '20px' }}>Password Requirements</label>        
+              
             <fieldset className="form-group">
-              <label for="profilePassword" style={{ paddingTop: '0px', color: 'white' }}>Confirm Password: </label>
+              <label for="profilePassword" style={{ color: 'white' }}>Confirm Password: </label>
               <input type="text" onKeyUp={comparePasswords} onKeyDown={checkRequirements} className="form-control" name="mysettings.general.confirmPassword" placeholder="Re-enter new password" id="confirmNewPass" />
             </fieldset>
             

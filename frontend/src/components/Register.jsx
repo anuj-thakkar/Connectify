@@ -128,13 +128,7 @@ const Register = () => {
                   setPassword(target.value)}
                   placeholder="Create a password"
                 />
-                <label>Password Requirements</label>
-                <ul>
-                  <li>At least 8 characters</li>
-                  <li>At least 1 letter</li>
-                  <li>At least 1 number</li>
-                  <li>At least 1 special character</li>
-                </ul>
+                <label title="At least 8 characters&#10;At least 1 letter&#10;At least 1 number&#10;At least 1 special character">Password Requirements</label>
               
               </div>
               <div className="form-group mt-3">
