@@ -2,9 +2,9 @@ const userRouter = require('express').Router();
 const { express } = require('express');
 // const { useParams } = require('react-router-dom');
 const User = require('../models/user')
-// const userService = require(
-//   '../Services/userServices.js'
-// );
+
+const bodyParser = require('body-parser')
+const jsonParser = bodyParser.json()
 
 /*
 * This gets all users from the database
@@ -22,9 +22,16 @@ userRouter.get('/', async (req, res) => {
  * This gets a user from search bar
  */
 userRouter.get('/search', async(req, res) => {
-  // return req;
-  // const auth = req.currentUser;
-  // if (auth) {
+    let userPattern = new RegExp("^" + req.body.query);
+    User.find({email: {$regex: userPattern}})
+    .select("username email")
+    .then(user => {
+      res.json({user})
+    })
+    .catch(err => {
+      console.log(err);
+    })
+
     console.log(req.username);
     const users = await User.find({username:req.username});
     return res.json(users.map((users) => users.toJSON()));
@@ -32,14 +39,17 @@ userRouter.get('/search', async(req, res) => {
   // return res.status(403).send('Not authorized');
 });
 
-userRouter.post('/', (req, res) => {
-  const user = new User(req.body);
+userRouter.post('/register', async (req, res) => {
+  const user = await new User(req.body);
   const savedUser = user.save();
   return res.status(201).json(savedUser);
 });
 
+
+// endpoint to updateEmail
 userRouter.post('/updateEmail', async (req, res) => {
   var params = req.body;
+  res.send('update email');
   User.findOne({'email':params.email}, function(err,existingUser) {
     user.email = params.email;
       if(err) return next(err);
@@ -63,15 +73,14 @@ userRouter.post('/updateEmail', async (req, res) => {
   });
 });
 
-userRouter.post('/updateBio', async (req, res) => {
-  var params = req.body;
-  User.findOne({'email':params.email}, function(err,user) {
+// endpoint to updateBio
+userRouter.post('/updateBio', jsonParser, async (req, res) => {
+  User.findOne({'email':req.body.email}, function(err,user) {
     if (err) {
       console.log(err);
       return res.status(400).send('Error updating bio');
     } else {
-      user.bio = params.bio;
-      User.updateOne({"bio":params.bio},params, function(err, user) {
+        User.updateOne({ "email" : req.body.email }, { $set: { "bio" : req.body.bio } }, function(err, user) {
         if (err) return next(err);
         return res.status(200).send('Bio updated Successfully.');
       });
@@ -80,12 +89,10 @@ userRouter.post('/updateBio', async (req, res) => {
 });
 
 
-
-/**
- * packages needed to update profile picture 
- */
+// endpoint to update profile picture
 const fs = require('fs');
-const multer = require('multer')
+const multer = require('multer');
+const user = require('../models/user');
 const upload = multer({ dest: 'uploads/' })
 
 userRouter.post('/updateProfilePicture', upload.single("avatar"), async (req, res) => {
@@ -107,6 +114,71 @@ userRouter.post('/updateProfilePicture', upload.single("avatar"), async (req, re
   res.send("200")
 
 });
+
+// endpoint to update username
+// username should not change given that it exists in database
+userRouter.post('/updateUsername', async (req, res) => {
+  var params = req.body;
+ 
+  User.findOne({'username':params.username}, function(err,user) {
+    if (err) {
+      console.log(err);
+      return res.status(400).send('Error updating username');
+    } 
+    if (user) {
+      return res.status(400).send('Username already exists');
+    } else {
+      user.username = params.username;
+      User.updateOne({"username":params.username},params, function(err, user) {
+        if (err) return next(err);
+        return res.status(200).send('Username updated Successfully.');
+      });
+    }
+  });
+});
+
+
+//follow a user
+userRouter.put("/:username/follow", async (req, res) => {
+  if (req.body.username !== req.params.username) {
+    try {
+      const user = await User.findById(req.params.username);
+      const currentUser = await User.findById(req.body.username);
+      if (!user.followers.includes(req.body.username)) {
+        await user.updateOne({ $push: { followers: req.body.username } });
+        await currentUser.updateOne({ $push: { followings: req.params.username } });
+        res.status(200).json("user has been followed");
+      } else {
+        res.status(403).json("you allready follow this user");
+      }
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  } else {
+    res.status(403).json("you cant follow yourself");
+  }
+});
+
+//unfollow a user
+userRouter.put("/:username/unfollow", async (req, res) => {
+    if (req.body.username !== req.params.username) {
+      try {
+        const user = await User.findById(req.params.id);
+        const currentUser = await User.findById(req.body.userId);
+        if (user.followers.includes(req.body.username)) {
+          await user.updateOne({ $pull: { followers: req.body.username } });
+          await currentUser.updateOne({ $pull: { followings: req.params.username } });
+          res.status(200).json("user has been unfollowed");
+        } else {
+          res.status(403).json("you dont follow this user");
+        }
+      } catch (err) {
+        res.status(500).json(err);
+      }
+    } else {
+      res.status(403).json("you cant unfollow yourself");
+    }
+  });
 
 
 module.exports = userRouter;

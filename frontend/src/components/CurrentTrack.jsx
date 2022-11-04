@@ -42,6 +42,7 @@ export default function CurrentTrack() {
             <h6 className="track__info__track__artists">
               {currentPlaying.artists.join(", ")}
             </h6>
+            
           </div>
         </div>
       )}
@@ -53,15 +54,17 @@ const Container = styled.div`
   .track {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    justify-content: center;
+    gap: 3rem;
     &__image {
     }
     &__info {
-      display: flex;
+      display: block;
       flex-direction: column;
-      gap: 0.3rem;
+      gap: 1rem;
       &__track__name {
         color: white;
+        font-size: 1.2rem;
       }
       &__track__artists {
         color: #b3b3b3;

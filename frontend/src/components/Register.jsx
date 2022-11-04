@@ -50,7 +50,9 @@ const Register = () => {
                 localStorage.setItem('password', password);
                 localStorage.setItem('name', name);
                 localStorage.setItem('username', username);
-                navigate('/home');
+                // localStorage.setItem('bio', " ");
+                navigate('/login');
+
               } catch (error) {
                 console.log(error);
               }

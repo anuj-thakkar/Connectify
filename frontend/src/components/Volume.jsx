@@ -22,18 +22,21 @@ export default function Volume() {
   };
   return (
     <Container>
+      <h9>volume</h9>
+      &nbsp;
+      &nbsp;
       <input type="range" onMouseUp={(e) => setVolume(e)} min={0} max={100} />
     </Container>
   );
 }
 
 const Container = styled.div`
-  display: flex;
+  display: block;
   justify-content: flex-end;
   align-content: center;
   input {
-    width: 15rem;
+    width: 20rem;
     border-radius: 2rem;
-    height: 0.5rem;
+    height: 0.2rem;
   }
 `;
