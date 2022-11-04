@@ -205,7 +205,7 @@ userRouter.post('/setStatusUpdate', jsonParser, async (req, res) => {
       return res.status(400).send('Error updating status');
     } else {
       user.status = params.status;
-      User.updateOne({"statusUpdate":params.status}, {$set: { "statusUpdate" : req.body.status }} , function(err, user) {
+      User.updateOne({'email':params.email}, {$set: { "statusUpdate" : req.body.status }} , function(err, user) {
         if (err) return next(err);
         return res.status(200).send('Status updated Successfully.');
       });
