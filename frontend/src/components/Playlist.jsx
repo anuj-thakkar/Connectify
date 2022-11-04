@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useStateProvider } from "../utils/StateProvider";
 import { AiFillClockCircle } from "react-icons/ai";
 import { reducerCases } from "../utils/Constants";
-import logo from "./logo.jpg";
+import logo from "../static/logo.jpg";
 import Settings from "./Settings";
 import { MdHomeFilled, MdBuild, MdAccountCircle, MdSearch, MdCompareArrows } from "react-icons/md";
 import "../App.css";

@@ -228,3 +228,8 @@ label {
 .delete {
   margin-top: 500px;
 }
+
+.remove-song {
+  color: white;
+  font-size: 25px;
+}
