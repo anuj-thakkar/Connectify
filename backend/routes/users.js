@@ -47,13 +47,10 @@ userRouter.post('/register', async (req, res) => {
 
 
 // endpoint to updateEmail
-userRouter.post('/updateEmail', async (req, res) => {
-  var params = req.body;
-  res.send('update email');
-  User.findOne({'email':params.email}, function(err,existingUser) {
-    user.email = params.email;
-      if(err) return next(err);
-      if(existingUser) {
+userRouter.post('/updateEmail', jsonParser, async (req, res) => {
+  User.findOne({'email':req.body.email}, function(err , existingUser) {
+      if (err) return next(err);
+      if (existingUser) {
         return res.status(404).send('Account with that email already exists.');
       } else {
         User.updateOne({"email":params.email},params, function(err, user) {
@@ -141,7 +138,7 @@ userRouter.post('/updateProfilePicture', upload.single("avatar"), async (req, re
 userRouter.post('/updateUsername', async (req, res) => {
   var params = req.body;
  
-  User.findOne({'username':params.username}, function(err,user) {
+  User.findOne({'email':req.body.email}, function(err,user) {
     if (err) {
       console.log(err);
       return res.status(400).send('Error updating username');
@@ -149,8 +146,7 @@ userRouter.post('/updateUsername', async (req, res) => {
     if (user) {
       return res.status(400).send('Username already exists');
     } else {
-      user.username = params.username;
-      User.updateOne({"username":params.username},params, function(err, user) {
+      User.updateOne({ "email" : req.body.email }, { $set: { "username" : req.body.username } }, function(err, user) {
         if (err) return next(err);
         return res.status(200).send('Username updated Successfully.');
       });

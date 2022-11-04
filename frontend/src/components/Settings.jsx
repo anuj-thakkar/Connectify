@@ -64,17 +64,23 @@ const Settings = () => {
 
   function updateInfo(e) {
     e.preventDefault();
-    if (document.getElementById('newPass').value !== "") {
-      if (document.getElementById('newPass').value === document.getElementById('confirmNewPass').value) {
-        if (document.getElementById('newPass').value !== localStorage.getItem('password')) {
-          fire.auth().currentUser.updatePassword(document.getElementById('newPass').value).then(function () {
-            setConfirmPassError("Password successfully changed!");
-          }).catch(function (error) {
-            setConfirmPassError(error.message);
-          });
-        } else {
-          setConfirmPassError("New password cannot be the same as old");
+    const newPass = document.getElementById('newPass').value;
+    if (newPass !== "") {
+      if (document.getElementById('oldPass').value === window.localStorage.getItem('password')) {
+        if (document.getElementById('newPass').value === document.getElementById('confirmNewPass').value) {
+          if (document.getElementById('newPass').value !== localStorage.getItem('password')) {
+            fire.auth().currentUser.updatePassword(document.getElementById('newPass').value).then(function () {
+              setConfirmPassError("Password successfully changed!");
+              window.localStorage.setItem('password', newPass);
+            }).catch(function (error) {
+              setConfirmPassError(error.message);
+            });
+          } else {
+            setConfirmPassError("New password cannot be the same as old");
+          }
         }
+      } else {
+        setConfirmPassError("Old Password Does Not Match");
       }
     }
     if (document.getElementById('general.username').value !== localStorage.getItem('username')) {
@@ -145,6 +151,11 @@ const Settings = () => {
             <fieldset className="form-group">
               <label for="profileEmail" style={{ color: 'white' }}>Email Address: </label>
               <input type="text" className="form-control" name="mysettings.general.email" placeholder="Email Address" id="general.email" defaultValue={settings['mysettings.general.email']} />
+            </fieldset>
+
+            <fieldset className="form-group">
+              <label for="profileOldPassword" style={{ color: 'white' }}>Old Password: </label>
+              <input type="text" className="form-control" name="mysettings.general.password" placeholder="Enter old password" id="oldPass" data-testid="oldPass" />
             </fieldset>
 
             <fieldset className="form-group">
