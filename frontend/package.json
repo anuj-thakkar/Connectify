@@ -17,6 +17,7 @@
     "react-scripts": "5.0.1",
     "react-settings-pane": "^0.1.5",
     "styled-components": "^5.3.6",
+    "use-streak": "^1.0.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

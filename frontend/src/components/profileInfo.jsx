@@ -2,23 +2,33 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import fire from "../fire.js";
-import logo from "./logo.jpg";
+import logo from "../static/logo.jpg";
+import { NavLink, Link } from "react-router-dom";
 import Settings from "./Settings";
-import { MdHomeFilled, MdBuild, MdAccountCircle, MdSearch, MdCompareArrows } from "react-icons/md";
+import {
+  MdHomeFilled,
+  MdBuild,
+  MdAccountCircle,
+  MdSearch,
+  MdCompareArrows,
+} from "react-icons/md";
 import "../App.css";
 import axios from "axios";
 import styled from "styled-components";
 import { useStateProvider } from "../utils/StateProvider";
 import { reducerCases } from "../utils/Constants";
+import { useStreak } from "use-streak";
+import Streak from "./Streak";
 
 const ProfileInfo = () => {
   const [{ token, playlists, userInfo}, dispatch] = useStateProvider();
   var [playlistId] = useState("4VeOV08x3iNXrERRLt8SJl")
   const [image, setState] = useState({});
   const [unfollow, setUnfollow] = useState(false);
+
   const [playlistName, setPlaylistName] = useState("")
   let navigate = useNavigate();
-
+  
   const fileOnChange = (e) => {
     console.log(e.target.files[0]);
   };
@@ -73,18 +83,24 @@ const ProfileInfo = () => {
   const uploadedImage = React.useRef(null);
   const imageUploader = React.useRef(null);
 
-  const handleImageUpload = e => {
+  const handleImageUpload = (e) => {
     const [file] = e.target.files;
     if (file) {
       const reader = new FileReader();
       const { current } = uploadedImage;
       current.file = file;
-      reader.onload = e => {
+      reader.onload = (e) => {
         current.src = e.target.result;
       };
       reader.readAsDataURL(file);
     }
   };
+  const [bio, setBio] = useState("");
+  const [istrue, Setistrue] = useState(false);
+
+  function handleclick() {
+    Setistrue(true);
+  }
 
   const viewOrUnfollow = async (selectedPlaylistId) => {
     if (unfollow) {
@@ -114,28 +130,28 @@ const ProfileInfo = () => {
 
   const unfollowButton = () => {
     setUnfollow(true);
-  }
+  };
 
   const cancelUnfollowButton = () => {
-    setUnfollow(false)
-  }
+    setUnfollow(false);
+  };
 
   const createPlaylist = async () => {
     await axios.post(
       `https://api.spotify.com/v1/users/${userInfo.userId}/playlists`,
       {
-        "name": playlistName,
+        name: playlistName,
       },
       {
         headers: {
           Authorization: "Bearer " + token,
           "Content-Type": "application/json",
         },
-      },
+      }
     );
     window.location.reload(false);
     return;
-  }
+  };
 
   return (
     <>
@@ -143,49 +159,120 @@ const ProfileInfo = () => {
         <div class="itemnav">
           <nav class="navbar navbar-expand-lg navbar-dark bg-black">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#"><img src={logo} alt="" padding-left="10" height="60" class="d-inline-block align-text-top"></img></a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <a class="navbar-brand" href="#">
+                <img
+                  src={logo}
+                  alt=""
+                  padding-left="10"
+                  height="60"
+                  class="d-inline-block align-text-top"
+                ></img>
+              </a>
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                  <a class="nav-link active" aria-current="page" href={`/home#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdHomeFilled /> Home</a>
-
-
-                  <a class="nav-link active" aria-current="page" onClick={Settings} href={`/home/settings#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdBuild /> Settings</a>
-
-                  <a class="nav-link active" aria-current="page" href={`../profile#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdAccountCircle /> Profile</a>
-
-                  <a class="nav-link active" aria-current="page" onClick={signOut} href="/#"><MdCompareArrows /> Sign out</a>
-
+                  &nbsp; &nbsp; &nbsp;
+                  <a
+                    class="nav-link active"
+                    aria-current="page"
+                    href={`/home#access_token=${token}&token_type=Bearer&expires_in=3600`}
+                  >
+                    <MdHomeFilled /> Home
+                  </a>
+                  &nbsp; &nbsp; &nbsp;
+                  <a
+                    class="nav-link active"
+                    aria-current="page"
+                    onClick={Settings}
+                    href={`/home/settings#access_token=${token}&token_type=Bearer&expires_in=3600`}
+                  >
+                    <MdBuild /> Settings
+                  </a>
+                  &nbsp; &nbsp; &nbsp;
+                  <a
+                    class="nav-link active"
+                    aria-current="page"
+                    href={`../profile#access_token=${token}&token_type=Bearer&expires_in=3600`}
+                  >
+                    <MdAccountCircle /> Profile
+                  </a>
+                  &nbsp; &nbsp; &nbsp;
+                  <a
+                    class="nav-link active"
+                    aria-current="page"
+                    onClick={signOut}
+                    href="/#"
+                  >
+                    <MdCompareArrows /> Sign out
+                  </a>
                 </div>
               </div>
             </div>
           </nav>
         </div>
         <div class="itemright">
-          <div class="unfollow-playlist">
-            Unfollow Playlist?
-            <button type="button" onClick={() => unfollowButton()} className="btn btn-outline-success">
+          <div
+            class="trial"
+            align="left"
+            style={{
+              color: "white",
+              paddingTop: "5px",
+              paddingLeft: "30px",
+              paddingRight: "30px",
+            }}
+          >
+            Unfollow Playlist? &nbsp;
+            <button
+              type="button"
+              onClick={() => unfollowButton()}
+              className="btn btn-outline-success"
+            >
               Yes
             </button>
-            <button type="button" onClick={() => cancelUnfollowButton()} className="btn btn-outline-success">
+            &nbsp;
+            <button
+              type="button"
+              onClick={() => cancelUnfollowButton()}
+              className="btn btn-outline-success"
+            >
               Cancel
             </button>
+            <hr></hr>
           </div>
-          <div className="new-playlist">
-            <form>
-              Create New Playlist
-              <input type="search" placeholder="Playlist Name" onChange={({ target }) => setPlaylistName(target.value)} aria-label="searchbar"></input>
-              <button type="button" onClick={() => createPlaylist()} className="btn btn-outline-success">Create</button>
-            </form>
-          </div>
-          <br></br>
-          <h2 className="Current-Playlist-Header">
+
+          <h5
+            class="trial"
+            align="left"
+            style={{
+              color: "white",
+              paddingLeft: "30px",
+              paddingRight: "30px",
+            }}
+          >
             Current Playlists
-          </h2>
-          <div>
-            <Container>
+
+          </h5>
+
+          <div
+            class="trial"
+            align="left"
+            style={{
+              color: "white",
+              paddingLeft: "30px",
+              paddingRight: "30px",
+            }}
+          >
+
             <ul>
               {playlists.map(({ name, id }) => {
                 return (
@@ -203,7 +290,7 @@ const ProfileInfo = () => {
             style={{
               display: "block",
               alignItems: "center",
-              justifyContent: "center"
+              justifyContent: "center",
             }}
           >
             <input
@@ -212,7 +299,7 @@ const ProfileInfo = () => {
               onChange={handleImageUpload}
               ref={imageUploader}
               style={{
-                display: "none"
+                display: "none",
               }}
             />
             <div
@@ -231,7 +318,9 @@ const ProfileInfo = () => {
                   paddingTop: "5px",
                   width: "150px",
                   height: "150px",
-                  position: "absolute"
+                  borderRadius: 30,
+                  overflow: "hidden",
+                  position: "absolute",
                 }}
               />
             </div>
@@ -240,16 +329,74 @@ const ProfileInfo = () => {
           <br></br>
           <br></br>
           <br></br>
-          
-          <div class="trial" align="left" style={{ color: 'white', paddingLeft: '30px' }}>
+
+          <div
+            class="trial"
+            align="left"
+            style={{
+              color: "white",
+              paddingLeft: "30px",
+              paddingRight: "30px",
+            }}
+          >
             <h3>hello, {userInfo ? userInfo.name : null}</h3>
             <h6>@{userInfo ? userInfo.userId : null}</h6>
             <h6>{userInfo ? userInfo.email : null}</h6>
-            <h6>spotify followers: {userInfo ? userInfo.followers.total : null}</h6>
+
+            <h6>
+              spotify followers: {userInfo ? userInfo.followers.total : null}
+            </h6>
+            <h6>
+              <Streak streak={useStreak(localStorage, new Date())} />
+            </h6>    
+            <h6>fav song of all time: BACKEND TEAM DISPLAY FAV SONG HERE</h6>
+
+            <hr></hr>
+            <div>
+              {istrue ? (
+                <div>
+                  <h6>{bio}</h6>{" "}
+                </div>
+              ) : (
+                <div>
+                  <fieldset class="d-flex justify-content-start">
+
+                    <input type="text" placeholder="status update song" bio="bio" onChange={e => setBio(e.target.value)} />
+                    &nbsp;
+                    <button
+                      class="btn btn-outline-success"
+                      type="submit"
+                      onClick={handleclick}
+                    >
+                      submit
+                    </button>
+                  </fieldset>
+                </div>
+              )}
+              <hr></hr>
+            </div>
+
+            <div>
+              <fieldset class="d-flex justify-content-start">
+                <input
+                  type="text"
+                  placeholder="new playlist name"
+                  onChange={({ target }) => setPlaylistName(target.value)}
+                  aria-label="searchbar"
+                ></input>
+                &nbsp;
+                <button
+                  type="button"
+                  onClick={() => createPlaylist()}
+                  className="btn btn-outline-success"
+                >
+                  create
+                </button>
+              </fieldset>
+            </div>
           </div>
         </div>
       </div>
-
     </>
   );
 };

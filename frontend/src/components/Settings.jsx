@@ -1,4 +1,6 @@
-import logo from './logo.jpg';
+import { Navigate, useNavigate } from 'react-router-dom';
+import {SettingsPane, SettingsPage, SettingsContent, SettingsMenu} from 'react-settings-pane';
+import logo from '../static/logo.jpg';
 import { Link } from 'react-router-dom'
 import { Row, Col, Container, Button } from 'react-bootstrap';
 import { MdHomeFilled, MdBuild, MdAccountCircle, MdSearch, MdCompareArrows } from "react-icons/md";
@@ -22,7 +24,6 @@ const Settings = () => {
   let settings = {
     'mysettings.general.name': 'Demo User',
     'mysettings.general.email': 'sdparikh@purdue.edu',
-    'mysettings.general.bio': 'livin life',
   };
 
   const signOut = () => {
@@ -80,18 +81,23 @@ const Settings = () => {
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
-
+                &nbsp;
+                &nbsp;
+                &nbsp;
                 <a class="nav-link active" aria-current="page" href={`/home#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdHomeFilled/> Home</a>
 
-
+                &nbsp;
+                &nbsp;
+                &nbsp;
                 <a class="nav-link active" aria-current="page" onClick={Settings} href="/home/settings"><MdBuild /> Settings</a>
-
+                &nbsp;
+                &nbsp;
+                &nbsp;
                 <a class="nav-link active" aria-current="page" href={`../profile#access_token=${token}&token_type=Bearer&expires_in=3600`}><MdAccountCircle/> Profile</a>
-
+                &nbsp;
+                &nbsp;
+                &nbsp;
                 <a class="nav-link active" aria-current="page" onClick={signOut} href="/#"><MdCompareArrows /> Sign out</a>
-
-
-                <a class="nav-link active" aria-current="page"><MdSearch /></a>
               </div>
             </div>
           </div>
@@ -106,11 +112,6 @@ const Settings = () => {
             </fieldset>
 
             <fieldset className="form-group">
-              <label for="profileBio" style={{ color: 'white' }}>Bio: </label>
-              <input type="text" className="form-control" name="mysettings.general.bio" placeholder="Bio" id="general.bio" defaultValue={settings['mysettings.general.bio']} />
-            </fieldset>
-
-            <fieldset className="form-group">
               <label for="profileEmail" style={{ color: 'white' }}>Email Address: </label>
               <input type="text" className="form-control" name="mysettings.general.email" placeholder="Email Address" id="general.em" defaultValue={settings['mysettings.general.email']} />
             </fieldset>
@@ -120,36 +121,44 @@ const Settings = () => {
               <input type="text" onKeyUp={checkRequirements} onKeyDown={comparePasswords} className="form-control" name="mysettings.general.password" placeholder="Enter new password" id="newPass" />
             </fieldset>
 
-            <label style={{ color: 'white', padding: '20px' }}>Password Requirements</label>
+            <label style={{ color: 'white', paddingLeft: '20px' }}>Password Requirements</label>
             <ul style={{ color: 'white', fontSize: '15px' }}>
               <li>At least 8 characters</li>
               <li>At least 1 letter</li>
               <li>At least 1 number</li>
               <li>At least 1 special character</li>
             </ul>
-
+            <p style={{ color: "red" }} >
+              {isError} </p>
+            <p style={{ color: "red" }} >
+              {requirements} </p>
+              
             <fieldset className="form-group">
               <label for="profilePassword" style={{ color: 'white' }}>Confirm Password: </label>
               <input type="text" onKeyUp={comparePasswords} onKeyDown={checkRequirements} className="form-control" name="mysettings.general.confirmPassword" placeholder="Re-enter new password" id="confirmNewPass" />
             </fieldset>
 
-            <p style={{ color: "red" }} >
-              {isError} </p>
-            <p style={{ color: "red" }} >
-              {requirements} </p>
+            <fieldset className="form-group">
+              <label for="profileBio" style={{ color: 'white' }}>Bio: </label>
+              <input type="text" className="form-control" name="mysettings.general.bio" placeholder="Bio" id="general.bio" defaultValue={settings['mysettings.general.bio']} />
+            </fieldset>
 
-            <div class="form-group">
+            <fieldset className="form-group">
+              <label for="profileFavSong" style={{ color: 'white'}}>Fav Song of All Time: </label>
+              <input type="text" className="form-control" placeholder="Fav Song of All Time" id="profileSong" />
+            </fieldset>  
 
-              <Link to="/home" className="btn btn-dark">Cancel</Link>
+            <div class="form-group" style={{paddingTop: "20px"}}>
+              <Link to="/home" className="btn btn-outline-success">Save</Link>
               &nbsp;
-              <Link to="/home" className="btn btn-success">Save</Link>
+              <Link to="/home" className="btn btn-outline-danger">Cancel</Link>
+              &nbsp;
+              <button className="btn btn-danger" id="delete" onClick={deleteSignedUser}>Delete Account</button>
+              
+
             </div>
 
-            &nbsp;
-            &nbsp;
-            &nbsp;
-            <Button className="btn btn-danger" id="delete" onClick={deleteSignedUser}>Delete Account</Button>
-
+            
           </div>
         </form>
       </div>
