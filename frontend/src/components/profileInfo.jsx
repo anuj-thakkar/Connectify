@@ -272,7 +272,7 @@ const ProfileInfo = () => {
               paddingRight: "30px",
             }}
           >
-
+          <Container>
             <ul>
               {playlists.map(({ name, id }) => {
                 return (
