@@ -8,10 +8,48 @@ import {
   Row,
   Card,
 } from "react-bootstrap";
+import { useStateProvider } from "../utils/StateProvider";
+//import "../custom.scss";
 
 const Search = () => {
   const [searchInput, setSearchInput] = useState("");
+  const [{ token }] = useStateProvider();
+  const [albums, setAlbums] = useState([]);
 
+  //search
+  async function search() {
+    console.log("Searching for " + searchInput);
+
+    //Get request using search to get Artist ID
+    var searchParameters = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    var artistID = await fetch(
+      "https://api.spotify.com/v1/search?q=" + searchInput + "&type=artist",
+      searchParameters
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        return data.artists.items[0].id;
+      });
+    //Get request with Artist ID grab all the albums from that artist
+    var returnedAlbums = await fetch(
+      "https://api.spotify.com/v1/artists/" +
+        artistID +
+        "/albums?include_groups=album&market=US&limit=12",
+      searchParameters
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setAlbums(data.items);
+      });
+    //display those albums to the user
+  }
   return (
     <>
       <div className="search">
@@ -22,28 +60,26 @@ const Search = () => {
               type="input"
               onKeyPress={(event) => {
                 if (event.key == "Enter") {
-                  console.log("pressed enter");
+                  search();
                 }
               }}
               onChange={(event) => setSearchInput(event.target.value)}
             />
-            <Button
-              onClick={() => {
-                console.log("Clicked Search");
-              }}
-            >
-              Search
-            </Button>
+            <Button onClick={search}>Search</Button>
           </InputGroup>
         </Container>
         <Container>
           <Row className="mx-2 row row-cols-4">
-            <Card>
-              <Card.Img src="#" />
-              <Card.Body>
-                <Card.Title>Album Name Here</Card.Title>
-              </Card.Body>
-            </Card>
+            {albums.map((album, i) => {
+              return (
+                <Card className="text-black">
+                  <Card.Img src={album.images[0].url} />
+                  <Card.Body>
+                    <Card.Title>{album.name}</Card.Title>
+                  </Card.Body>
+                </Card>
+              );
+            })}
           </Row>
         </Container>
       </div>
