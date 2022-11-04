@@ -81,14 +81,14 @@ const Search = () => {
               }}
               onChange={(event) => setSearchInput(event.target.value)}
             />
-            <Button onClick={search}>Search</Button>
+            <button class="btn btn-outline-success" onClick={search}>Search</button>
           </InputGroup>
         </Container>
         <Container>
-          <Row className="mx-2 row row-cols-4">
+          <Row className="form-group" style={{paddingRight:"15px"}}>
             {albums.map((album, i) => {
               return (
-                <Card className="text-black">
+                <Card className="text-white bg-dark" style={{marginTop: "15px", color: "black"}}>
                   {/* <Card.Img src={album.album.images[0].url} /> */}
                   <Card.Img
                     src={() => {
