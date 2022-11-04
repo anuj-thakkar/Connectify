@@ -107,7 +107,6 @@ const ProfileInfo = () => {
     
     axios
       .post('http://localhost:3001/setStatusUpdate', 
-      
       {
         email: userInfo.email,
         statusUpdate: statusUpdate
@@ -389,8 +388,8 @@ const ProfileInfo = () => {
               ) : (
                 <div>
                   <fieldset class="d-flex justify-content-start">
-
-                    <input type="text" placeholder="status update song" bio="bio" onChange={e => setStatusUpdate(e.target.value)} />
+                    <form>
+                    <input type="text" placeholder="status update song" bio="bio" id='statusUpdate' onChange={e => setStatusUpdate(e.target.value)}/>
                     &nbsp;
                     <button
                       class="btn btn-outline-success"
