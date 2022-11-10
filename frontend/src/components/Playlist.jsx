@@ -169,8 +169,25 @@ export default function Body() {
     setRemove(false)
   }
 
-  const refresh = () => {
-    window.location.reload(false);
+  const addSong = async (track) => {
+    var parameters = {
+      method: "POST", 
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    await fetch(
+      "https://api.spotify.com/v1/playlists/" +
+        state.PlaylistId +
+        "/tracks?uris=" + track.uri,
+      parameters,
+    ).then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    }); 
+    window.location.reload(false)
   }
 
   return (
@@ -212,13 +229,16 @@ export default function Body() {
             </div>
             <div class="remove-song">
             Remove Song?
+            &nbsp;
             <button type="button" onClick={() => removeButton()} className="btn btn-outline-success">
               Yes
             </button>
+            &nbsp;
+            &nbsp;
             <button type="button" onClick={() => cancelRemoveButton()} className="btn btn-outline-success">
               Cancel
             </button>
-            <div className="search">
+       <div className="search">
           <InputGroup className="mb-3" size="small">
             <FormControl
               placeholder="Search for Song"
@@ -230,12 +250,13 @@ export default function Body() {
               }}
               onChange={(event) => setSearchInput(event.target.value)}
             />
-            <Button onClick={search}>Search</Button>
+            <br></br>
+            <button class="btn btn-outline-success" onClick={search}>Search</button>
           </InputGroup>
           <Row className="mx-2 row row-cols-4">
             {albums.map((album, i) => {
               return (
-                <Card className="text-black" onClick={() => refresh()}>
+                <Card className="text-black" onClick={() => addSong(album)}>
                                     {<Card.Img src={album.album.images[0].url} /> }
                                     <Card.Img/>
                   <Card.Body>
