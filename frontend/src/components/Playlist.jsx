@@ -229,9 +229,12 @@ export default function Body() {
             </div>
             <div class="remove-song">
             Remove Song?
+            &nbsp;
             <button type="button" onClick={() => removeButton()} className="btn btn-outline-success">
               Yes
             </button>
+            &nbsp;
+            &nbsp;
             <button type="button" onClick={() => cancelRemoveButton()} className="btn btn-outline-success">
               Cancel
             </button>
@@ -247,7 +250,8 @@ export default function Body() {
               }}
               onChange={(event) => setSearchInput(event.target.value)}
             />
-            <Button onClick={search}>Search</Button>
+            <br></br>
+            <button class="btn btn-outline-success" onClick={search}>Search</button>
           </InputGroup>
           <Row className="mx-2 row row-cols-4">
             {albums.map((album, i) => {

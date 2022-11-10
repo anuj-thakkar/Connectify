@@ -24,9 +24,7 @@
   border-radius: 15px;
 }
 .item1 {
-
   grid-area: 12 / 2 / span 49 / span 3;
-
   max-width: 100%;
   color: white;
 }
@@ -65,7 +63,6 @@
 }
 
 .itemrest {
-
   grid-area: 2 / 1 / span 65 / span 1;
   color: white;
 }
@@ -151,6 +148,10 @@ body:focus {
   padding-left: 20px;
   align-items: left;
   width: 350px;
+}
+
+.search-group {
+    width: 400px;
 }
 
 .settingsForm {
