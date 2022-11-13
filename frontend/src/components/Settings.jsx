@@ -28,6 +28,7 @@ const Settings = () => {
 
   const signOut = () => {
     fire.auth().signOut();
+    localStorage.clear();
   };
 
   function comparePasswords() {

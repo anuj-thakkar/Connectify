@@ -84,6 +84,7 @@ const ProfileInfo = () => {
 
   const signOut = () => {
     fire.auth().signOut();
+    localStorage.clear();
   };
 
   const uploadedImage = React.useRef(null);

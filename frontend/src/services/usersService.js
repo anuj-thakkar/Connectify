@@ -47,11 +47,14 @@ export async function login(email) {
   const header = await createToken();
   const loginUrl = 'http://localhost:3001/api/login';
   alert("logging in");
-  const payload = {
+  const body = {
     email
   }
   try {
-    return await axios.post(loginUrl, payload, header);
+    var result = await axios.post(loginUrl, body, header);
+    console.log(result);
+    console.log(result.data);
+    return result.data;
   } catch (e) {
     console.error(e);
   }

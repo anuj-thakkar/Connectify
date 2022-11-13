@@ -66,6 +66,7 @@ export default function Body() {
 
   const signOut = () => {
     fire.auth().signOut();
+    localStorage.clear();
   };
 
   //search

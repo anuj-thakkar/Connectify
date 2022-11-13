@@ -16,12 +16,14 @@ const Login = () => {
     fire
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(() => {
+      .then(async () => {
         localStorage.setItem('email', email);
         localStorage.setItem('password', password);
-        localStorage.setItem('bio', " ");
-        localStorage.setItem('username', "Googolat");
-        localStorage.setItem('name', "Suraj Parikh");
+        var user = await login(email);
+        console.log(user);
+        localStorage.setItem('bio', user.bio);
+        localStorage.setItem('FavSong', user.favSong);
+        localStorage.setItem('username', user.username);
         navigate("/link");
       })
       .catch((error) => {
