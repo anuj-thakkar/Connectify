@@ -139,7 +139,7 @@ const Home = () => {
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp;
                 <div class="navbar-nav">
                   <a
                     class="nav-link active"
@@ -148,7 +148,7 @@ const Home = () => {
                   >
                     <MdHomeFilled /> Home
                   </a>
-                  &nbsp; &nbsp; &nbsp;
+                  &nbsp; &nbsp;
                   <a
                     class="nav-link active"
                     aria-current="page"
@@ -157,7 +157,7 @@ const Home = () => {
                   >
                     <MdBuild /> Settings
                   </a>
-                  &nbsp; &nbsp; &nbsp;
+                  &nbsp; &nbsp;
                   <a
                     class="nav-link active"
                     aria-current="page"
@@ -165,7 +165,15 @@ const Home = () => {
                   >
                     <MdAccountCircle /> Profile
                   </a>
-                  &nbsp; &nbsp; &nbsp;
+                  &nbsp; &nbsp;
+                  <a
+                    class="nav-link active"
+                    aria-current="page"
+                    href={`../connections#access_token=${token}&token_type=Bearer&expires_in=3600`}
+                  >
+                    <MdAccountCircle /> Connections
+                  </a>
+                  &nbsp; &nbsp;
                   <a
                     class="nav-link active"
                     aria-current="page"
@@ -174,7 +182,7 @@ const Home = () => {
                   >
                     <MdCompareArrows /> Sign out
                   </a>
-                  &nbsp; &nbsp; &nbsp;
+                  &nbsp; &nbsp;
                   <a
                     class="nav-link active"
                     aria-current="page"
@@ -183,7 +191,7 @@ const Home = () => {
                   >
                     <MdChat /> Chat
                   </a>
-                  &nbsp; &nbsp; &nbsp;
+                  &nbsp; &nbsp;
                   <a class="nav-link active" aria-current="page">
                     <MdSearch />
                   </a>
