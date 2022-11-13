@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema({
   bio: { 
     type: String, 
     required: true,
-    default: " "
+    default: ""
   },
 
   profilePicture: {
@@ -66,6 +66,18 @@ const userSchema = new mongoose.Schema({
         required: true,
       }
     }],
+  },
+
+  favSong: { 
+    type: String, 
+    required: true,
+    default: ""
+  },
+
+  statusUpdate: { 
+    type: String, 
+    required: true,
+    default: ""
   }
 
   // posts : { type: Array, required: true }

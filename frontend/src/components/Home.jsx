@@ -53,6 +53,7 @@ const Home = () => {
 
   const signOut = () => {
     fire.auth().signOut();
+    localStorage.clear();
   };
   //Get Current Track Playing from Spotify API
   useEffect(() => {
