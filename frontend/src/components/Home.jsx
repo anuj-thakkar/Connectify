@@ -90,8 +90,6 @@ const Home = () => {
   }
 
 
-
-
   const fetchUsers = (query) => {
     setSearch(query);
     fetch("/search-users", {
