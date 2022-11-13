@@ -4,7 +4,7 @@ import React, {useEffect, useRef} from 'react';
 import logo from '../static/logo.jpg';
 import fire from '../fire.js';
 import Settings from './Settings';
-import {MdHomeFilled, MdSearch, MdAccountCircle, MdBuild, MdCompareArrows} from 'react-icons/md';
+import {MdHomeFilled, MdSearch, MdAccountCircle, MdBuild, MdCompareArrows, MdChat} from 'react-icons/md';
 
 import { reducerCases } from "../utils/Constants";
 import { useStateProvider } from "../utils/StateProvider";
@@ -174,6 +174,15 @@ const Home = () => {
                     href="/#"
                   >
                     <MdCompareArrows /> Sign out
+                  </a>
+                  &nbsp; &nbsp; &nbsp;
+                  <a
+                    class="nav-link active"
+                    aria-current="page"
+                    //onClick={MessageForm}
+                    href="/home/chat#access_token=${token}&token_type=Bearer&expires_in=3600"
+                  >
+                    <MdChat /> Chat
                   </a>
                   &nbsp; &nbsp; &nbsp;
                   <a class="nav-link active" aria-current="page">
