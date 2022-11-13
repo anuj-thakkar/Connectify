@@ -11,6 +11,8 @@ import {
   MdAccountCircle,
   MdSearch,
   MdCompareArrows,
+  MdChat,
+  MdAddReaction
 } from "react-icons/md";
 import "../App.css";
 import axios from "axios";
@@ -166,7 +168,7 @@ const ProfileInfo = () => {
     <>
       <div class="grid-container">
         <div class="itemnav">
-          <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-black">
             <div class="container-fluid">
               <a class="navbar-brand" href="#">
                 <img
@@ -189,9 +191,8 @@ const ProfileInfo = () => {
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                &nbsp; &nbsp;
                 <div class="navbar-nav">
-
-                  &nbsp; &nbsp; &nbsp;
                   <a
                     class="nav-link active"
                     aria-current="page"
@@ -199,7 +200,7 @@ const ProfileInfo = () => {
                   >
                     <MdHomeFilled /> Home
                   </a>
-                  &nbsp; &nbsp; &nbsp;
+                  &nbsp; &nbsp;
                   <a
                     class="nav-link active"
                     aria-current="page"
@@ -208,7 +209,7 @@ const ProfileInfo = () => {
                   >
                     <MdBuild /> Settings
                   </a>
-                  &nbsp; &nbsp; &nbsp;
+                  &nbsp; &nbsp;
                   <a
                     class="nav-link active"
                     aria-current="page"
@@ -216,7 +217,24 @@ const ProfileInfo = () => {
                   >
                     <MdAccountCircle /> Profile
                   </a>
-                  &nbsp; &nbsp; &nbsp;
+                  &nbsp; &nbsp;
+                  <a
+                    class="nav-link active"
+                    aria-current="page"
+                    href={`../connections#access_token=${token}&token_type=Bearer&expires_in=3600`}
+                  >
+                    <MdAddReaction /> Connections
+                  </a>
+                  &nbsp; &nbsp;
+                  <a
+                    class="nav-link active"
+                    aria-current="page"
+                    //onClick={MessageForm}
+                    href={`/home/chat#access_token=${token}&token_type=Bearer&expires_in=3600`}
+                  >
+                    <MdChat /> Chat
+                  </a>
+                  &nbsp; &nbsp;
                   <a
                     class="nav-link active"
                     aria-current="page"

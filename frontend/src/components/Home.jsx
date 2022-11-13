@@ -4,7 +4,7 @@ import React, {useEffect, useRef} from 'react';
 import logo from '../static/logo.jpg';
 import fire from '../fire.js';
 import Settings from './Settings';
-import {MdHomeFilled, MdSearch, MdAccountCircle, MdBuild, MdCompareArrows, MdChat} from 'react-icons/md';
+import {MdHomeFilled, MdSearch, MdAccountCircle, MdBuild, MdCompareArrows, MdChat, MdAddReaction} from 'react-icons/md';
 
 import { reducerCases } from "../utils/Constants";
 import { useStateProvider } from "../utils/StateProvider";
@@ -112,9 +112,6 @@ const Home = () => {
       <div class="grid-container">
         <div class="item1">Feed</div>
         <div class="item2">
-
-
-
           <nav class="navbar navbar-expand-lg navbar-dark bg-black">
             <div class="container-fluid">
               <a class="navbar-brand" href="#">
@@ -170,16 +167,7 @@ const Home = () => {
                     aria-current="page"
                     href={`../connections#access_token=${token}&token_type=Bearer&expires_in=3600`}
                   >
-                    <MdAccountCircle /> Connections
-                  </a>
-                  &nbsp; &nbsp;
-                  <a
-                    class="nav-link active"
-                    aria-current="page"
-                    onClick={signOut}
-                    href="/#"
-                  >
-                    <MdCompareArrows /> Sign out
+                    <MdAddReaction /> Connections
                   </a>
                   &nbsp; &nbsp;
                   <a
@@ -191,23 +179,15 @@ const Home = () => {
                     <MdChat /> Chat
                   </a>
                   &nbsp; &nbsp;
-                  <a class="nav-link active" aria-current="page">
-                    <MdSearch />
+                  <a
+                    class="nav-link active"
+                    aria-current="page"
+                    onClick={signOut}
+                    href="/#"
+                  >
+                    <MdCompareArrows /> Sign out
                   </a>
-                  <form class="d-flex justify-content-end">
-                    <input
-                      class="form-control me-2"
-                      type="search"
-                      placeholder="Find Connections..."
-                      value={search}
-                      onChange={(e) => fetchUsers(e.target.value)}
-                      aria-label="searchbar"
-                    ></input>
-                  </form>
-                  <button class="btn btn-outline-success" type="submit">
-                    {" "}
-                    Search{" "}
-                  </button>
+                  
                 </div>
               </div>
             </div>
