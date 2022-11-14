@@ -19,6 +19,7 @@ import { reducerCases } from "./utils/Constants";
 import { useStateProvider } from "./utils/StateProvider";
 import ListSearchResults from "./components/ListSearchResults";
 import Playlist from "./components/Playlist";
+import ChatForm from "./components/Chat";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -69,6 +70,7 @@ function App() {
                   <Route path={`/profile`} element={<ProfileInfo/>}/>
                   <Route path={`/connections`} element={<OtherUser/>}/>
                   <Route path={`/playlist`} element={<Playlist/>}/>
+                  <Route path={'/chat'} element={<ChatForm/>}/>
                 </Routes>
               </>
             ) 
