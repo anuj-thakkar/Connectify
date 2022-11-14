@@ -46,14 +46,56 @@ export const searchForUsers = async (username) => {
 export async function login(email) {
   const header = await createToken();
   const loginUrl = 'http://localhost:3001/api/login';
-  alert("logging in");
   const body = {
     email
   }
   try {
     var result = await axios.post(loginUrl, body, header);
-    console.log(result);
-    console.log(result.data);
+    return result.data;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export async function updateEmail(email, newEmail) {
+  const header = await createToken();
+  const updateEmailUrl = 'http://localhost:3001/api/updateEmail';
+  const body = {
+    email,
+    newEmail
+  }
+  try {
+    var result = await axios.post(updateEmailUrl, body, header);
+    return result.data;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export async function updateUsername(email, newUsername) {
+  const header = await createToken();
+  const updateUsernameUrl = 'http://localhost:3001/api/updateUsername';
+  const body = {
+    email,
+    newUsername
+  }
+  try {
+    var result = await axios.post(updateUsernameUrl, body, header);
+    return result.data;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export async function updateFavSong(email, newFavSong) {
+  const header = await createToken();
+  const updateFavSongUrl = 'http://localhost:3001/api/updateFavSong';
+  const body = {
+    email,
+    newFavSong
+  }
+  try {
+    var result = await axios.post(updateFavSongUrl, body, header);
     return result.data;
   } catch (e) {
     console.error(e);
