@@ -1,3 +1,6 @@
+import React, { useState, useEffect } from "react";
+
+
 const ChatForm = () => {
 
 // START OF PLACEHOLDER CODE FOR CHAT FORM
@@ -7,14 +10,11 @@ const ChatForm = () => {
     
     const sendMessage = (e) => {
         e.preventDefault();
-        socket.emit("send message", message);
         setMessage("");
     };
     
     useEffect(() => {
-        socket.on("receive message", (message) => {
-        setMessages([...messages, message]);
-        });
+        
     }, [messages]);
     
     return (
