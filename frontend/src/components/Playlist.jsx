@@ -163,11 +163,7 @@ export default function Body() {
   };
 
   const removeButton = () => {
-    setRemove(true);
-  }
-
-  const cancelRemoveButton = () => {
-    setRemove(false)
+    setRemove(!remove);
   }
 
   const addSong = async (track) => {
@@ -229,15 +225,15 @@ export default function Body() {
               <p className="description">{selectedPlaylist.description}</p>
             </div>
             <div class="remove-song">
-            Remove Song?
             &nbsp;
-            <button type="button" onClick={() => removeButton()} className="btn btn-outline-success">
-              Yes
-            </button>
-            &nbsp;
-            &nbsp;
-            <button type="button" onClick={() => cancelRemoveButton()} className="btn btn-outline-success">
-              Cancel
+            <button type="button" 
+            onClick={() => removeButton()} 
+            className="btn btn-outline-danger"
+            style={{
+              backgroundColor: remove ? 'red' : '',
+              color: remove ? 'white' : '',
+            }}>
+              Remove Track
             </button>
             <hr></hr>
        <div className="search">
