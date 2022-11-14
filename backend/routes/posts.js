@@ -10,8 +10,8 @@ const mongoose = require('mongoose')
 const requireLogin  = require('../middleware/requireLogin')
 const Post =  mongoose.model("Post")
 
-
-router.get('/allpost',(req,res)=>{
+// view all pots
+router.get('/allposts',(req,res)=>{
     Post.find()
     .populate("postedBy","_id name")
     .populate("comments.postedBy","_id name")
@@ -45,6 +45,7 @@ router.post('/createpost',(req,res)=>{
     })
 })
 
+// list all posts of a user
 router.get('/mypost',(req,res)=>{
     Post.find({postedBy:req.user._id})
     .populate("PostedBy","_id name")
