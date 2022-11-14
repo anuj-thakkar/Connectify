@@ -141,12 +141,10 @@ const ProfileInfo = () => {
   };
 
   const unfollowButton = () => {
-    setUnfollow(true);
+    setUnfollow(!unfollow);
   };
 
-  const cancelUnfollowButton = () => {
-    setUnfollow(false);
-  };
+
 
   const createPlaylist = async () => {
     await axios.post(
@@ -260,21 +258,16 @@ const ProfileInfo = () => {
               paddingRight: "30px",
             }}
           >
-            Unfollow Playlist? &nbsp;
             <button
               type="button"
               onClick={() => unfollowButton()}
-              className="btn btn-outline-success"
+              className="btn btn-outline-danger"
+              style={{
+                backgroundColor: unfollow ? 'red' : '',
+                color: unfollow ? 'white' : '',
+              }}
             >
-              Yes
-            </button>
-            &nbsp;
-            <button
-              type="button"
-              onClick={() => cancelUnfollowButton()}
-              className="btn btn-outline-success"
-            >
-              Cancel
+              Unfollow Playlist
             </button>
             <hr></hr>
           </div>
