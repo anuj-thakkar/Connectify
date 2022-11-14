@@ -139,7 +139,7 @@ userRouter.post('/updateProfilePicture', upload.single("avatar"), async (req, re
 
 // endpoint to update username
 // username should not change given that it exists in database
-userRouter.post('/updateUsername', async (req, res) => {
+userRouter.post('/updateUsername', jsonParser, async (req, res) => {
   var params = req.body;
  
   User.findOne({'email':req.body.email}, function(err,user) {
@@ -160,7 +160,7 @@ userRouter.post('/updateUsername', async (req, res) => {
 
 
 //follow a user
-userRouter.put("/:username/follow", async (req, res) => {
+userRouter.put("/:username/follow", jsonParser, async (req, res) => {
   if (req.body.username !== req.params.username) {
     try {
       const user = await User.findById(req.params.username);
@@ -181,7 +181,7 @@ userRouter.put("/:username/follow", async (req, res) => {
 });
 
 //unfollow a user
-userRouter.put("/:username/unfollow", async (req, res) => {
+userRouter.put("/:username/unfollow", jsonParser, async (req, res) => {
     if (req.body.username !== req.params.username) {
       try {
         const user = await User.findById(req.params.id);
