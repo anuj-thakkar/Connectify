@@ -4,29 +4,30 @@ import { Link } from 'react-router-dom';
 import { getRegisteredUserEntries, searchForUsers } from '../services/postsService';
 
 const ShowAllPosts = () => {
-  const [entries, setEntries] = useState();
+    const [data,setData] = useState([])
+    const {state,dispatch} = useContext(UserContext)
+    
     useEffect(() => {
         
         // Using the Request Config
         axios({
             method: "get",
             url: "https://localhost:3001/api/allposts",
-        }).then(function (response) {
-            console.log(response.data);
-        });
-
-    }, [])
-    if (entries === undefined) {
-        return null;
-    }
+        }).then(res=>res.json())
+        .then(result=>{
+            console.log(result)
+            setData(result.posts)
+        })
+     },[])
+    
     return (
         <div>
-        <h2>Connections</h2>
+        <h2>Posts</h2>
         
         <table style={{textAlign:"center"}}>
             <thead>
             <tr>
-                <th>Username</th>
+                <th>Posts</th>
             </tr>
             </thead>
             <tbody>
@@ -40,4 +41,4 @@ const ShowAllPosts = () => {
         </div>
     ) 
 };
-export default ListAllConnections;
+export default ShowAllPosts;
