@@ -66,6 +66,7 @@ export default function Body() {
 
   const signOut = () => {
     fire.auth().signOut();
+    localStorage.clear();
   };
 
   //search
@@ -162,11 +163,7 @@ export default function Body() {
   };
 
   const removeButton = () => {
-    setRemove(true);
-  }
-
-  const cancelRemoveButton = () => {
-    setRemove(false)
+    setRemove(!remove);
   }
 
   const addSong = async (track) => {
@@ -228,16 +225,17 @@ export default function Body() {
               <p className="description">{selectedPlaylist.description}</p>
             </div>
             <div class="remove-song">
-            Remove Song?
             &nbsp;
-            <button type="button" onClick={() => removeButton()} className="btn btn-outline-success">
-              Yes
+            <button type="button" 
+            onClick={() => removeButton()} 
+            className="btn btn-outline-danger"
+            style={{
+              backgroundColor: remove ? 'red' : '',
+              color: remove ? 'white' : '',
+            }}>
+              Remove Track
             </button>
-            &nbsp;
-            &nbsp;
-            <button type="button" onClick={() => cancelRemoveButton()} className="btn btn-outline-success">
-              Cancel
-            </button>
+            <hr></hr>
        <div className="search">
           <InputGroup className="mb-3" size="small">
             <FormControl
@@ -353,11 +351,12 @@ const Container = styled.div`
     margin: 0 2rem;
     display: flex;
     align-items: center;
-    gap: 2rem;
+    justify-content: left;
+    gap: 3rem;
     .image {
       img {
         height: 15rem;
-        box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 50px 50px -12px;
       }
     }
     .details {
@@ -375,9 +374,9 @@ const Container = styled.div`
     .header-row {
       display: grid;
       grid-template-columns: 0.3fr 3fr 2fr 0.1fr;
-      margin: 1rem 0 0 0;
+      margin: 2rem 0 0 0;
       color: #dddcdc;
-      position: sticky;
+      position: block;
       top: 15vh;
       padding: 1rem 3rem;
       transition: 0.3s ease-in-out;

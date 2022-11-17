@@ -4,7 +4,7 @@ import React, {useEffect, useRef} from 'react';
 import logo from '../static/logo.jpg';
 import fire from '../fire.js';
 import Settings from './Settings';
-import {MdHomeFilled, MdSearch, MdAccountCircle, MdBuild, MdCompareArrows} from 'react-icons/md';
+import {MdHomeFilled, MdSearch, MdAccountCircle, MdBuild, MdCompareArrows, MdChat, MdAddReaction} from 'react-icons/md';
 
 import { reducerCases } from "../utils/Constants";
 import { useStateProvider } from "../utils/StateProvider";
@@ -21,6 +21,7 @@ import Volume from './Volume';
 import PlayerControls from './PlayerControls';
 import CurrentTrack from './CurrentTrack';
 import Search from './Search';
+import ChatForm from './Chat';
 
 const Home = () => {
   const [{ token, userInfo, currentPlaying, playerState }, dispatch] = useStateProvider();
@@ -53,6 +54,7 @@ const Home = () => {
 
   const signOut = () => {
     fire.auth().signOut();
+    localStorage.clear();
   };
   //Get Current Track Playing from Spotify API
   useEffect(() => {
@@ -90,8 +92,6 @@ const Home = () => {
   }
 
 
-
-
   const fetchUsers = (query) => {
     setSearch(query);
     fetch("/search-users", {
@@ -114,9 +114,6 @@ const Home = () => {
       <div class="grid-container">
         <div class="item1">Feed</div>
         <div class="item2">
-
-
-
           <nav class="navbar navbar-expand-lg navbar-dark bg-black">
             <div class="container-fluid">
               <a class="navbar-brand" href="#">
@@ -140,7 +137,7 @@ const Home = () => {
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp;
                 <div class="navbar-nav">
                   <a
                     class="nav-link active"
@@ -149,7 +146,7 @@ const Home = () => {
                   >
                     <MdHomeFilled /> Home
                   </a>
-                  &nbsp; &nbsp; &nbsp;
+                  &nbsp; &nbsp;
                   <a
                     class="nav-link active"
                     aria-current="page"
@@ -158,7 +155,7 @@ const Home = () => {
                   >
                     <MdBuild /> Settings
                   </a>
-                  &nbsp; &nbsp; &nbsp;
+                  &nbsp; &nbsp;
                   <a
                     class="nav-link active"
                     aria-current="page"
@@ -166,7 +163,24 @@ const Home = () => {
                   >
                     <MdAccountCircle /> Profile
                   </a>
-                  &nbsp; &nbsp; &nbsp;
+                  &nbsp; &nbsp;
+                  <a
+                    class="nav-link active"
+                    aria-current="page"
+                    href={`../connections#access_token=${token}&token_type=Bearer&expires_in=3600`}
+                  >
+                    <MdAddReaction /> Connections
+                  </a>
+                  &nbsp; &nbsp;
+                  <a
+                    class="nav-link active"
+                    aria-current="page"
+                    onClick={ChatForm}
+                    href={`/chat#access_token=${token}&token_type=Bearer&expires_in=3600`}
+                  >
+                    <MdChat /> Chat
+                  </a>
+                  &nbsp; &nbsp;
                   <a
                     class="nav-link active"
                     aria-current="page"
@@ -175,24 +189,7 @@ const Home = () => {
                   >
                     <MdCompareArrows /> Sign out
                   </a>
-                  &nbsp; &nbsp; &nbsp;
-                  <a class="nav-link active" aria-current="page">
-                    <MdSearch />
-                  </a>
-                  <form class="d-flex justify-content-end">
-                    <input
-                      class="form-control me-2"
-                      type="search"
-                      placeholder="Find Connections..."
-                      value={search}
-                      onChange={(e) => fetchUsers(e.target.value)}
-                      aria-label="searchbar"
-                    ></input>
-                  </form>
-                  <button class="btn btn-outline-success" type="submit">
-                    {" "}
-                    Search{" "}
-                  </button>
+                  
                 </div>
               </div>
             </div>

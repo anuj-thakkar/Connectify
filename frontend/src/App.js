@@ -11,6 +11,7 @@ import { Row, Col, Container } from "react-bootstrap";
 import ForgotPassword from "./components/ForgotPassword";
 import Settings from "./components/Settings";
 import ProfileInfo from "./components/profileInfo";
+import OtherUser from "./components/OtherUser";
 import Search from "./components/Search";
 import Home from "./components/Home";
 import SpotifyLogin from "./components/SpotifyLogin";
@@ -18,6 +19,7 @@ import { reducerCases } from "./utils/Constants";
 import { useStateProvider } from "./utils/StateProvider";
 import ListSearchResults from "./components/ListSearchResults";
 import Playlist from "./components/Playlist";
+import ChatForm from "./components/Chat";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -66,7 +68,9 @@ function App() {
                   <Route path='/home/settings' element={<Settings/>}/>
                   <Route path='/search' element={<Search/>}/>
                   <Route path={`/profile`} element={<ProfileInfo/>}/>
+                  <Route path={`/connections`} element={<OtherUser/>}/>
                   <Route path={`/playlist`} element={<Playlist/>}/>
+                  <Route path={'/chat'} element={<ChatForm/>}/>
                 </Routes>
               </>
             ) 

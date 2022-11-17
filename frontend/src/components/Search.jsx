@@ -9,12 +9,16 @@ import {
   Card,
 } from "react-bootstrap";
 import { useStateProvider } from "../utils/StateProvider";
+import axios from "axios";
+import { reducerCases } from "../utils/Constants";
 //import "../custom.scss";
+
 
 const Search = () => {
   const [searchInput, setSearchInput] = useState("");
-  const [{ token }] = useStateProvider();
+  const [{ token }, dispatch] = useStateProvider();
   const [albums, setAlbums] = useState([]);
+
 
   //search
   async function search() {
@@ -66,6 +70,45 @@ const Search = () => {
         console.log("it worked");
       });
   }
+
+  const playTrack = async(track) => {
+    console.log(track)
+    var context_uri = track.album.uri
+    var track_number = track.track_number
+    var id = track.id
+    var name = track.name
+    var image = track.album.images[2].url
+    var artists = track.artists.map((artist) => artist.name)
+    const response = await axios.put(
+      `https://api.spotify.com/v1/me/player/play`,
+      {
+        context_uri,
+        offset: {
+          position: track_number - 1,
+        },
+        position_ms: 0,
+      },
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.status === 204) {
+      const currentPlaying = {
+        id,
+        name,
+        artists,
+        image,
+      };
+      dispatch({ type: reducerCases.SET_PLAYING, currentPlaying });
+      dispatch({ type: reducerCases.SET_PLAYER_STATE, playerState: true });
+    } else {
+      dispatch({ type: reducerCases.SET_PLAYER_STATE, playerState: true });
+    } 
+  }
+  
   return (
     <>
       <div align="center">
@@ -88,12 +131,13 @@ const Search = () => {
           <Row className="search-group">
             {albums.map((album, i) => {
               return (
-                <Card className="text-white bg-dark" style={{marginTop: "15px", color: "black"}}>
+                <Card className="text-white bg-dark" style={{marginTop: "15px", color: "black"}} 
+                onClick={() => playTrack(album)}>
                   {/* <Card.Img src={album.album.images[0].url} /> */}
                   <Card.Img
                     src={() => {
                       console.log("getting url");
-                      if (album.album !== undefined) {
+                      if (album.type !== "artist") {
                         console.log("track");
                         return album.album.images[0].url;
                       } else {
