@@ -1,11 +1,9 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getRegisteredUserEntries, searchForUsers } from '../services/postsService';
 
 const ShowAllPosts = () => {
     const [data,setData] = useState([])
-    const {state,dispatch} = useContext(UserContext)
     
     useEffect(() => {
         
@@ -24,20 +22,6 @@ const ShowAllPosts = () => {
         <div>
         <h2>Posts</h2>
         
-        <table style={{textAlign:"center"}}>
-            <thead>
-            <tr>
-                <th>Posts</th>
-            </tr>
-            </thead>
-            <tbody>
-            {entries.map((entry) => (
-            <tr>
-                <td key={entry.id}>{entry.username}</td>
-            </tr>
-            ))}
-            </tbody>
-        </table>
         </div>
     ) 
 };
