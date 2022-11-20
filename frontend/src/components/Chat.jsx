@@ -5,8 +5,6 @@ import Attach from "../attach.png";
 
 const ChatForm = () => {
 
-// START OF PLACEHOLDER CODE FOR CHAT FORM
-
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
     
@@ -20,10 +18,11 @@ const ChatForm = () => {
     }, [messages]);
     
     return (
-        <div className="input">
+      <div className="input">
       <input
         type="text"
         placeholder="Type something..."
+        size={175}
         //onChange={(e) => setText(e.target.value)}
         //value={text}
       />
@@ -43,7 +42,6 @@ const ChatForm = () => {
     </div>
     );
 
-    // END OF PLACEHOLDER CODE FOR CHAT FORM
 }
 
 export default ChatForm;

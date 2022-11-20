@@ -238,3 +238,21 @@ label {
   color: white;
   font-size: 25px;
 }
+
+.input {
+  height: auto;
+  width: auto;
+  background-color: white;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 695px;
+}
+
+  .send {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+  }
