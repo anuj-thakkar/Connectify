@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { img } from "../img.png";
+import { Attach } from "../attach.png";
 
 
 const ChatForm = () => {
@@ -18,21 +20,27 @@ const ChatForm = () => {
     }, [messages]);
     
     return (
-        <div>
-        <form onSubmit={sendMessage}>
-            <input
-            type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            />
-            <button type="submit">Send</button>
-        </form>
-        <div>
-            {messages.map((message) => (
-            <div>{message}</div>
-            ))}
-        </div>
-        </div>
+        <div className="input">
+      <input
+        type="text"
+        placeholder="Type something..."
+        onChange={(e) => setText(e.target.value)}
+        value={text}
+      />
+      <div className="send">
+        <img src={Attach} alt="" />
+        <input
+          type="file"
+          style={{ display: "none" }}
+          id="file"
+          onChange={(e) => setImg(e.target.files[0])}
+        />
+        <label htmlFor="file">
+          <img src={img} alt="" />
+        </label>
+        <button onClick={handleSend}>Send</button>
+      </div>
+    </div>
     );
 
     // END OF PLACEHOLDER CODE FOR CHAT FORM
