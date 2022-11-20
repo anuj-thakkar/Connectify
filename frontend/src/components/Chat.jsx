@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { img } from "../img.png";
-import { Attach } from "../attach.png";
+import img from "../img.png";
+import Attach from "../attach.png";
 
 
 const ChatForm = () => {
@@ -24,8 +24,8 @@ const ChatForm = () => {
       <input
         type="text"
         placeholder="Type something..."
-        onChange={(e) => setText(e.target.value)}
-        value={text}
+        //onChange={(e) => setText(e.target.value)}
+        //value={text}
       />
       <div className="send">
         <img src={Attach} alt="" />
@@ -33,12 +33,12 @@ const ChatForm = () => {
           type="file"
           style={{ display: "none" }}
           id="file"
-          onChange={(e) => setImg(e.target.files[0])}
+          //onChange={(e) => setImg(e.target.files[0])}
         />
         <label htmlFor="file">
           <img src={img} alt="" />
         </label>
-        <button onClick={handleSend}>Send</button>
+        <button type="submit">Send</button>
       </div>
     </div>
     );
