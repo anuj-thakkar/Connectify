@@ -94,7 +94,7 @@ export default function Body() {
         //setAlbums((albums) => [...albums, ...data.artists.items]);
         console.log("it worked");
       });
-    }
+  }
 
   const playTrack = async (
     id, name, artists, image, context_uri, track_number, uri,
