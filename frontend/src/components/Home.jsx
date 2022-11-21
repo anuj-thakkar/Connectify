@@ -23,6 +23,7 @@ import CurrentTrack from './CurrentTrack';
 import Search from './Search';
 import ChatForm from './Chat';
 import ShowAllPosts from './ShowAllPosts';
+import CreatePosts from './CreatePosts';
 
 const Home = () => {
   const [{ token, userInfo, currentPlaying, playerState }, dispatch] = useStateProvider();
@@ -183,6 +184,13 @@ const Home = () => {
                     aria-current="page"
                     onClick={ChatForm}
                     href={`/chat#access_token=${token}&token_type=Bearer&expires_in=3600`}
+                  >
+                    <MdChat /> Chat
+                  </a>
+                  <a
+                    class="nav-link active"
+                    aria-current="page"
+                    href={`/createPosts#access_token=${token}&token_type=Bearer&expires_in=3600`}
                   >
                     <MdChat /> Chat
                   </a>
