@@ -143,10 +143,11 @@ userRouter.post('/updateUsername', async (req, res) => {
     if (user) {
       User.findOne({'username':req.body.username}, function(err,user) {
         if (user) {
-          return res.status(400),send('Username already exists');
+          return res.status(400).send('Username already exists');
         } else {
           User.updateOne({ "email" : req.body.email }, { $set: { "username" : req.body.username } }, function(err, user) {
             if (err) return next(err);
+            console.log(req.body.email, req.body.username);
             return res.status(200).send('Username updated Successfully.');
           });
         }

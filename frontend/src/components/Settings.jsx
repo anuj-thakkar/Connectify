@@ -85,11 +85,12 @@ const Settings = () => {
         setConfirmPassError("Old Password Does Not Match");
       }
     }
-    if (document.getElementById('general.username').value !== localStorage.getItem('username')) {
-      window.localStorage.setItem('username', document.getElementById('general.username').value);
+    if (document.getElementById('general.username').value != localStorage.getItem('username')) {
       const res = await updateUsername(localStorage.getItem('email'), document.getElementById('general.username').value);
-      console.log(res);
-      setConfirmPassError(res);
+      if (res === "Username updated Successfully.") {
+        window.localStorage.setItem('username', document.getElementById('general.username').value);
+      }
+        setConfirmPassError(res);
     }
 
     if (document.getElementById('general.email').value !== localStorage.getItem('email')) {
