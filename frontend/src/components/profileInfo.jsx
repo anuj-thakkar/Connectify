@@ -399,7 +399,7 @@ const ProfileInfo = () => {
                   <button
                       class="btn btn-outline-success"
                       type="submit"
-                      onClick={clearStatus}
+                      //onClick={clearStatus}
                     >clear</button>
                     </form>
 

@@ -23,6 +23,7 @@ import CurrentTrack from './CurrentTrack';
 import Search from './Search';
 import ChatForm from './Chat';
 import ShowAllPosts from './ShowAllPosts';
+import Share from './Share';
 
 const Home = () => {
   const [{ token, userInfo, currentPlaying, playerState }, dispatch] = useStateProvider();
@@ -116,6 +117,7 @@ const Home = () => {
         <div class="item1">Feed
         <div>
             <ShowAllPosts />
+            <Share/>
           </div>
         
         </div>
