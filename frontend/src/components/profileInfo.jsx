@@ -365,8 +365,8 @@ const ProfileInfo = () => {
             }}
           >
 
-            <h3>hello, {window.localStorage.getItem('name')}</h3>
-            <h6>@{window.localStorage.getItem('username')}</h6>
+            <h3>hello, {userInfo ? userInfo.name : null} </h3>
+            <h6>@{userInfo ? userInfo.userId : null}</h6>
             <h6>{window.localStorage.getItem('email')}</h6>
 
             <h6>
