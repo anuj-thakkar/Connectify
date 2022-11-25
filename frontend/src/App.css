@@ -24,7 +24,7 @@
   border-radius: 15px;
 }
 .item1 {
-  grid-area: 12 / 2 / span 49 / span 3;
+  grid-area: 2 / 2 / span 59 / span 3;
   max-width: 100%;
   color: white;
 }

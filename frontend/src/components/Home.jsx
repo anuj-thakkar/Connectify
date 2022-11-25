@@ -206,9 +206,6 @@ const Home = () => {
             <Volume />
           </div>
         </div>
-        <div class="item6left">Poll 1</div>
-        <div class="item6">Poll 2</div>
-        <div class="item7">Poll 3</div>
 
       </div>
     </>
