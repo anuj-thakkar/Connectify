@@ -77,6 +77,15 @@
   color: white;
 }
 
+.itemtop {
+  grid-area: 2 / 2 / span 57 / span 5;
+  color: white;
+}
+.itemchat {
+  background-color: green;
+  grid-area: 59 / 2 / span 8 / span 5;
+  color: white;
+}
 .button1 {
   border: solid;
   background: white;
@@ -245,7 +254,6 @@ label {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 565px;
 }
 
 .send {

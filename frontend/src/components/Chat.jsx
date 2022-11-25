@@ -118,7 +118,8 @@ const ChatForm = () => {
           </div>
         </nav>
       </div>
-      <div class="itemright">
+      <div class="itemtop"></div>
+      <div class="itemchat">
         <fieldset class="input">
             <label for="input" style={{ color: 'white' }}></label>
             <input type="text" placeholder="type a chat message..." className="form-control" />
