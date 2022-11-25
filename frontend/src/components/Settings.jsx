@@ -5,6 +5,7 @@ import { MdHomeFilled, MdBuild, MdAccountCircle, MdSearch, MdCompareArrows, MdCh
 import React, { useState } from 'react';
 import "../App.css";
 import fire from '../fire.js';
+import { updateUsername } from '../services/usersService';
 
 import { useStateProvider } from "../utils/StateProvider";
 
@@ -63,7 +64,7 @@ const Settings = () => {
   }
   }
 
-  function updateInfo(e) {
+  async function updateInfo(e) {
     e.preventDefault();
     const newPass = document.getElementById('newPass').value;
     if (newPass !== "") {
@@ -84,9 +85,12 @@ const Settings = () => {
         setConfirmPassError("Old Password Does Not Match");
       }
     }
-    if (document.getElementById('general.username').value !== localStorage.getItem('username')) {
-      window.localStorage.setItem('username', document.getElementById('general.username').value);
-      setConfirmPassError("Username sucessfully changed");
+    if (document.getElementById('general.username').value != localStorage.getItem('username')) {
+      const res = await updateUsername(localStorage.getItem('email'), document.getElementById('general.username').value);
+      if (res === "Username updated Successfully.") {
+        window.localStorage.setItem('username', document.getElementById('general.username').value);
+      }
+        setConfirmPassError(res);
     }
 
     if (document.getElementById('general.email').value !== localStorage.getItem('email')) {
