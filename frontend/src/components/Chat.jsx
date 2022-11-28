@@ -131,7 +131,7 @@ const ChatForm = () => {
         </fieldset>
       </div>
       <div class="itemrest">
-      <h4 class="connectionLabel">Connections</h4>
+      <h4 class="connectionLabel">Chats</h4>
       &nbsp; &nbsp;
       <ListAllConnections />
       </div>
