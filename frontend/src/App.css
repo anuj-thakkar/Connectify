@@ -145,6 +145,10 @@ body:focus {
   align-items: center;
 }
 
+.connectionLabel {
+  text-align: center;
+}
+
 .Auth-form {
   width: 420px;
   box-shadow: rgba(117, 112, 112, 0.5) 10px 10px 10px;

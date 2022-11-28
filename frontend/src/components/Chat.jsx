@@ -5,6 +5,8 @@ import logo from "../static/logo.jpg";
 import { useStateProvider } from "../utils/StateProvider";
 import Settings from "./Settings";
 import fire from "../fire.js";
+import ListAllConnections from './ListAllConnections';
+
 import {
   MdHomeFilled,
   MdBuild,
@@ -118,7 +120,8 @@ const ChatForm = () => {
           </div>
         </nav>
       </div>
-      <div class="itemtop"></div>
+      <div class="itemtop">
+      </div>
       <div class="itemchat">
         <fieldset class="input">
             <label for="input" style={{ color: 'white' }}></label>
@@ -127,7 +130,11 @@ const ChatForm = () => {
             <button className="btn btn-success">Send</button>
         </fieldset>
       </div>
-      <div class="itemrest"></div>
+      <div class="itemrest">
+      <h4 class="connectionLabel">Connections</h4>
+      &nbsp; &nbsp;
+      <ListAllConnections />
+      </div>
     </div>
         );
 
