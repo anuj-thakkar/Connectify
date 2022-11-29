@@ -84,7 +84,7 @@ function App() {
                   </Col>
                   <Col>
                     <Routes>
-                      <Route exact path="/" element={<Login />} />
+                      <Route exact path="/login" element={<Login />} />
                       <Route
                         exact
                         path="/forgotPassword"
