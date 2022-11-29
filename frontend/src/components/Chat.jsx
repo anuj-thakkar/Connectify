@@ -19,7 +19,7 @@ import {
 import "../App.css";
 
 const ChatForm = () => {
-  const { token } = useStateProvider();
+  const [{ token }] = useStateProvider();
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
