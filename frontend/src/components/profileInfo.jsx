@@ -103,6 +103,9 @@ const ProfileInfo = () => {
     }
   };
 
+  const [bio, setBio] = useState("");
+  const [istrue, Setistrue] = useState(false);
+  const [statusUpdate, setStatusUpdate] = useState("");
 
   function handleclick() {
 
@@ -113,6 +116,7 @@ const ProfileInfo = () => {
   function clearStatus() {
     window.localStorage.removeItem('status');
   }
+
 
   const viewOrUnfollow = async (selectedPlaylistId) => {
     if (unfollow) {
@@ -398,12 +402,11 @@ const ProfileInfo = () => {
 
                     <form>
                     <input type="text" placeholder="status update song" bio="bio" id='statusUpdate'/>
-
                     &nbsp;
                     <button
                       class="btn btn-outline-success"
                       type="submit"
-                      onClick={handleclick}
+                      onSubmit={handleclick}
                     >
                       submit
                     </button>
