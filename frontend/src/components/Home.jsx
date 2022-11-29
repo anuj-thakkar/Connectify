@@ -22,6 +22,7 @@ import PlayerControls from './PlayerControls';
 import CurrentTrack from './CurrentTrack';
 import Search from './Search';
 import ChatForm from './Chat';
+import Share from './Share'
 
 const Home = () => {
   const [{ token, userInfo, currentPlaying, playerState }, dispatch] = useStateProvider();
@@ -112,7 +113,9 @@ const Home = () => {
   return (
     <>
       <div class="grid-container">
-        <div class="item1">Feed</div>
+        <div class="item1">Feed
+        <Share/>
+        </div>
         <div class="item2">
           <nav class="navbar navbar-expand-lg navbar-dark bg-black">
             <div class="container-fluid">
