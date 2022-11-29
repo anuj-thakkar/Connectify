@@ -107,24 +107,16 @@ const ProfileInfo = () => {
   const [istrue, Setistrue] = useState(false);
   const [statusUpdate, setStatusUpdate] = useState("");
 
-  function handleStatusUpdateSubmit() {
-    Setistrue(true);
-    console.log(statusUpdate);
-    
-    axios
-      .post('http://localhost:3001/setStatusUpdate', 
-      {
-        email: userInfo.email,
-        statusUpdate: statusUpdate
-      },
-      
-      )
-      .then(() => console.log('Status Update Sent to Backend'))
-      .catch(err => {
-        console.error(err);
-      });
+  function handleclick() {
+
+    window.localStorage.setItem('status', document.getElementById('statusUpdate').value);
 
   }
+
+  function clearStatus() {
+    window.localStorage.removeItem('status');
+  }
+
 
   const viewOrUnfollow = async (selectedPlaylistId) => {
     if (unfollow) {
@@ -399,7 +391,7 @@ const ProfileInfo = () => {
                   <button
                       class="btn btn-outline-success"
                       type="submit"
-                      //onClick={clearStatus}
+                      onClick={clearStatus}
                     >clear</button>
                     </form>
 
@@ -409,12 +401,12 @@ const ProfileInfo = () => {
                   <fieldset class="d-flex justify-content-start">
 
                     <form>
-                    <input type="text" placeholder="status update song" bio="bio" id='statusUpdate' onChange={e => setStatusUpdate(e.target.value)}/>
+                    <input type="text" placeholder="status update song" bio="bio" id='statusUpdate'/>
                     &nbsp;
                     <button
                       class="btn btn-outline-success"
                       type="submit"
-                      onSubmit={handleStatusUpdateSubmit}
+                      onSubmit={handleclick}
                     >
                       submit
                     </button>
