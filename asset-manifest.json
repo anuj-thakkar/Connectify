@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/static/css/main.bcb5b859.css",
-    "main.js": "/static/js/main.09881ccc.js",
-    "static/media/logo.jpg": "/static/media/logo.a47c5c727c2a8c0919f6.jpg",
-    "index.html": "/index.html",
-    "main.bcb5b859.css.map": "/static/css/main.bcb5b859.css.map",
-    "main.09881ccc.js.map": "/static/js/main.09881ccc.js.map"
+    "main.css": "/Connectify.github.io/static/css/main.bcb5b859.css",
+    "main.js": "/Connectify.github.io/static/js/main.a9eaab07.js",
+    "static/media/logo.jpg": "/Connectify.github.io/static/media/logo.a47c5c727c2a8c0919f6.jpg",
+    "index.html": "/Connectify.github.io/index.html",
+    "main.bcb5b859.css.map": "/Connectify.github.io/static/css/main.bcb5b859.css.map",
+    "main.a9eaab07.js.map": "/Connectify.github.io/static/js/main.a9eaab07.js.map"
   },
   "entrypoints": [
     "static/css/main.bcb5b859.css",
-    "static/js/main.09881ccc.js"
+    "static/js/main.a9eaab07.js"
   ]
 }
