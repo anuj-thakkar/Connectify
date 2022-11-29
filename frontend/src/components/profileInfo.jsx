@@ -21,6 +21,14 @@ import { useStateProvider } from "../utils/StateProvider";
 import { reducerCases } from "../utils/Constants";
 import { useStreak } from "use-streak";
 import Streak from "./Streak";
+import "bootstrap/dist/css/bootstrap.min.css";
+import {
+  Container,
+  InputGroup,
+  FormControl,
+  Row,
+  Card,
+} from "react-bootstrap";
 
 const ProfileInfo = () => {
   const [{ token, playlists, userInfo}, dispatch] = useStateProvider();
@@ -104,10 +112,11 @@ const ProfileInfo = () => {
   };
 
 
-  function handleclick() {
-
-    window.localStorage.setItem('status', document.getElementById('statusUpdate').value);
-
+  function handleclick(track) {
+    var status = track.name + " by " + track.artists[0].name;
+    window.localStorage.setItem('status', status);
+    window.location.reload(false);
+    console.log(track.album.images[0])
   }
 
   function clearStatus() {
@@ -162,6 +171,38 @@ const ProfileInfo = () => {
     window.location.reload(false);
     return;
   };
+
+  //Search for Update Song
+  const [searchInput, setSearchInput] = useState("");
+  const [albums, setTrack] = useState([]);
+
+
+  //search
+  async function search() {
+    console.log("Searching for " + searchInput);
+
+    //Get request using search to get Artist ID
+    var searchParameters = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    var results = await fetch(
+      "https://api.spotify.com/v1/search?q=" +
+        searchInput +
+        "&type=track&limit=4",
+      searchParameters
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setTrack(data.tracks.items);
+        //setTrack((albums) => [...albums, ...data.artists.items]);
+        console.log("it worked");
+      });
+  }
 
   return (
     <>
@@ -295,7 +336,7 @@ const ProfileInfo = () => {
             }}
           >
 
-          <Container>
+          <PlaylistContainer>
 
             <ul>
               {playlists.map(({ name, id }) => {
@@ -306,7 +347,7 @@ const ProfileInfo = () => {
                 );
               })}
             </ul>
-            </Container>
+            </PlaylistContainer>
           </div>
         </div>
         <div class="itemrest">
@@ -394,23 +435,36 @@ const ProfileInfo = () => {
                 </div>
               ) : (
                 <div>
-                  <fieldset class="d-flex justify-content-start">
-
-                    <form>
-                    <input type="text" placeholder="status update song" bio="bio" id='statusUpdate'/>
-
-                    &nbsp;
-                    <button
-                      class="btn btn-outline-success"
-                      type="submit"
-                      onClick={handleclick}
-                    >
-                      submit
-                    </button>
-
-                    </form>
-
-                  </fieldset>
+                    <Container>
+                      <InputGroup className="search-group" size="small">
+                       <FormControl
+                         placeholder="Status Update Song"
+                         type="input"
+                         onKeyPress={(event) => {
+                         if (event.key === "Enter") {
+                          search();
+                        }
+                        }}
+                        onChange={(event) => setSearchInput(event.target.value)}
+                      />
+                      <button class="btn btn-outline-success" onClick={search}>Search</button>
+                    </InputGroup>
+                </Container>
+                <Container>
+                 <Row className="search-group">
+                    {albums.map((album, i) => {
+                   return (
+                   <Card className="text-white bg-dark" style={{marginTop: "15px", color: "black"}} 
+                    onClick={() => handleclick(album)}>
+                       <Card.Img src={album.album.images[0].url} height="130px"/>
+                  <Card.Body>
+                    <Card.Text className="fs-6">{album.name}</Card.Text>
+                  </Card.Body>
+                </Card>
+                  );
+                   })}
+              </Row>
+            </Container>
                 </div>
               )}
               <hr></hr>
@@ -441,7 +495,7 @@ const ProfileInfo = () => {
   );
 };
 
-const Container = styled.div`
+const PlaylistContainer = styled.div`
   color: #b3b3b3;
   height: 100%;
   overflow: hidden;
