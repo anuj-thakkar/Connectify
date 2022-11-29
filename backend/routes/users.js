@@ -139,21 +139,27 @@ userRouter.post('/updateProfilePicture', upload.single("avatar"), async (req, re
 
 // endpoint to update username
 // username should not change given that it exists in database
-userRouter.post('/updateUsername', jsonParser, async (req, res) => {
-  var params = req.body;
- 
+
+userRouter.post('/updateUsername', async (req, res) => {
+
   User.findOne({'email':req.body.email}, function(err,user) {
     if (err) {
-      console.log(err);
       return res.status(400).send('Error updating username');
     } 
     if (user) {
-      return res.status(400).send('Username already exists');
-    } else {
-      User.updateOne({ "email" : req.body.email }, { $set: { "username" : req.body.username } }, function(err, user) {
-        if (err) return next(err);
-        return res.status(200).send('Username updated Successfully.');
+      User.findOne({'username':req.body.username}, function(err,user) {
+        if (user) {
+          return res.status(400).send('Username already exists');
+        } else {
+          User.updateOne({ "email" : req.body.email }, { $set: { "username" : req.body.username } }, function(err, user) {
+            if (err) return next(err);
+            console.log(req.body.email, req.body.username);
+            return res.status(200).send('Username updated Successfully.');
+          });
+        }
       });
+    } else {
+      return res.status(400).send('Cannot find user');
     }
   });
 });

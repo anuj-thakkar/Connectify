@@ -72,15 +72,16 @@ export async function updateEmail(email, newEmail) {
   }
 }
 
-export async function updateUsername(email, newUsername) {
+export async function updateUsername(email, username) {
   const header = await createToken();
   const updateUsernameUrl = 'http://localhost:3001/api/updateUsername';
   const body = {
     email,
-    newUsername
+    username
   }
   try {
     var result = await axios.post(updateUsernameUrl, body, header);
+    console.log(result);
     return result.data;
   } catch (e) {
     console.error(e);

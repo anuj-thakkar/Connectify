@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
+
+import img from "../img.png";
+import Attach from "../attach.png";
+
 import logo from "../static/logo.jpg";
 import { useStateProvider } from "../utils/StateProvider";
 import Settings from "./Settings";
 import fire from "../fire.js";
+
+import ListAllConnections from './ListAllConnections';
+
 import {
   MdHomeFilled,
   MdBuild,
@@ -13,11 +20,13 @@ import {
   MdAddReaction
 } from "react-icons/md";
 import "../App.css";
+
 import {ChatEngine} from 'react-chat-engine';
 import './Chat.css';
 
 const ChatForm = () => {
   const [{ token }] = useStateProvider();
+
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
@@ -118,6 +127,7 @@ const ChatForm = () => {
           </div>
         </nav>
       </div>
+
       <div class="itemchat">
         <ChatEngine
             height="100vh"
@@ -127,9 +137,10 @@ const ChatForm = () => {
         /> 
       </div>
       
+
     </div>
         );
 
 }
 
-export default ChatForm;
+        export default ChatForm;

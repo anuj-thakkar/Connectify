@@ -24,7 +24,7 @@
   border-radius: 15px;
 }
 .item1 {
-  grid-area: 12 / 2 / span 49 / span 3;
+  grid-area: 2 / 2 / span 59 / span 3;
   max-width: 100%;
   color: white;
 }
@@ -77,6 +77,15 @@
   color: white;
 }
 
+.itemtop {
+  grid-area: 2 / 2 / span 57 / span 5;
+  color: white;
+}
+.itemchat {
+  background-color: green;
+  grid-area: 59 / 2 / span 8 / span 5;
+  color: white;
+}
 .button1 {
   border: solid;
   background: white;
@@ -134,6 +143,10 @@ body:focus {
   display: inline-block;
   justify-content: center;
   align-items: center;
+}
+
+.connectionLabel {
+  text-align: center;
 }
 
 .Auth-form {
@@ -237,4 +250,19 @@ label {
 .remove-song {
   color: white;
   font-size: 25px;
+}
+
+.input {
+  padding-right: 20px;
+  padding-left: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.send {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
 }
