@@ -70,60 +70,9 @@ export default function Share() {
                     {/* <PermMedia htmlColor="tomato" className="shareIcon"/> */}
                     <span className="shareOptionText">Photo</span>
                 </div>
+                <sp></sp>
+                <span className="shareOptionText">Character Limit</span>
             </div>
-            <div align="center">
-        <Container>
-          <InputGroup className="search-group" size="small">
-            <FormControl
-              placeholder="Search for Artist"
-              type="input"
-              onKeyPress={(event) => {
-                if (event.key === "Enter") {
-                  search();
-                }
-              }}
-              onChange={(event) => setSearchInput(event.target.value)}
-            />
-            <button class="btn btn-outline-success" onClick={search}>Search</button>
-          </InputGroup>
-        </Container>
-        <Container>
-            { !trackClicked ?
-            (
-                <Row className="search-group"> 
-                {albums.map((album, i) => {
-                  return (
-                    <Card className="text-white bg-dark" style={{marginTop: "15px", color: "black"}} 
-                       onClick={() => display(album)}>
-                       <Card.Img src={album.album.images[0].url} /> 
-       
-                      <Card.Body>
-                        <Card.Text className="fs-6">{album.name}</Card.Text>
-                      </Card.Body>
-                    </Card>
-                  );
-                })}
-              </Row>
-            )
-            :
-            (
-                
-                
-                <Row className="search-group"> 
-                <Card className="text-white bg-dark" style={{marginTop: "15px", color: "black"}} >
-                <Card.Img src={currentTrack.album[0].images[0].url} /> 
-
-               <Card.Body>
-                 <Card.Text className="fs-6">{currentTrack.name}</Card.Text>
-               </Card.Body>
-                </Card>
-                </Row>
-                
-
-            )
-            }
-        </Container>
-      </div>
             <button className="shareButton">Share</button>
         </div>
       </div>
