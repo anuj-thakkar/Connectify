@@ -204,6 +204,13 @@ const ProfileInfo = () => {
       });
   }
 
+  function inviteFriends() {
+    // still have to insert real link for when we deploy
+    navigator.clipboard.writeText('Copy this text to clipboard');
+    alert("Link copied to clipboard");
+  }
+
+
   return (
     <>
       <div class="grid-container">
@@ -310,6 +317,7 @@ const ProfileInfo = () => {
             >
               Unfollow Playlist
             </button>
+            <button type="button" className="inviteLink" onClick={inviteFriends}>Invite Friends</button>
             <hr></hr>
           </div>
 
@@ -484,7 +492,7 @@ const ProfileInfo = () => {
                   onClick={() => createPlaylist()}
                   className="btn btn-outline-success"
                 >
-                  create
+                  Create
                 </button>
               </fieldset>
             </div>
