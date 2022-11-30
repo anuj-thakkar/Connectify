@@ -47,7 +47,7 @@ export default function Share() {
                     <span className="shareOptionText">Photo</span>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <span className="shareOptionText">Word Count: </span>
+                    <span className="shareOptionText">Character Count: </span>
                     <span id ="counter" className="shareOptionText"> </span>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;
