@@ -205,8 +205,7 @@ const ProfileInfo = () => {
   }
 
   function inviteFriends() {
-    // still have to insert real link for when we deploy
-    navigator.clipboard.writeText('Copy this text to clipboard');
+    navigator.clipboard.writeText("http://localhost:3000/");
     alert("Link copied to clipboard");
   }
 
