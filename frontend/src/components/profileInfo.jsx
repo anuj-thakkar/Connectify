@@ -29,6 +29,7 @@ import {
   Row,
   Card,
 } from "react-bootstrap";
+import ChatForm from './Chat';
 
 const ProfileInfo = () => {
   const [{ token, playlists, userInfo}, dispatch] = useStateProvider();
@@ -275,8 +276,8 @@ const ProfileInfo = () => {
                   <a
                     class="nav-link active"
                     aria-current="page"
-                    //onClick={MessageForm}
-                    href={`/home/chat#access_token=${token}&token_type=Bearer&expires_in=3600`}
+                    onClick={ChatForm}
+                    href={`/chat#access_token=${token}&token_type=Bearer&expires_in=3600`}
                   >
                     <MdChat /> Chat
                   </a>
