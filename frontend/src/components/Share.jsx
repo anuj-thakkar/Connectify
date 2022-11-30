@@ -2,69 +2,57 @@ import "./share.css";
 import React, { useEffect, useState} from "react";
 import { useStateProvider } from "../utils/StateProvider";
 
-import { reducerCases } from "../utils/Constants";
+
 import "bootstrap/dist/css/bootstrap.min.css";
+//import CharCountInput from "./CharCountInput";
 
 
 export default function Share() {
-    const [{ token, selectedPlaylist}, dispatch] = useStateProvider();
-    const [searchInput, setSearchInput] = useState("");
-    const [albums, setAlbums] = useState([]);
-    const [trackClicked, setTrackClicked] = useState(false)
-    const [currentTrack, setCurrentTrack] = useState({})
-      //search
-  async function search() {
-    console.log("Searching for " + searchInput);
 
-    //Get request using search to get Artist ID
-    var searchParameters = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-    };
-    var results = await fetch(
-      "https://api.spotify.com/v1/search?q=" +
-        searchInput +
-        "&type=track&limit=3",
-      searchParameters
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setAlbums(data.tracks.items);
-        //setAlbums((albums) => [...albums, ...data.artists.items]);
-        console.log("it worked");
-      });
-  }
+  const [{ token, userInfo }] = useStateProvider();
+  var [limitReached, isLimitReached] = useState(false)
+  setInterval(function (){
+    var counter = document.getElementById('counter')
+    var input = document.getElementById('input')
+    var input_v = input.value;
+    var input_vl = input_v.length;
+    counter.innerHTML = input_vl;
+    if (counter.innerHTML >= 160) {
+      isLimitReached(true)
+    }
+    else {
+      isLimitReached(false)
+    }
+    
+},0)
 
-  const display = async(track) => {
-    console.log(track)
-    setTrackClicked(true)
-    setCurrentTrack(track)
-    console.log(trackClicked)
-  }
-
+  console.log(userInfo)
   return (
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
-          <img className="shareProfileImg" src="/assets/person/1.jpeg" alt="" />
+          <img className="shareProfileImg" src={userInfo ? userInfo.imagesUrl : null} alt="" />
           <input
+            id="input"
             placeholder="What's in your mind?"
             className="shareInput"
+            maxLength={160}
           />
         </div>
         <hr className="shareHr"/>
         <div className="shareBottom">
             <div className="shareOptions">
-                <div className="shareOption">
+                <div className="shareOption" >
                     {/* <PermMedia htmlColor="tomato" className="shareIcon"/> */}
                     <span className="shareOptionText">Photo</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <span className="shareOptionText">Word Count: </span>
+                    <span id ="counter" className="shareOptionText"> </span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    {limitReached? <span className="shareOptionText"> MAX CHARACTER LIMIT REACHED</span> : null}
                 </div>
-                <sp></sp>
-                <span className="shareOptionText">Character Limit</span>
             </div>
             <button className="shareButton">Share</button>
         </div>
