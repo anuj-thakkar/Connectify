@@ -44,9 +44,7 @@ export default function Share() {
             <div className="shareOptions">
                 <div className="shareOption" >
                     {/* <PermMedia htmlColor="tomato" className="shareIcon"/> */}
-                    <span className="shareOptionText">Photo</span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="file" className="shareOptionText" accept="image/png, image/jpeg"></input>
                     <span className="shareOptionText">Character Count: </span>
                     <span id ="counter" className="shareOptionText"> </span>
                     &nbsp;&nbsp;&nbsp;&nbsp;
