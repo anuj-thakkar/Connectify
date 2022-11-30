@@ -9,6 +9,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Share() {
 
+  const [{ token, userInfo }, dispatch] = useStateProvider();
+
   setInterval(function (){
     var counter = document.getElementById('counter')
     var input = document.getElementById('input')
@@ -20,16 +22,17 @@ export default function Share() {
     }
 },0)
 
-
+  console.log(userInfo)
   return (
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
-          <img className="shareProfileImg" src="/assets/person/1.jpeg" alt="" />
+          <img className="shareProfileImg" src={userInfo ? userInfo.imagesUrl : null} alt="" />
           <input
             id="input"
             placeholder="What's in your mind?"
             className="shareInput"
+
           />
         </div>
         <hr className="shareHr"/>
