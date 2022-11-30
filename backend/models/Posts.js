@@ -2,7 +2,12 @@ const mongoose = require('mongoose')
 const {ObjectId} = mongoose.Schema.Types
 const postSchema = new mongoose.Schema({
 
-    body:{
+    title: {
+        type:String,
+        required:true
+    },
+
+    text:{
         type:String,
         required:true
     },
@@ -18,9 +23,17 @@ const postSchema = new mongoose.Schema({
 
     // type Array of object id in ref to user model
     postedBy:{
-       type:ObjectId,
-       ref:"User"
+       type:String,
+       required:true
     }
 },{timestamps:true})
 
-mongoose.model("Post",postSchema)
+postSchema.set('toJSON', {
+    transform: (doc, returnedObject) => {
+      returnedObject.id = returnedObject._id.toString();
+      delete returnedObject._id;
+      delete returnedObject.__v;
+    },
+  });
+
+module.exports = mongoose.model("Post", postSchema)

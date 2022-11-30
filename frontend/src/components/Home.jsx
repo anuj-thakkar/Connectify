@@ -116,7 +116,8 @@ const Home = () => {
       <div class="grid-container">
         <div class="item1">Feed
         <div>
-            <ShowAllPosts />
+          <CreatePosts />
+          <ShowAllPosts />
           </div>
         
         </div>

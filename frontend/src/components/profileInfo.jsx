@@ -37,7 +37,10 @@ const ProfileInfo = () => {
   const fileOnChange = (e) => {
     console.log(e.target.files[0]);
   };
-
+  const clearStatus = (e) => {
+    e.preventDefault();
+    localStorage.delete('status');
+  }
   //Get Playlists from Spotify API
   useEffect(() => {
     const getPlaylistData = async () => {

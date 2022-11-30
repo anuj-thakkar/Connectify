@@ -5,13 +5,13 @@
  */
 
 const express = require('express')
-const router = express.Router()
+const postRouter = express.Router()
 const mongoose = require('mongoose')
-const requireLogin  = require('../middleware/requireLogin')
-const Post =  mongoose.model("Post")
+//const requireLogin  = require('../middleware/requireLogin')
+const Post =  require('../models/Posts')
 
 // view all pots
-router.get('/allposts',(req,res)=>{
+postRouter.get('/allposts',(req,res) => {
     Post.find()
     .populate("postedBy","_id name")
     .populate("comments.postedBy","_id name")
@@ -22,31 +22,49 @@ router.get('/allposts',(req,res)=>{
         console.log(err)
     })
     
-})
+});
+
+postRouter.get('/', async (req, res) => {
+    // const auth = req.currentUser;
+    // if (auth) {
+    const posts = await Post.find({});
+    console.log(posts);
+    return res.json(posts.map((posts) => posts.toJSON()));
+    // }
+    // return res.status(403).send('Not authorized');
+});
 
 
-router.post('/createpost',(req,res)=>{
-    const {title,body,pic} = req.body 
-    if(!title || !body || !pic){
-      return  res.status(422).json({error:"Plase add all the fields"})
-    }
-    req.user.password = undefined
-    const post = new Post({
-        title,
-        body,
-        photo:pic,
-        postedBy:req.user
-    })
-    post.save().then(result=>{
-        res.json({post:result})
-    })
-    .catch(err=>{
-        console.log(err)
-    })
-})
+// postRouter.post('/createPost', (req, res)=>{
+//     const title  = req.body.title; 
+//     const username = req.body.username;
+//     const body = req.body.body;
+//     if(!title || !body){
+//       return  res.status(422).json({error:"Plase add all the fields"})
+//     }
+//     const user = 
+//     const post = new Post({
+//         title,
+//         body,
+//         postedBy:username
+//     })
+//     post.save().then(result=>{
+//         res.json({post:result})
+//     })
+//     .catch(err=>{
+//         console.log(err)
+//     })
+// })
+
+postRouter.post('/createPost', async (req, res) => {
+    console.log(req.body);
+    const post = await new Post(req.body);
+    const savedPost = post.save();
+    return res.status(201).json(savedPost);
+  });
 
 // list all posts of a user
-router.get('/mypost',(req,res)=>{
+postRouter.get('/mypost',(req,res)=>{
     Post.find({postedBy:req.user._id})
     .populate("PostedBy","_id name")
     .then(mypost=>{
@@ -57,7 +75,7 @@ router.get('/mypost',(req,res)=>{
     })
 })
 
-router.put('/like',(req,res)=>{
+postRouter.put('/like',(req,res)=>{
     Post.findByIdAndUpdate(req.body.postId,{
         $push:{likes:req.user._id}
     },{
@@ -70,7 +88,7 @@ router.put('/like',(req,res)=>{
         }
     })
 })
-router.put('/unlike',(req,res)=>{
+postRouter.put('/unlike',(req,res)=>{
     Post.findByIdAndUpdate(req.body.postId,{
         $pull:{likes:req.user._id}
     },{
@@ -85,7 +103,7 @@ router.put('/unlike',(req,res)=>{
 })
 
 
-router.put('/comment',(req,res)=>{
+postRouter.put('/comment',(req,res)=>{
     const comment = {
         text:req.body.text,
         postedBy:req.user._id
@@ -106,7 +124,7 @@ router.put('/comment',(req,res)=>{
     })
 })
 
-router.delete('/deletepost/:postId',(req,res)=>{
+postRouter.delete('/deletepost/:postId',(req,res)=>{
     Post.findOne({_id:req.params.postId})
     .populate("postedBy","_id")
     .exec((err,post)=>{
@@ -124,4 +142,4 @@ router.delete('/deletepost/:postId',(req,res)=>{
     })
 })
 
-module.exports = router
+module.exports = postRouter
