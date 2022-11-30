@@ -2,24 +2,28 @@ import "./share.css";
 import React, { useEffect, useState} from "react";
 import { useStateProvider } from "../utils/StateProvider";
 
-import { reducerCases } from "../utils/Constants";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 //import CharCountInput from "./CharCountInput";
 
 
 export default function Share() {
 
-  const [{ token, userInfo }, dispatch] = useStateProvider();
-
+  const [{ token, userInfo }] = useStateProvider();
+  var [limitReached, isLimitReached] = useState(false)
   setInterval(function (){
     var counter = document.getElementById('counter')
     var input = document.getElementById('input')
     var input_v = input.value;
     var input_vl = input_v.length;
     counter.innerHTML = input_vl;
-    if (counter.innerHTML > 160) {
-      
+    if (counter.innerHTML >= 160) {
+      isLimitReached(true)
     }
+    else {
+      isLimitReached(false)
+    }
+    
 },0)
 
   console.log(userInfo)
@@ -32,7 +36,7 @@ export default function Share() {
             id="input"
             placeholder="What's in your mind?"
             className="shareInput"
-
+            maxLength={160}
           />
         </div>
         <hr className="shareHr"/>
@@ -45,6 +49,9 @@ export default function Share() {
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <span className="shareOptionText">Word Count: </span>
                     <span id ="counter" className="shareOptionText"> </span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    {limitReached? <span className="shareOptionText"> MAX CHARACTER LIMIT REACHED</span> : null}
                 </div>
             </div>
             <button className="shareButton">Share</button>
