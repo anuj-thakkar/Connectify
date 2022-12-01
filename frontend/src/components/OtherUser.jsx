@@ -20,7 +20,7 @@ import axios from "axios";
 import styled from "styled-components";
 import { useStateProvider } from "../utils/StateProvider";
 import { reducerCases } from "../utils/Constants";
-import { searchForUsers } from "../services/usersService.js";
+
 
 const OtherUser = () => {
     let navigate = useNavigate();
@@ -29,30 +29,22 @@ const OtherUser = () => {
     const signOut = () => {
         fire.auth().signOut();
     };
-
-    const searchForUser = async () => {
-        console.log("searching for user");
-        const fetchedEntries = await searchForUsers(document.getElementById("search-input").value);
-        console.log(fetchedEntries);
+    const fetchUsers = (query) => {
+        setSearch(query);
+        fetch("/search-users", {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                query,
+            }),
+        })
+            .then((res) => res.json())
+            .then((results) => {
+                //setUserDetails(results.user)
+            });
     };
-
-    
-    // const fetchUsers = (query) => {
-    //     setSearch(query);
-    //     fetch("/search", {
-    //         method: "post",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //             query,
-    //         }),
-    //     })
-    //         .then((res) => res.json())
-    //         .then((results) => {
-    //             //setUserDetails(results.user)
-    //         });
-    // };
     return (
         <div class="grid-container">
             <div class="itemnav">
@@ -141,9 +133,15 @@ const OtherUser = () => {
                     <fieldset>
                         <form>
                         <br></br>
-                            <input type="text" id="search-input" placeholder="Find Connections..."/>
-                            <button class="btn btn-outline-success" type="submit" onClick={searchForUser}>Search</button>
-                    
+                            <input type="text" placeholder="Find Connections..." value={search}
+                                onChange={(e) => fetchUsers(e.target.value)}
+                                aria-label="searchbar" />
+                            &nbsp;
+                            <button
+                                class="btn btn-outline-success" type="submit">
+                                {" "}
+                                Search{" "}
+                            </button>
                         </form>
                     </fieldset>
                 </div>

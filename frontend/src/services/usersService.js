@@ -38,7 +38,6 @@ export const searchForUsers = async (username) => {
   try {
     console.log(searchUrl, payload);
     const res = await axios.get(searchUrl, payload, header);
-    console.log(res.data);
   } catch (e) {
     console.error(e);
   }
