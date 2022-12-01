@@ -155,47 +155,46 @@ userRouter.post('/updateUsername', async (req, res) => {
 });
 
 
-//follow a user
-userRouter.put("/:username/follow", async (req, res) => {
-  if (req.body.username !== req.params.username) {
-    try {
-      const user = await User.findById(req.params.username);
-      const currentUser = await User.findById(req.body.username);
-      if (!user.followers.includes(req.body.username)) {
-        await user.updateOne({ $push: { followers: req.body.username } });
-        await currentUser.updateOne({ $push: { followings: req.params.username } });
-        res.status(200).json("user has been followed");
-      } else {
-        res.status(403).json("you allready follow this user");
+router.put('/follow',requireLogin,(req,res)=>{
+  User.findByIdAndUpdate(req.body.followId,{
+      $push:{followers:req.user._id}
+  },{
+      new:true
+  },(err,result)=>{
+      if(err){
+          return res.status(422).json({error:err})
       }
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  } else {
-    res.status(403).json("you cant follow yourself");
-  }
-});
+    User.findByIdAndUpdate(req.user._id,{
+        $push:{following:req.body.followId}
+        
+    },{new:true}).then(result=>{
+        res.json(result)
+    }).catch(err=>{
+        return res.status(422).json({error:err})
+    })
 
-//unfollow a user
-userRouter.put("/:username/unfollow", async (req, res) => {
-    if (req.body.username !== req.params.username) {
-      try {
-        const user = await User.findById(req.params.id);
-        const currentUser = await User.findById(req.body.userId);
-        if (user.followers.includes(req.body.username)) {
-          await user.updateOne({ $pull: { followers: req.body.username } });
-          await currentUser.updateOne({ $pull: { followings: req.params.username } });
-          res.status(200).json("user has been unfollowed");
-        } else {
-          res.status(403).json("you dont follow this user");
-        }
-      } catch (err) {
-        res.status(500).json(err);
+  }
+  )
+})
+router.put('/unfollow',requireLogin,(req,res)=>{
+  User.findByIdAndUpdate(req.body.unfollowId,{
+      $pull:{followers:req.user._id}
+  },{
+      new:true
+  },(err,result)=>{
+      if(err){
+          return res.status(422).json({error:err})
       }
-    } else {
-      res.status(403).json("you cant unfollow yourself");
-    }
-  });
+    User.findByIdAndUpdate(req.user._id,{
+        $pull:{following:req.body.unfollowId}
+        
+    },{new:true}).then(result=>{
+        res.json(result)
+    }).catch(err=>{
+        return res.status(422).json({error:err})
+    })
+  })
+})
 
 
 module.exports = userRouter;
