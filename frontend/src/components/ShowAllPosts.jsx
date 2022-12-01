@@ -17,7 +17,21 @@ const ShowAllPosts = () => {
     }
     return (
         <div>
-        
+            {entries.map((entry) => (
+            <div class="card">
+                <label> {entry.postedBy}</label>
+                <label key={entry.id}>{entry.title}</label>
+                <label>{entry.text}</label>
+            </div>
+            ))}
+        </div>
+    ) 
+};
+
+export default ShowAllPosts;
+
+/*
+<div>
         <table style={{textAlign:"center"}}>
             <thead>
             <tr>
@@ -37,7 +51,4 @@ const ShowAllPosts = () => {
             </tbody>
         </table>
         </div>
-    ) 
-};
-
-export default ShowAllPosts;
+*/
