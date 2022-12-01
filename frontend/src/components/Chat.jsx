@@ -6,7 +6,6 @@ import { useStateProvider } from "../utils/StateProvider";
 import Settings from "./Settings";
 import fire from "../fire.js";
 import ListAllConnections from './ListAllConnections';
-
 import {
   MdHomeFilled,
   MdBuild,
@@ -101,8 +100,8 @@ const ChatForm = () => {
                 <a
                   class="nav-link active"
                   aria-current="page"
-                  //onClick={MessageForm}
-                  href={`/home/chat#access_token=${token}&token_type=Bearer&expires_in=3600`}
+                  onClick={ChatForm}
+                  href={`/chat#access_token=${token}&token_type=Bearer&expires_in=3600`}
                 >
                   <MdChat /> Chat
                 </a>
