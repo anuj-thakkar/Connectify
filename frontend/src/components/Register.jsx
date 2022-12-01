@@ -44,15 +44,14 @@ const Register = () => {
             .then(() => {
               try {
                 fire.auth().currentUser.sendEmailVerification();
-                registerUser(username, name, email, password);
+                registerUser(username, name, email);
                 console.log("Verification Sent");
                 localStorage.setItem('email', email);
                 localStorage.setItem('password', password);
                 localStorage.setItem('name', name);
                 localStorage.setItem('username', username);
                 localStorage.setItem('bio', " ");
-                navigate('/login');
-
+                navigate('/link');
               } catch (error) {
                 console.log(error);
               }

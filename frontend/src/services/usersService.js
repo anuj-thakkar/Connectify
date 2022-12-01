@@ -3,7 +3,8 @@ import fire from '../fire';
 
 const url = 'http://localhost:3001/api';
 
-export const registerUser = async (username, name, email, password) => {
+export const registerUser = async (username, name, email) => {
+  const registerUserUrl = 'http://localhost:3001/api/register';
   const payload = {
     username,
     name,
@@ -11,7 +12,7 @@ export const registerUser = async (username, name, email, password) => {
   }
   console.log(payload);
   try {
-    const res = await axios.post(url, payload);
+    const res = await axios.post(registerUserUrl, payload);
     console.log(res.data);
     return res.data;
 } catch (e) {

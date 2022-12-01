@@ -28,7 +28,6 @@ postRouter.get('/', async (req, res) => {
     // const auth = req.currentUser;
     // if (auth) {
     const posts = await Post.find({});
-    console.log(posts);
     return res.json(posts.map((posts) => posts.toJSON()));
     // }
     // return res.status(403).send('Not authorized');
