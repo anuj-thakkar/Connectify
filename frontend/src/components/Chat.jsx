@@ -7,6 +7,7 @@ import logo from "../static/logo.jpg";
 import { useStateProvider } from "../utils/StateProvider";
 import Settings from "./Settings";
 import fire from "../fire.js";
+import ChatFeed from './ChatFeed';
 
 import ListAllConnections from './ListAllConnections';
 
@@ -132,8 +133,10 @@ const ChatForm = () => {
         <ChatEngine
             height="100vh"
             projectID="5c486811-745b-4945-a151-83eb47fcece8"
-            userName="obonilla"
-            userSecret="1234"
+            userName="user2"
+            userSecret="secret"
+            renderChatFeed={(chatAppProps) => <ChatFeed {...chatAppProps} />}
+            onNewMessage={() => new Audio('https://chat-engine-assets.s3.amazonaws.com/click.mp3').play()}
         /> 
       </div>
       
