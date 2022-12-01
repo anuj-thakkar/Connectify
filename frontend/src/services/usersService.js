@@ -29,15 +29,13 @@ export const getRegisteredUserEntries = async () => {
   }
 }
 
-export const searchForUsers = async (username) => {
+export const searchForUsers = async () => {
   const header = await createToken();
   const searchUrl = 'http://localhost:3001/api/search';
-  const payload = {
-    username
-  }
   try {
-    console.log(searchUrl, payload);
-    const res = await axios.get(searchUrl, payload, header);
+    console.log(searchUrl, header);
+    const res = await axios.get(searchUrl, header);
+    return res.data;
   } catch (e) {
     console.error(e);
   }

@@ -23,18 +23,14 @@ userRouter.get('/', async (req, res) => {
  */
 userRouter.get('/search', async(req, res) => {
     let userPattern = new RegExp("^" + req.body.query);
-    User.find({email: {$regex: userPattern}})
-    .select("username email")
+    User.find({username: {$regex: userPattern}})
     .then(user => {
-      res.json({user})
+
+        res.json({user})
     })
     .catch(err => {
-      console.log(err);
+        console.log(err);
     })
-
-    console.log(req.username);
-    const users = await User.find({username:req.username});
-    return res.json(users.map((users) => users.toJSON()));
   // }
   // return res.status(403).send('Not authorized');
 });
