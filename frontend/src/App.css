@@ -26,6 +26,8 @@
 .item1 {
   grid-area: 2 / 2 / span 59 / span 3;
   max-width: 100%;
+  justify-content: center;
+  align-items: center;
   color: white;
 }
 
@@ -261,4 +263,38 @@ label {
   align-items: center;
   gap: 10px;
 
+}
+
+.shareWrapper {
+  padding: 10px;
+  color: white;
+  background-color: black;
+  align-items: center;
+  justify-content: center;
+}
+
+.shareProfileImg {
+  width: 50px;
+  height: 50px;
+  border-radius: 30%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.shareInput {
+  border: none;
+  width: 80%;
+  -webkit-border-radius: 20px;
+}
+
+.shareTop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shareBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
