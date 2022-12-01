@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getPosts } from '../services/usersService';
 
+
 const ShowAllPosts = () => {
   const [entries, setEntries] = useState();
     useEffect(() => {
@@ -16,12 +17,12 @@ const ShowAllPosts = () => {
         return null;
     }
     return (
-        <div>
+        <div align="left">
             {entries.map((entry) => (
-            <div class="card">
-                <label> {entry.postedBy}</label>
-                <label key={entry.id}>{entry.title}</label>
-                <label>{entry.text}</label>
+            <div class="border border-success" style={{ marginLeft: "15px", marginRight: "15px", marginTop: "15px", marginBottom: "15px", color: "black", borderRadius: "15px"}}>
+                <label class="text-white" style={{fontSize: "20px", marginLeft: "15px", marginTop: "15px", marginBottom: "15px", align: "start"}}>{entry.postedBy}</label>
+                &nbsp; &nbsp;
+                <label class="text-white" style={{fontSize: "20px", marginTop: "15px", marginBottom: "15px", marginRight: "30px", textColor: "white"}}> {entry.text}</label>
             </div>
             ))}
         </div>
