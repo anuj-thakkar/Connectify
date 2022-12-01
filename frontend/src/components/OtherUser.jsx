@@ -20,6 +20,7 @@ import axios from "axios";
 import styled from "styled-components";
 import { useStateProvider } from "../utils/StateProvider";
 import { reducerCases } from "../utils/Constants";
+import ChatForm from './Chat';
 
 
 const OtherUser = () => {
@@ -109,7 +110,7 @@ const OtherUser = () => {
                                 <a
                                     class="nav-link active"
                                     aria-current="page"
-                                    //onClick={ChatForm}
+                                    onClick={ChatForm}
                                     href={`/chat#access_token=${token}&token_type=Bearer&expires_in=3600`}
                                 >
                                     <MdChat /> Chat
