@@ -38,18 +38,9 @@ const CreatPost = () => {
                 <img className="shareProfileImg" src={userInfo ? userInfo.imagesUrl : null} alt="" />
                 &nbsp;
                 <input
-                    type="input"
-                    placeholder="title"
-                    classname="shareInput"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    maxLength={160}
-                />
-                &nbsp;&nbsp;&nbsp;
-                <input
                     type="text"
                     classname="shareInput"
-                    placeholder="body"
+                    placeholder="type something..."
                     value={body}
                     onChange={(e) => setBody(e.target.value)}
                 />
