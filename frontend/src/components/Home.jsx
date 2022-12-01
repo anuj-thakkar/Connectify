@@ -188,13 +188,6 @@ const Home = () => {
                   >
                     <MdChat /> Chat
                   </a>
-                  <a
-                    class="nav-link active"
-                    aria-current="page"
-                    href={`/createPosts#access_token=${token}&token_type=Bearer&expires_in=3600`}
-                  >
-                    <MdChat /> Chat
-                  </a>
                   &nbsp; &nbsp;
                   <a
                     class="nav-link active"
