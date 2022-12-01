@@ -29,9 +29,10 @@ import {
   Row,
   Card,
 } from "react-bootstrap";
+import ChatForm from './Chat';
 
 const ProfileInfo = () => {
-  const [{ token, playlists, userInfo}, dispatch] = useStateProvider();
+  const [{ token, playlists, userInfo, topTrackInfo}, dispatch] = useStateProvider();
   var [playlistId] = useState("4VeOV08x3iNXrERRLt8SJl")
   const [image, setState] = useState({});
   const [unfollow, setUnfollow] = useState(false);
@@ -87,6 +88,26 @@ const ProfileInfo = () => {
       dispatch({ type: reducerCases.SET_USER, userInfo });
     };
     getUserInfo();
+  }, [dispatch, token]);
+
+  //get top user track
+  useEffect(() => {
+    const getUserTopTrack = async () => {
+      const info = await axios.get("https://api.spotify.com/v1/me/top/tracks?limit=3", {
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+      });
+      
+      const topTrackInfo = {
+        tracks: info.data.items,
+      }; 
+      console.log(topTrackInfo)
+      
+      dispatch({ type: reducerCases.SET_TOP_TRACK, topTrackInfo });
+    };
+    getUserTopTrack();
   }, [dispatch, token]);
 
 
@@ -172,6 +193,8 @@ const ProfileInfo = () => {
     return;
   };
 
+
+
   //Search for Update Song
   const [searchInput, setSearchInput] = useState("");
   const [albums, setTrack] = useState([]);
@@ -205,8 +228,7 @@ const ProfileInfo = () => {
   }
 
   function inviteFriends() {
-    // still have to insert real link for when we deploy
-    navigator.clipboard.writeText('Copy this text to clipboard');
+    navigator.clipboard.writeText("http://localhost:3000/");
     alert("Link copied to clipboard");
   }
 
@@ -276,8 +298,8 @@ const ProfileInfo = () => {
                   <a
                     class="nav-link active"
                     aria-current="page"
-                    //onClick={MessageForm}
-                    href={`/home/chat#access_token=${token}&token_type=Bearer&expires_in=3600`}
+                    onClick={ChatForm}
+                    href={`/chat#access_token=${token}&token_type=Bearer&expires_in=3600`}
                   >
                     <MdChat /> Chat
                   </a>
@@ -425,6 +447,10 @@ const ProfileInfo = () => {
               <Streak streak={useStreak(localStorage, new Date())} />
             </h6>    
             <h6>Favorite Song: {window.localStorage.getItem('FavSong')}</h6>
+            <h6>Top Listened Songs: </h6>
+            <h6>1. {topTrackInfo ? topTrackInfo.tracks[0].name : null} by {topTrackInfo ? topTrackInfo.tracks[0].artists[0].name : null}</h6>
+            <h6>2. {topTrackInfo ? topTrackInfo.tracks[1].name : null} by {topTrackInfo ? topTrackInfo.tracks[1].artists[0].name : null}</h6>
+            <h6>3. {topTrackInfo ? topTrackInfo.tracks[2].name : null} by {topTrackInfo ? topTrackInfo.tracks[2].artists[0].name : null}</h6>
             <h6>Bio: {window.localStorage.getItem('bio')}</h6>
 
             <hr></hr>
