@@ -204,7 +204,6 @@ const Home = () => {
           </nav>
         </div>
         <div class="item3">
-          <ListAllConnections />
           <Search/>
         </div>
         <div class="item4">
