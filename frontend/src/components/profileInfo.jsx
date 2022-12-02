@@ -21,6 +21,14 @@ import { useStateProvider } from "../utils/StateProvider";
 import { reducerCases } from "../utils/Constants";
 import { useStreak } from "use-streak";
 import Streak from "./Streak";
+import "bootstrap/dist/css/bootstrap.min.css";
+import {
+  Container,
+  InputGroup,
+  FormControl,
+  Row,
+  Card,
+} from "react-bootstrap";
 
 const ProfileInfo = () => {
   const [{ token, playlists, userInfo}, dispatch] = useStateProvider();
@@ -106,27 +114,12 @@ const ProfileInfo = () => {
     }
   };
 
-  const [bio, setBio] = useState("");
-  const [istrue, Setistrue] = useState(false);
-  const [statusUpdate, setStatusUpdate] = useState("");
 
-  function handleStatusUpdateSubmit() {
-    Setistrue(true);
-    console.log(statusUpdate);
-    
-    axios
-      .post('http://localhost:3001/setStatusUpdate', 
-      {
-        email: userInfo.email,
-        statusUpdate: statusUpdate
-      },
-      
-      )
-      .then(() => console.log('Status Update Sent to Backend'))
-      .catch(err => {
-        console.error(err);
-      });
-
+  function handleclick(track) {
+    var status = track.name + " by " + track.artists[0].name;
+    window.localStorage.setItem('status', status);
+    window.location.reload(false);
+    console.log(track.album.images[0])
   }
 
   const viewOrUnfollow = async (selectedPlaylistId) => {
@@ -177,6 +170,44 @@ const ProfileInfo = () => {
     window.location.reload(false);
     return;
   };
+
+  //Search for Update Song
+  const [searchInput, setSearchInput] = useState("");
+  const [albums, setTrack] = useState([]);
+
+
+  //search
+  async function search() {
+    console.log("Searching for " + searchInput);
+
+    //Get request using search to get Artist ID
+    var searchParameters = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    var results = await fetch(
+      "https://api.spotify.com/v1/search?q=" +
+        searchInput +
+        "&type=track&limit=4",
+      searchParameters
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setTrack(data.tracks.items);
+        //setTrack((albums) => [...albums, ...data.artists.items]);
+        console.log("it worked");
+      });
+  }
+
+  function inviteFriends() {
+    navigator.clipboard.writeText("http://localhost:3000/");
+    alert("Link copied to clipboard");
+  }
+
 
   return (
     <>
@@ -284,6 +315,7 @@ const ProfileInfo = () => {
             >
               Unfollow Playlist
             </button>
+            <button type="button" className="inviteLink" onClick={inviteFriends}>Invite Friends</button>
             <hr></hr>
           </div>
 
@@ -310,7 +342,7 @@ const ProfileInfo = () => {
             }}
           >
 
-          <Container>
+          <PlaylistContainer>
 
             <ul>
               {playlists.map(({ name, id }) => {
@@ -321,7 +353,7 @@ const ProfileInfo = () => {
                 );
               })}
             </ul>
-            </Container>
+            </PlaylistContainer>
           </div>
         </div>
         <div class="itemrest">
@@ -409,22 +441,36 @@ const ProfileInfo = () => {
                 </div>
               ) : (
                 <div>
-                  <fieldset class="d-flex justify-content-start">
-
-                    <form>
-                    <input type="text" placeholder="status update song" bio="bio" id='statusUpdate' onChange={e => setStatusUpdate(e.target.value)}/>
-                    &nbsp;
-                    <button
-                      class="btn btn-outline-success"
-                      type="submit"
-                      onSubmit={handleStatusUpdateSubmit}
-                    >
-                      submit
-                    </button>
-
-                    </form>
-
-                  </fieldset>
+                    <Container>
+                      <InputGroup className="search-group" size="small">
+                       <FormControl
+                         placeholder="Status Update Song"
+                         type="input"
+                         onKeyPress={(event) => {
+                         if (event.key === "Enter") {
+                          search();
+                        }
+                        }}
+                        onChange={(event) => setSearchInput(event.target.value)}
+                      />
+                      <button class="btn btn-outline-success" onClick={search}>Search</button>
+                    </InputGroup>
+                </Container>
+                <Container>
+                 <Row className="search-group">
+                    {albums.map((album, i) => {
+                   return (
+                   <Card className="text-white bg-dark" style={{marginTop: "15px", color: "black"}} 
+                    onClick={() => handleclick(album)}>
+                       <Card.Img src={album.album.images[0].url} height="130px"/>
+                  <Card.Body>
+                    <Card.Text className="fs-6">{album.name}</Card.Text>
+                  </Card.Body>
+                </Card>
+                  );
+                   })}
+              </Row>
+            </Container>
                 </div>
               )}
               <hr></hr>
@@ -444,7 +490,7 @@ const ProfileInfo = () => {
                   onClick={() => createPlaylist()}
                   className="btn btn-outline-success"
                 >
-                  create
+                  Create
                 </button>
               </fieldset>
             </div>
@@ -455,7 +501,7 @@ const ProfileInfo = () => {
   );
 };
 
-const Container = styled.div`
+const PlaylistContainer = styled.div`
   color: #b3b3b3;
   height: 100%;
   overflow: hidden;

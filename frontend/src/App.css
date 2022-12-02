@@ -17,6 +17,11 @@
   font-size: 20px;
 }
 
+.albumPic {
+  width: 1;
+  height: 1;
+}
+
 .login-error {
   text-align: center;
   color: red;
@@ -145,6 +150,10 @@ body:focus {
   display: inline-block;
   justify-content: center;
   align-items: center;
+}
+
+.connectionLabel {
+  text-align: center;
 }
 
 .Auth-form {

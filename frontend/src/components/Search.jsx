@@ -32,30 +32,6 @@ const Search = () => {
         Authorization: "Bearer " + token,
       },
     };
-    // var artistID = await fetch(
-    //   "https://api.spotify.com/v1/search?q=" + searchInput + "&type=artist",
-    //   searchParameters
-    // )
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log("artistID is ");
-    //     console.log(data);
-    //     return data.artists.items[0].id;
-    //   });
-    // //Get request with Artist ID grab all the albums from that artist
-    // var returnedAlbums = await fetch(
-    //   "https://api.spotify.com/v1/artists/" +
-    //     artistID +
-    //     "/albums?include_groups=album&market=US&limit=12",
-    //   searchParameters
-    // )
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log("artists albums are:");
-    //     console.log(data);
-    //     setAlbums(data.items);
-    //   });
-    //Get request using search to get top tracks/artists
     var results = await fetch(
       "https://api.spotify.com/v1/search?q=" +
         searchInput +

@@ -22,6 +22,7 @@ import PlayerControls from './PlayerControls';
 import CurrentTrack from './CurrentTrack';
 import Search from './Search';
 import ChatForm from './Chat';
+import Share from './Share'
 import ShowAllPosts from './ShowAllPosts';
 import CreatePosts from './CreatePosts';
 
@@ -120,6 +121,8 @@ const Home = () => {
           <ShowAllPosts />
           </div>
         
+        
+        <Share/>
         </div>
         <div class="item2">
           <nav class="navbar navbar-expand-lg navbar-dark bg-black">
