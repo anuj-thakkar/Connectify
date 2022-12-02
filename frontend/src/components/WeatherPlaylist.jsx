@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   InputGroup,
@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap";
 import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
 import { useStateProvider } from "../utils/StateProvider";
-import axios from "axios";
+//import axios from "axios";
 
 const WeatherPlaylist = () => {
   const locationAPI =
@@ -26,6 +26,17 @@ const WeatherPlaylist = () => {
   const [{ token }, dispatch] = useStateProvider();
   const [playlist, setPlaylist] = useState([]);
 
+  useEffect(() => {
+    searchWeather();
+  }, [currentLocationLat, currentLocationLon]);
+
+  useEffect(() => {
+    const min = 0;
+    const max = 1000;
+    const rand = Math.floor(min + Math.random() * (max - min));
+    searchPlaylist(rand);
+  }, [currentWeather]);
+
   async function searchLocation() {
     var results = await fetch(
       "http://api.openweathermap.org/geo/1.0/direct?q=" +
@@ -37,8 +48,8 @@ const WeatherPlaylist = () => {
         console.log(data);
         setCurrentLocationLat(data[0].lat);
         setCurrentLocationLon(data[0].lon);
-        console.log(currentLocationLat, currentLocationLon);
-        searchWeather(data);
+        //console.log(currentLocationLat, currentLocationLon);
+        //searchWeather();
       });
   }
 
@@ -54,13 +65,12 @@ const WeatherPlaylist = () => {
       .then((data) => {
         console.log(data);
         setCurrentWeather(data.current.weather[0].main);
-        console.log(currentWeather);
-      })
-      .then(searchPlaylist);
+        //console.log(currentWeather);
+        //searchPlaylist();
+      });
   }
 
-  async function searchPlaylist() {
-    //Get request using search to get Artist ID
+  async function searchPlaylist(rand) {
     var searchParameters = {
       method: "GET",
       headers: {
@@ -71,7 +81,8 @@ const WeatherPlaylist = () => {
     var results = await fetch(
       "https://api.spotify.com/v1/search?q=" +
         currentWeather +
-        "&type=playlist&limit=4",
+        "&type=playlist&limit=6&offset=" +
+        rand,
       searchParameters
     )
       .then((response) => response.json())
@@ -82,7 +93,7 @@ const WeatherPlaylist = () => {
   }
 
   async function addPlaylist(playlist) {
-    console.log(playlist.id)
+    console.log(playlist.id);
     var searchParameters = {
       method: "PUT",
       headers: {
@@ -91,9 +102,7 @@ const WeatherPlaylist = () => {
       },
     };
     var results = await fetch(
-      "https://api.spotify.com/v1/playlists/" +
-        playlist.id +
-        "/followers",
+      "https://api.spotify.com/v1/playlists/" + playlist.id + "/followers",
       searchParameters
     )
       .then((response) => response.json())
@@ -101,17 +110,7 @@ const WeatherPlaylist = () => {
         console.log(data);
         setPlaylist(data.playlists.items);
       });
-    /* 
-    await axios.put(
-      `	https://api.spotify.com/v1/playlists/${playlist.id}/followers`,
-      {
-        headers: {
-          Authorization: "Bearer " + token,
-          "Content-Type": "application/json",
-        },
-      }
-    ); */
-    console.log("SUCCESS")
+    //console.log("SUCCESS");
   }
 
   return (
@@ -140,10 +139,18 @@ const WeatherPlaylist = () => {
             return (
               <Card
                 className="text-white bg-dark"
-                style={{ marginTop: "15px", color: "black", width: 200, height: 200}}
-                onClick={() => addPlaylist(playlist)}>
-              
-                <Card.Img src={playlist.images[0].url} style={{width: 100, height: 100}}/>
+                style={{
+                  marginTop: "15px",
+                  color: "black",
+                  width: 200,
+                  height: 200,
+                }}
+                onClick={() => addPlaylist(playlist)}
+              >
+                <Card.Img
+                  src={playlist.images[0].url}
+                  style={{ width: 100, height: 100 }}
+                />
                 <Card.Body>
                   <Card.Text className="fs-6">{playlist.name}</Card.Text>
                 </Card.Body>
