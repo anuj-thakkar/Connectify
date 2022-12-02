@@ -1,38 +1,44 @@
-
-
-import React, {useEffect, useRef} from 'react';
-import logo from '../static/logo.jpg';
-import fire from '../fire.js';
-import Settings from './Settings';
-import {MdHomeFilled, MdSearch, MdAccountCircle, MdBuild, MdCompareArrows, MdChat, MdAddReaction} from 'react-icons/md';
+import React, { useEffect, useRef } from "react";
+import logo from "../static/logo.jpg";
+import fire from "../fire.js";
+import Settings from "./Settings";
+import {
+  MdHomeFilled,
+  MdSearch,
+  MdAccountCircle,
+  MdBuild,
+  MdCompareArrows,
+  MdChat,
+  MdAddReaction,
+} from "react-icons/md";
 
 import { reducerCases } from "../utils/Constants";
 import { useStateProvider } from "../utils/StateProvider";
 import axios from "axios";
 import styled from "styled-components";
 
+import ListAllConnections from "./ListAllConnections";
+import { useState } from "react";
 
-import ListAllConnections from './ListAllConnections';
-import { useState } from 'react';
-
-import { useNavigate } from 'react-router-dom';
-import ListSearchResults from './ListSearchResults';
-import Volume from './Volume';
-import PlayerControls from './PlayerControls';
-import CurrentTrack from './CurrentTrack';
-import Search from './Search';
-import ChatForm from './Chat';
-import Share from './Share'
+import { useNavigate } from "react-router-dom";
+import ListSearchResults from "./ListSearchResults";
+import Volume from "./Volume";
+import PlayerControls from "./PlayerControls";
+import CurrentTrack from "./CurrentTrack";
+import Search from "./Search";
+import ChatForm from "./Chat";
+import Share from "./Share";
+import WeatherPlaylist from "./WeatherPlaylist";
 
 const Home = () => {
-  const [{ token, userInfo, currentPlaying, playerState }, dispatch] = useStateProvider();
+  const [{ token, userInfo, currentPlaying, playerState }, dispatch] =
+    useStateProvider();
   const [setUserDetails] = useState();
-  const searchModal = useRef(null)
-
+  const searchModal = useRef(null);
 
   const [search, setSearch] = useState();
   const navigate = useNavigate();
-  
+
   //Get User Info from Spotify API
   useEffect(() => {
     const getUserInfo = async () => {
@@ -92,7 +98,6 @@ const Home = () => {
     console.log(currentPlaying.name);
   }
 
-
   const fetchUsers = (query) => {
     setSearch(query);
     fetch("/search-users", {
@@ -113,8 +118,9 @@ const Home = () => {
   return (
     <>
       <div class="grid-container">
-        <div class="item1">Feed
-        <Share/>
+        <div class="item1">
+          Feed
+          <Share />
         </div>
         <div class="item2">
           <nav class="navbar navbar-expand-lg navbar-dark bg-black">
@@ -192,7 +198,6 @@ const Home = () => {
                   >
                     <MdCompareArrows /> Sign out
                   </a>
-                  
                 </div>
               </div>
             </div>
@@ -200,7 +205,8 @@ const Home = () => {
         </div>
         <div class="item3">
           <ListAllConnections />
-          <Search/>
+          <Search />
+          <WeatherPlaylist />
         </div>
         <div class="item4">
           <div>
@@ -209,7 +215,6 @@ const Home = () => {
             <Volume />
           </div>
         </div>
-
       </div>
     </>
   );
