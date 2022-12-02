@@ -128,18 +128,19 @@ const ChatForm = () => {
           </div>
         </nav>
       </div>
+      <div class="itemleft" style={{backgroundColor:"black"}}>
         <ChatEngine
-            height="100vh"
+            height="600px"
             projectID="5c486811-745b-4945-a151-83eb47fcece8"
-            userName="obonilla"
-            userSecret="1234"
+            userName={window.localStorage.getItem('username')}
+            userSecret={window.localStorage.getItem('password')}
             renderChatFeed={(chatAppProps) => <ChatFeed {...chatAppProps} />}
             //onNewMessage={() => new Audio('https://chat-engine-assets.s3.amazonaws.com/click.mp3').play()}
-        /> 
-      
+          /> 
+          </div>
+        </div>
       
 
-    </div>
         );
 
 }

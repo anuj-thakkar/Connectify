@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import fire from '../fire.js';
-import { registerUser } from '../services/usersService'
+import { registerUser, registerWithChat } from '../services/usersService'
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
@@ -45,6 +45,7 @@ const Register = () => {
               try {
                 fire.auth().currentUser.sendEmailVerification();
                 registerUser(username, name, email);
+                registerWithChat(username, password);
                 console.log("Verification Sent");
                 localStorage.setItem('email', email);
                 localStorage.setItem('password', password);
