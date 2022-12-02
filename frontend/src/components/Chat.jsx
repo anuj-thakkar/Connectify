@@ -128,17 +128,15 @@ const ChatForm = () => {
           </div>
         </nav>
       </div>
-
-      <div class="itemchat">
         <ChatEngine
             height="100vh"
             projectID="5c486811-745b-4945-a151-83eb47fcece8"
-            userName="user2"
-            userSecret="secret"
+            userName="obonilla"
+            userSecret="1234"
             renderChatFeed={(chatAppProps) => <ChatFeed {...chatAppProps} />}
             onNewMessage={() => new Audio('https://chat-engine-assets.s3.amazonaws.com/click.mp3').play()}
         /> 
-      </div>
+      
       
 
     </div>

@@ -84,7 +84,7 @@
 .itemchat {
   background-color: green;
   color: white;
-  width: 100%;
+  width: 100vh;
   height: 100vh;
 }
 .button1 {
