@@ -38,7 +38,8 @@ export const searchForUsers = async (username) => {
   }
   try {
     console.log(searchUrl, payload);
-    const res = await axios.get(searchUrl, payload, header);
+    var res = await axios.get(searchUrl, payload, header);
+    console.log(res.data);
   } catch (e) {
     console.error(e);
   }
@@ -52,6 +53,56 @@ export async function login(email) {
   }
   try {
     var result = await axios.post(loginUrl, body, header);
+    return result.data;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export async function getUserInfo(username) {
+  const header = await createToken();
+  const userInfoURL= 'http://localhost:3001/api/userInfo';
+  const body = {
+    username
+  }
+  console.log(username);
+  try {
+    var result = await axios.post(userInfoURL, body, header);
+    console.log(result.data);
+    
+    return result.data;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export async function callFollowUser(currentUser, otherUser) {
+  const header = await createToken();
+  const followUserURL = 'http://localhost:3001/api/follow';
+  const body = {
+    currentUser,
+    otherUser
+  }
+  console.log(body);
+  try {
+    var result = await axios.post(followUserURL, body, header);
+    console.log(result.data);
+    return result.data;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export async function callUnfollowUser(currentUser, otherUser) {
+  const header = await createToken();
+  const unfollowUserURL = 'http://localhost:3001/api/unfollow';
+  const body = {
+    currentUser,
+    otherUser
+  }
+  try {
+    var result = await axios.post(unfollowUserURL, body, header);
+    console.log(result.data);
     return result.data;
   } catch (e) {
     console.error(e);
@@ -118,6 +169,36 @@ export const getPosts = async () => {
   }
 }
 
+export async function deletePost(postId) {
+  const header = await createToken();
+  const deletePostUrl = 'http://localhost:3001/posts/deletePost';
+  const body = {
+    postId
+  }
+  try {
+    const res = await axios.post(deletePostUrl, body, header);
+    console.log(res.data);
+    return res.data;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export async function likePost(postId) {
+  const header = await createToken();
+  const likePostUrl = 'http://localhost:3001/posts/likePost';
+  const body = {
+    postId
+  }
+  try {
+    const res = await axios.post(likePostUrl, body, header);
+    console.log(res.data);
+    return res.data;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 export async function updateFavSong(email, newFavSong) {
   const header = await createToken();
   const updateFavSongUrl = 'http://localhost:3001/api/updateFavSong';
@@ -131,6 +212,29 @@ export async function updateFavSong(email, newFavSong) {
   } catch (e) {
     console.error(e);
   }
+}
+
+export async function registerWithChat(username, secret) {
+  const data = {
+    username,
+    secret
+  }
+  var config = {
+    method: 'post',
+    url: 'https://api.chatengine.io/users/',
+    headers: {
+      'PRIVATE-KEY': '{{9d41873d-f16d-4596-b0e2-e789755aa81d}}'
+    },
+    data : data
+  };
+  
+  axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
 }
 
 const createToken = async () => {

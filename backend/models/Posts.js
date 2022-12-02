@@ -13,7 +13,10 @@ const postSchema = new mongoose.Schema({
     },
 
     // type Array of object id in ref to user model
-    likes:[{type:ObjectId,ref:"User"}],
+    likes:{
+        type:Number,
+        default:0
+    },
 
     // type Array of object id in ref to user model
     comments:[{

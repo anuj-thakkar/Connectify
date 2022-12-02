@@ -1,0 +1,328 @@
+/* CHAT STYLES */
+* {
+    font-family: Avenir, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+      Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
+      Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+    letter-spacing: 0.5px;
+  }
+  .ce-chat-list-column {
+    background-color: black;
+  }
+  .ce-chat-list {
+    background-color: black !important;
+  }
+  
+  .ce-chats-container {
+    background-color: black !important;
+  }
+  
+  .ce-active-chat-card {
+    background-color: black !important;
+    border: 4px solid green !important;
+    border-radius: 0px !important;
+  }
+  
+  .ce-chat-subtitle-text {
+    color: #595959 !important;
+
+  }
+  
+  .ce-chat-form-container {
+    padding-bottom: 20px !important;
+    background-color:black !important;
+    color: white;
+  }
+  
+  .ce-text-input {
+    border-radius: 6px !important;
+    background-color: black !important;
+    color: white;
+  }
+  
+  .ce-primary-button {
+    border-radius: 6px !important;
+    background-color: green !important;
+    position: relative;
+    bottom: 1px;
+    color: black;
+  }
+  
+  .ce-danger-button {
+    background-color: red !important;
+    color: white !important;
+    border-radius: 22px !important;
+  }
+  
+  .ce-settings {
+    background-color: black !important;
+    color: white !important;
+  }
+  
+  .ce-settings-container {
+    background-color: black !important;
+    color: white !important;
+  }
+  .ce-autocomplete-input {
+    border-radius: 6px !important;
+    border: 1px solid green !important;
+  }
+  
+  .ce-autocomplete-options {
+    border-radius: 6px !important;
+    border: 1px solid green !important;
+    background-color: black !important;
+  }
+  
+  .ce-chat-settings-container {
+    padding-top: 12px !important;
+    background-color: black !important;
+  }
+  
+  .ce-chat-avatars-row {
+    display: none !important;
+  }
+  
+  /* CUSTOM FEED */
+  
+  .chat-feed {
+    height: 100%;
+    width: 100%;
+    overflow: scroll;
+    background-color: black;
+  }
+  
+  .chat-title-container {
+    width: calc(100% - 36px);
+    padding: 18px;
+    text-align: center;
+  }
+  
+  .chat-title {
+    color: white;
+    font-weight: 800;
+    font-size: 24px;
+  }
+  .ce-autocomplete-option {
+    color: black !important;
+  }
+  .ce-autocomplete-close {
+    color: white !important;
+  }
+  #ce-add-username-input {
+    background-color: black !important;
+  }
+  .ce-input {
+    background-color: black !important;
+    color: white !important;
+  }
+  .chat-subtitle {
+    color: green;
+    font-weight: 600;
+    font-size: 12px;
+    padding-top: 4px;
+  }
+  
+  .message-row {
+    float: left;
+    width: 100%;
+    display: flex;
+    margin-left: 18px;
+  }
+  
+  .message-block {
+    width: 100%;
+    display: inline-block;
+  }
+  
+  .message-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 22px;
+    color: red;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 48px;
+  }
+  
+  .message {
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 6px;
+    max-width: 60%;
+    color:black;
+    background-color: "green" !important;
+  }
+  
+  .message-image {
+    margin-right: 18px;
+    object-fit: cover;
+    border-radius: 6px;
+    height: 30vw;
+    /* width: 30vw; */
+    max-height: 200px;
+    max-width: 200px;
+    min-height: 100px;
+    min-width: 100px;
+  }
+  
+  .read-receipts {
+    position: relative;
+    bottom: 6px;
+  }
+  
+  .read-receipt {
+    width: 13px;
+    height: 13px;
+    border-radius: 13px;
+    margin: 1.5px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 14px;
+  }
+  
+  .message-form-container {
+    position: absolute;
+    bottom: 0px;
+    width: calc(100% - 36px);
+    padding: 18px;
+    background-color: black;
+  }
+  
+  .message-form {
+    overflow: hidden;
+    border-radius: 6px;
+    border: 1px solid green;
+    background-color: white;
+  }
+  
+  .message-input {
+    height: 40px;
+    width: calc(100% - 132px);
+    background-color: white;
+    border: 1px solid white;
+    padding: 0px 18px;
+    outline: none;
+    font-size: 15px;
+  }
+  
+  .image-button {
+    cursor: pointer;
+    padding: 0px 12px;
+    height: 100%;
+  }
+  
+  .send-button {
+    height: 42px;
+    background-color: white;
+    border: 1px solid white;
+    padding: 0px 18px;
+    cursor: pointer;
+  }
+  
+  .send-icon {
+    top: 1px;
+    position: relative;
+    transform: rotate(-90deg);
+  }
+  
+  .picture-icon {
+    top: 1px;
+    position: relative;
+    font-size: 14px;
+  }
+  
+  /* FORM STYLES */
+  *,
+  *::after,
+  *::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 62,5%;
+  }
+  
+  .wrapper {
+    height: 100vh;
+      width: 100%;
+    background: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .input {
+    color: #333;
+    font-size: 1.2rem;
+      margin: 0 auto;
+    padding: 1.5rem 2rem;
+    border-radius: 0.2rem;
+    background-color: red;
+    border: none;
+    width: 90%;
+    display: block;
+    border-bottom: 0.3rem solid transparent;
+    transition: all 0.3s;
+    outline: none;
+    margin-bottom: 25px;
+  }
+  
+  .form {
+    width: 400px;
+  }
+  
+  .title {
+    text-align: center;
+    color: black;
+    margin-bottom: 30px;
+    width: 100%;
+    font-size: 2.3em;;
+  }
+  .ce-section-title-container {
+    background-color: black !important;
+  }
+
+  .ce-person-title-container {
+    background-color: black !important;
+  }
+
+  #ce-options-drop-down {
+    background-color: black !important;
+  }
+
+  .button {
+    border-radius: 4px;
+    border: none;
+    background-color: black !important;
+    color: black !important;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 22px;
+    padding: 20px;
+    width: 200px;
+    transition: all 0.4s;
+    cursor: pointer;
+    margin: 5px;
+    width: 90%;
+  }
+  .button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.4s;
+  }
+  .button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  .button:hover span {
+    padding-right: 25px;
+  }
+  .button:hover span:after {
+    opacity: 1;
+    right: 0;
+  }

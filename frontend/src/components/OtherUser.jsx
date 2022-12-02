@@ -20,7 +20,8 @@ import axios from "axios";
 import styled from "styled-components";
 import { useStateProvider } from "../utils/StateProvider";
 import { reducerCases } from "../utils/Constants";
-
+import { searchForUsers } from "../services/usersService.js";
+import ChatForm from "./Chat.jsx";
 
 const OtherUser = () => {
     let navigate = useNavigate();
@@ -29,22 +30,30 @@ const OtherUser = () => {
     const signOut = () => {
         fire.auth().signOut();
     };
-    const fetchUsers = (query) => {
-        setSearch(query);
-        fetch("/search-users", {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                query,
-            }),
-        })
-            .then((res) => res.json())
-            .then((results) => {
-                //setUserDetails(results.user)
-            });
+
+    const searchForUser = async () => {
+        console.log("searching for user");
+        const fetchedEntries = await searchForUsers(document.getElementById("search-input").value);
+        console.log(fetchedEntries);
     };
+
+    
+    // const fetchUsers = (query) => {
+    //     setSearch(query);
+    //     fetch("/search", {
+    //         method: "post",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify({
+    //             query,
+    //         }),
+    //     })
+    //         .then((res) => res.json())
+    //         .then((results) => {
+    //             //setUserDetails(results.user)
+    //         });
+    // };
     return (
         <div class="grid-container">
             <div class="itemnav">
@@ -109,8 +118,8 @@ const OtherUser = () => {
                                 <a
                                     class="nav-link active"
                                     aria-current="page"
-                                    //onClick={MessageForm}
-                                    href={`/home/chat#access_token=${token}&token_type=Bearer&expires_in=3600`}
+                                    onClick={ChatForm}
+                                    href={`/chat#access_token=${token}&token_type=Bearer&expires_in=3600`}
                                 >
                                     <MdChat /> Chat
                                 </a>
@@ -133,15 +142,9 @@ const OtherUser = () => {
                     <fieldset>
                         <form>
                         <br></br>
-                            <input type="text" placeholder="Find Connections..." value={search}
-                                onChange={(e) => fetchUsers(e.target.value)}
-                                aria-label="searchbar" />
-                            &nbsp;
-                            <button
-                                class="btn btn-outline-success" type="submit">
-                                {" "}
-                                Search{" "}
-                            </button>
+                            <input type="text" id="search-input" placeholder="Find Connections..."/>
+                            <button class="btn btn-outline-success" type="submit" onClick={searchForUser}>Search</button>
+                    
                         </form>
                     </fieldset>
                 </div>

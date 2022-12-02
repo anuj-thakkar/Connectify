@@ -32,41 +32,17 @@ const Search = () => {
         Authorization: "Bearer " + token,
       },
     };
-    // var artistID = await fetch(
-    //   "https://api.spotify.com/v1/search?q=" + searchInput + "&type=artist",
-    //   searchParameters
-    // )
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log("artistID is ");
-    //     console.log(data);
-    //     return data.artists.items[0].id;
-    //   });
-    // //Get request with Artist ID grab all the albums from that artist
-    // var returnedAlbums = await fetch(
-    //   "https://api.spotify.com/v1/artists/" +
-    //     artistID +
-    //     "/albums?include_groups=album&market=US&limit=12",
-    //   searchParameters
-    // )
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log("artists albums are:");
-    //     console.log(data);
-    //     setAlbums(data.items);
-    //   });
-    //Get request using search to get top tracks/artists
     var results = await fetch(
       "https://api.spotify.com/v1/search?q=" +
         searchInput +
-        "&type=track,artist&limit=4",
+        "&type=track&limit=4",
       searchParameters
     )
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
         setAlbums(data.tracks.items);
-        setAlbums((albums) => [...albums, ...data.artists.items]);
+        //setAlbums((albums) => [...albums, ...data.artists.items]);
         console.log("it worked");
       });
   }
@@ -111,11 +87,11 @@ const Search = () => {
   
   return (
     <>
-      <div align="center">
+      <div align="center" style={{paddingTop:"10px"}}>
         <Container>
           <InputGroup className="search-group" size="small">
             <FormControl
-              placeholder="Search for Artist"
+              placeholder="Search for a Song"
               type="input"
               onKeyPress={(event) => {
                 if (event.key === "Enter") {
@@ -131,21 +107,11 @@ const Search = () => {
           <Row className="search-group">
             {albums.map((album, i) => {
               return (
-                <Card className="text-white bg-dark" style={{marginTop: "15px", color: "black"}} 
+                <Card className="text-white bg-dark" style={{marginTop: "15px", color: "black", width: 200,
+                height: 200,}} 
                 onClick={() => playTrack(album)}>
-                  {/* <Card.Img src={album.album.images[0].url} /> */}
-                  <Card.Img
-                    src={() => {
-                      console.log("getting url");
-                      if (album.type !== "artist") {
-                        console.log("track");
-                        return album.album.images[0].url;
-                      } else {
-                        console.log("artist");
-                        return album.images[0].url;
-                      }
-                    }}
-                  />
+                  <Card.Img src={album.album.images[0].url} 
+                  style={{ width: 100, height: 100 }}/> 
                   <Card.Body>
                     <Card.Text className="fs-6">{album.name}</Card.Text>
                   </Card.Body>

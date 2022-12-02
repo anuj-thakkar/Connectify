@@ -21,9 +21,18 @@ import { useStateProvider } from "../utils/StateProvider";
 import { reducerCases } from "../utils/Constants";
 import { useStreak } from "use-streak";
 import Streak from "./Streak";
+import "bootstrap/dist/css/bootstrap.min.css";
+import {
+  Container,
+  InputGroup,
+  FormControl,
+  Row,
+  Card,
+} from "react-bootstrap";
+import ChatForm from './Chat';
 
 const ProfileInfo = () => {
-  const [{ token, playlists, userInfo}, dispatch] = useStateProvider();
+  const [{ token, playlists, userInfo, topTrackInfo}, dispatch] = useStateProvider();
   var [playlistId] = useState("4VeOV08x3iNXrERRLt8SJl")
   const [image, setState] = useState({});
   const [unfollow, setUnfollow] = useState(false);
@@ -37,10 +46,12 @@ const ProfileInfo = () => {
   const fileOnChange = (e) => {
     console.log(e.target.files[0]);
   };
+
   const clearStatus = (e) => {
     e.preventDefault();
     localStorage.delete('status');
   }
+
   //Get Playlists from Spotify API
   useEffect(() => {
     const getPlaylistData = async () => {
@@ -84,6 +95,26 @@ const ProfileInfo = () => {
     getUserInfo();
   }, [dispatch, token]);
 
+  //get top user track
+  useEffect(() => {
+    const getUserTopTrack = async () => {
+      const info = await axios.get("https://api.spotify.com/v1/me/top/tracks?limit=3", {
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+      });
+      
+      const topTrackInfo = {
+        tracks: info.data.items,
+      }; 
+      console.log(topTrackInfo)
+      
+      dispatch({ type: reducerCases.SET_TOP_TRACK, topTrackInfo });
+    };
+    getUserTopTrack();
+  }, [dispatch, token]);
+
 
   const signOut = () => {
     fire.auth().signOut();
@@ -106,27 +137,12 @@ const ProfileInfo = () => {
     }
   };
 
-  const [bio, setBio] = useState("");
-  const [istrue, Setistrue] = useState(false);
-  const [statusUpdate, setStatusUpdate] = useState("");
 
-  function handleStatusUpdateSubmit() {
-    Setistrue(true);
-    console.log(statusUpdate);
-    
-    axios
-      .post('http://localhost:3001/setStatusUpdate', 
-      {
-        email: userInfo.email,
-        statusUpdate: statusUpdate
-      },
-      
-      )
-      .then(() => console.log('Status Update Sent to Backend'))
-      .catch(err => {
-        console.error(err);
-      });
-
+  function handleclick(track) {
+    var status = track.name + " by " + track.artists[0].name;
+    window.localStorage.setItem('status', status);
+    window.location.reload(false);
+    console.log(track.album.images[0])
   }
 
   const viewOrUnfollow = async (selectedPlaylistId) => {
@@ -177,6 +193,45 @@ const ProfileInfo = () => {
     window.location.reload(false);
     return;
   };
+
+
+
+  //Search for Update Song
+  const [searchInput, setSearchInput] = useState("");
+  const [albums, setTrack] = useState([]);
+
+
+  //search
+  async function search() {
+    console.log("Searching for " + searchInput);
+
+    //Get request using search to get Artist ID
+    var searchParameters = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    var results = await fetch(
+      "https://api.spotify.com/v1/search?q=" +
+        searchInput +
+        "&type=track&limit=4",
+      searchParameters
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setTrack(data.tracks.items);
+        //setTrack((albums) => [...albums, ...data.artists.items]);
+        console.log("it worked");
+      });
+  }
+
+  function inviteFriends() {
+    navigator.clipboard.writeText("http://localhost:3000/register");
+  }
+
 
   return (
     <>
@@ -243,8 +298,8 @@ const ProfileInfo = () => {
                   <a
                     class="nav-link active"
                     aria-current="page"
-                    //onClick={MessageForm}
-                    href={`/home/chat#access_token=${token}&token_type=Bearer&expires_in=3600`}
+                    onClick={ChatForm}
+                    href={`/chat#access_token=${token}&token_type=Bearer&expires_in=3600`}
                   >
                     <MdChat /> Chat
                   </a>
@@ -284,6 +339,7 @@ const ProfileInfo = () => {
             >
               Unfollow Playlist
             </button>
+            <button type="button" className="btn btn-outline-success" onClick={inviteFriends}>Invite Friends</button>
             <hr></hr>
           </div>
 
@@ -310,7 +366,7 @@ const ProfileInfo = () => {
             }}
           >
 
-          <Container>
+          <PlaylistContainer>
 
             <ul>
               {playlists.map(({ name, id }) => {
@@ -321,7 +377,7 @@ const ProfileInfo = () => {
                 );
               })}
             </ul>
-            </Container>
+            </PlaylistContainer>
           </div>
         </div>
         <div class="itemrest">
@@ -391,6 +447,10 @@ const ProfileInfo = () => {
               <Streak streak={useStreak(localStorage, new Date())} />
             </h6>    
             <h6>Favorite Song: {window.localStorage.getItem('FavSong')}</h6>
+            <h6>Top Listened Songs: </h6>
+            <h6>1. { topTrackInfo? topTrackInfo.tracks[0].name : null} by {topTrackInfo ? topTrackInfo.tracks[0].artists[0].name : null }</h6>
+            <h6>2. { topTrackInfo ? topTrackInfo.tracks[1].name : null} by {topTrackInfo ? topTrackInfo.tracks[1].artists[0].name : null }</h6>
+            <h6>3. { topTrackInfo ? topTrackInfo.tracks[2].name : null} by {topTrackInfo ? topTrackInfo.tracks[2].artists[0].name : null }</h6>
             <h6>Bio: {window.localStorage.getItem('bio')}</h6>
 
             <hr></hr>
@@ -409,22 +469,37 @@ const ProfileInfo = () => {
                 </div>
               ) : (
                 <div>
-                  <fieldset class="d-flex justify-content-start">
-
-                    <form>
-                    <input type="text" placeholder="status update song" bio="bio" id='statusUpdate' onChange={e => setStatusUpdate(e.target.value)}/>
-                    &nbsp;
-                    <button
-                      class="btn btn-outline-success"
-                      type="submit"
-                      onSubmit={handleStatusUpdateSubmit}
-                    >
-                      submit
-                    </button>
-
-                    </form>
-
-                  </fieldset>
+                    <Container>
+                      <InputGroup className="search-group" size="small">
+                       <FormControl
+                         placeholder="Status Update Song"
+                         type="input"
+                         onKeyPress={(event) => {
+                         if (event.key === "Enter") {
+                          search();
+                        }
+                        }}
+                        onChange={(event) => setSearchInput(event.target.value)}
+                      />
+                      <button class="btn btn-outline-success" onClick={search}>Search</button>
+                    </InputGroup>
+                </Container>
+                <Container>
+                 <Row className="search-group">
+                    {albums.map((album, i) => {
+                   return (
+                   <Card className="text-white bg-dark" style={{marginTop: "15px", color: "black", width: 200,
+                   height: 200,}} 
+                    onClick={() => handleclick(album)}>
+                       <Card.Img src={album.album.images[0].url} height="130px"/>
+                  <Card.Body>
+                    <Card.Text className="fs-6">{album.name}</Card.Text>
+                  </Card.Body>
+                </Card>
+                  );
+                   })}
+              </Row>
+            </Container>
                 </div>
               )}
               <hr></hr>
@@ -444,7 +519,7 @@ const ProfileInfo = () => {
                   onClick={() => createPlaylist()}
                   className="btn btn-outline-success"
                 >
-                  create
+                  Create
                 </button>
               </fieldset>
             </div>
@@ -455,7 +530,7 @@ const ProfileInfo = () => {
   );
 };
 
-const Container = styled.div`
+const PlaylistContainer = styled.div`
   color: #b3b3b3;
   height: 100%;
   overflow: hidden;
