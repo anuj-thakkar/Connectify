@@ -9,6 +9,7 @@ import {
   Card,
 } from "react-bootstrap";
 import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
+import { useStateProvider } from "../utils/StateProvider";
 
 const WeatherPlaylist = () => {
   const locationAPI =
@@ -21,6 +22,8 @@ const WeatherPlaylist = () => {
   const [currentLocationLat, setCurrentLocationLat] = useState("");
   const [currentLocationLon, setCurrentLocationLon] = useState("");
   const [currentWeather, setCurrentWeather] = useState("");
+  const [{ token }, dispatch] = useStateProvider();
+  const [playlist, setPlaylist] = useState([]);
 
   async function searchLocation() {
     var results = await fetch(
@@ -33,9 +36,9 @@ const WeatherPlaylist = () => {
         console.log(data);
         setCurrentLocationLat(data[0].lat);
         setCurrentLocationLon(data[0].lon);
-        //console.log(currentLocationLat, currentLocationLon);
-      })
-      .then(searchWeather());
+        console.log(currentLocationLat, currentLocationLon);
+        searchWeather(data);
+      });
   }
 
   async function searchWeather() {
@@ -51,27 +54,51 @@ const WeatherPlaylist = () => {
         console.log(data);
         setCurrentWeather(data.current.weather[0].main);
         console.log(currentWeather);
+      })
+      .then(searchPlaylist);
+  }
+
+  async function searchPlaylist() {
+    //Get request using search to get Artist ID
+    var searchParameters = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    var results = await fetch(
+      "https://api.spotify.com/v1/search?q=" +
+        currentWeather +
+        "&type=playlist&limit=4",
+      searchParameters
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setPlaylist(data.playlists.items);
       });
   }
 
   return (
-    <Container>
-      <InputGroup className="search-group" size="small">
-        <FormControl
-          placeholder="Location"
-          type="input"
-          onKeyPress={(event) => {
-            if (event.key === "Enter") {
-              searchLocation();
-            }
-          }}
-          onChange={(event) => setSearchInput(event.target.value)}
-        />
-        <button class="btn btn-outline-success" onClick={searchLocation}>
-          Search
-        </button>
-      </InputGroup>
-      {/* <InputGroup>
+    <div>
+      <Container>
+        <InputGroup className="search-group" size="small">
+          <FormControl
+            placeholder="Location"
+            type="input"
+            onKeyPress={(event) => {
+              if (event.key === "Enter") {
+                searchLocation();
+              }
+            }}
+            onChange={(event) => setSearchInput(event.target.value)}
+          />
+          <button class="btn btn-outline-success" onClick={searchLocation}>
+            Search
+          </button>
+        </InputGroup>
+        {/* <InputGroup>
         <Dropdown>
           <Dropdown.Toggle variant="success" id="dropdown-basic">
             State
@@ -83,8 +110,27 @@ const WeatherPlaylist = () => {
           </Dropdown.Menu>
         </Dropdown>
       </InputGroup> */}
-      {currentWeather}
-    </Container>
+        {currentWeather}
+      </Container>
+      <Container>
+        <Row className="search-group">
+          {playlist.map((playlist, i) => {
+            return (
+              <Card
+                className="text-white bg-dark"
+                style={{ marginTop: "15px", color: "black" }}
+                // onClick={() => playTrack(album)}>
+              >
+                <Card.Img src={playlist.images[0].url} />
+                <Card.Body>
+                  <Card.Text className="fs-6">{playlist.name}</Card.Text>
+                </Card.Body>
+              </Card>
+            );
+          })}
+        </Row>
+      </Container>
+    </div>
   );
 };
 
