@@ -9,7 +9,6 @@ import {
   MdHomeFilled,
   MdBuild,
   MdAccountCircle,
-  MdSearch,
   MdCompareArrows,
   MdChat,
   MdAddReaction
