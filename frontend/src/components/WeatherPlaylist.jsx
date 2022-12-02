@@ -114,8 +114,8 @@ const WeatherPlaylist = () => {
   }
 
   return (
-    <div>
-      <Container>
+    <div align="center" style= {{justifyContent:"center", alignItems: "center"}}>
+      <div>
         <InputGroup className="search-group" size="small">
           <FormControl
             placeholder="Location"
@@ -132,27 +132,32 @@ const WeatherPlaylist = () => {
           </button>
         </InputGroup>
         {currentWeather}
-      </Container>
+      </div>
       <Container>
         <Row className="search-group">
           {playlist.map((playlist, i) => {
             return (
-              <Card
+              <Card align="center"
                 className="text-white bg-dark"
                 style={{
-                  marginTop: "15px",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginTop: "10px",
+                  marginLeft: "10px",
                   color: "black",
                   width: 200,
                   height: 200,
                 }}
                 onClick={() => addPlaylist(playlist)}
               >
+                <br></br>
                 <Card.Img
                   src={playlist.images[0].url}
-                  style={{ width: 100, height: 100 }}
+                  
+                  style={{width: 100, height: 100 }}
                 />
                 <Card.Body>
-                  <Card.Text className="fs-6">{playlist.name}</Card.Text>
+                  <Card.Text align="left" className="fs-6">{playlist.name}</Card.Text>
                 </Card.Body>
               </Card>
             );
