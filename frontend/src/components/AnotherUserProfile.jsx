@@ -2,7 +2,7 @@ import React,{useEffect,useState,useContext} from 'react'
 import axios from 'axios'
 import logo from "../static/logo.jpg";
 import fire from "../fire.js";
-import { callFollowUser, searchForUsers } from '../services/usersService';
+import { callFollowUser, searchForUsers, callUnfollowUser } from '../services/usersService';
 import { getUserInfo } from '../services/usersService';
 import { useStateProvider } from "../utils/StateProvider";
 import ListAllConnections from './ListAllConnections';
@@ -61,13 +61,13 @@ const AnotherUserProfile  = ()=> {
     }
 
     const followUser = async () => {
-        const userInfo = await callFollowUser(otherUser);
+        const userInfo = await callFollowUser(window.localStorage.getItem('username'), otherUser);
         console.log(userInfo);
-        setShowFollow(false);
+        //setShowFollow(false);
     }
 
     const unfollowUser = async () => {
-        const userInfo = await callFollowUser(otherUser);
+        const userInfo = await callUnfollowUser(window.localStorage.getItem('username'), otherUser);
         console.log(userInfo);
         setShowFollow(true);
     }
@@ -184,9 +184,9 @@ const AnotherUserProfile  = ()=> {
                               Following: {userFollowing.length} <br></br>
 
                               {showfollow?
-                                <button style={{
+                                <button className="btn btn-outline-success" style={{
                                     margin:"10px"
-                                }} className="btn waves-effect waves-light #64b5f6 blue darken-1"
+                                }}
                                   onClick={()=>followUser()}
                                   >
                                       Follow
@@ -196,7 +196,7 @@ const AnotherUserProfile  = ()=> {
                                   style={{
                                       margin:"10px"
                                   }}
-                                  className="btn waves-effect waves-light #64b5f6 blue darken-1"
+                                  className="btn btn-outline-danger"
                                   onClick={()=>unfollowUser()}
                                   >
                                       UnFollow

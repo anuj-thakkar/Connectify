@@ -76,12 +76,14 @@ export async function getUserInfo(username) {
   }
 }
 
-export async function callFollowUser(username) {
+export async function callFollowUser(currentUser, otherUser) {
   const header = await createToken();
   const followUserURL = 'http://localhost:3001/api/follow';
   const body = {
-    username
+    currentUser,
+    otherUser
   }
+  console.log(body);
   try {
     var result = await axios.post(followUserURL, body, header);
     console.log(result.data);
@@ -91,11 +93,12 @@ export async function callFollowUser(username) {
   }
 }
 
-export async function callUnfollowUser(username) {
+export async function callUnfollowUser(currentUser, otherUser) {
   const header = await createToken();
   const unfollowUserURL = 'http://localhost:3001/api/unfollow';
   const body = {
-    username
+    currentUser,
+    otherUser
   }
   try {
     var result = await axios.post(unfollowUserURL, body, header);

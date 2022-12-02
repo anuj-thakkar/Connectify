@@ -158,40 +158,24 @@ userRouter.post('/updateUsername', jsonParser, async (req, res) => {
 
 
 //follow a user
-userRouter.put("/follow", jsonParser, async (req, res) => {
-  console .log(req.body);
-  User.findByIdAndUpdate(
-    req.body.otherUsername,
-    {
-      $push: { followers: req.body.currentUserId },
-    },
-    { new: true },
-    (err, result) => {
-      res.json(result);
-    }
-  );
+userRouter.post("/follow", jsonParser, async (req, res) => {
+  console.log(req.body.currentUser, req.body.otherUser);
+  const id = await User.findOne({"username":req.body.currentUser})
+  const user = await User.findOneAndUpdate({'username':req.body.otherUser}, {$push: {'followers':id.id}});
+  await User.findOneAndUpdate({'username':req.body.currentUser}, {$push: {'following':user.id}});
+  res.status(200).send(user);
+  
 });
 
 //unfollow a user
-userRouter.put("/:username/unfollow", jsonParser, async (req, res) => {
-    if (req.body.username !== req.params.username) {
-      try {
-        const user = await User.findById(req.params.id);
-        const currentUser = await User.findById(req.body.userId);
-        if (user.followers.includes(req.body.username)) {
-          await user.updateOne({ $pull: { followers: req.body.username } });
-          await currentUser.updateOne({ $pull: { followings: req.params.username } });
-          res.status(200).json("user has been unfollowed");
-        } else {
-          res.status(403).json("you dont follow this user");
-        }
-      } catch (err) {
-        res.status(500).json(err);
-      }
-    } else {
-      res.status(403).json("you cant unfollow yourself");
-    }
-  });
+userRouter.post("/unfollow", jsonParser, async (req, res) => {
+  console.log(req.body.currentUser, req.body.otherUser);
+  const id = await User.findOne({"username":req.body.currentUser})
+  const user = await User.findOneAndUpdate({'username':req.body.otherUser}, {$pullAll: {'followers':[id.id]}});
+  await User.findOneAndUpdate({'username':id.id}, {$pop: {'followers':user.id}});
+  res.status(200).send(user);
+  }
+);
 
 userRouter.post('/setStatusUpdate', jsonParser, async (req, res) => {
   var params = req.body;

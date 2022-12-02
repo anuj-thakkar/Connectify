@@ -230,7 +230,6 @@ const ProfileInfo = () => {
 
   function inviteFriends() {
     navigator.clipboard.writeText("http://localhost:3000/register");
-    alert("Link copied to clipboard");
   }
 
 
