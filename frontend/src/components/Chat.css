@@ -5,63 +5,78 @@
       Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
     letter-spacing: 0.5px;
   }
-  
+  .ce-chat-list-column {
+    background-color: black;
+  }
   .ce-chat-list {
-    background-color: rgb(240, 240, 240) !important;
+    background-color: black !important;
   }
   
   .ce-chats-container {
-    background-color: rgb(240, 240, 240) !important;
+    background-color: black !important;
   }
   
   .ce-active-chat-card {
-    background-color: #cabcdc !important;
-    border: 4px solid #cabcdc !important;
+    background-color: black !important;
+    border: 4px solid green !important;
     border-radius: 0px !important;
   }
   
   .ce-chat-subtitle-text {
     color: #595959 !important;
+
   }
   
   .ce-chat-form-container {
     padding-bottom: 20px !important;
+    background-color:black !important;
+    color: white;
   }
   
   .ce-text-input {
     border-radius: 6px !important;
-    border: 1px solid #3b2a50 !important;
+    background-color: black !important;
+    color: white;
+    border: 1px solid green !important;
   }
   
   .ce-primary-button {
     border-radius: 6px !important;
-    background-color: #7554a0 !important;
+    background-color: green !important;
     position: relative;
     bottom: 1px;
+    color: black;
   }
   
   .ce-danger-button {
-    background-color: white !important;
+    background-color: red !important;
+    color: white !important;
     border-radius: 22px !important;
   }
   
   .ce-settings {
-    background-color: rgb(240, 240, 240) !important;
+    background-color: black !important;
+    color: white !important;
   }
   
+  .ce-settings-container {
+    background-color: black !important;
+    color: white !important;
+  }
   .ce-autocomplete-input {
     border-radius: 6px !important;
-    border: 1px solid #3b2a50 !important;
+    border: 1px solid green !important;
   }
   
   .ce-autocomplete-options {
     border-radius: 6px !important;
-    border: 1px solid #3b2a50 !important;
-    background-color: white !important;
+    border: 1px solid green !important;
+    background-color: black !important;
   }
   
   .ce-chat-settings-container {
     padding-top: 12px !important;
+    background-color: black !important;
   }
   
   .ce-chat-avatars-row {
@@ -74,7 +89,7 @@
     height: 100%;
     width: 100%;
     overflow: scroll;
-    background-color: rgb(240, 240, 240);
+    background-color: black;
   }
   
   .chat-title-container {
@@ -84,13 +99,13 @@
   }
   
   .chat-title {
-    color: #7554a0;
+    color: black;
     font-weight: 800;
     font-size: 24px;
   }
   
   .chat-subtitle {
-    color: #7554a0;
+    color: green;
     font-weight: 600;
     font-size: 12px;
     padding-top: 4px;
@@ -112,7 +127,7 @@
     width: 44px;
     height: 44px;
     border-radius: 22px;
-    color: white;
+    color: red;
     text-align: center;
     background-repeat: no-repeat;
     background-position: center;
@@ -124,6 +139,8 @@
     font-size: 16px;
     border-radius: 6px;
     max-width: 60%;
+    color:black;
+    background-color: "green" !important;
   }
   
   .message-image {
@@ -158,13 +175,13 @@
     bottom: 0px;
     width: calc(100% - 36px);
     padding: 18px;
-    background-color: rgb(240, 240, 240);
+    background-color: black;
   }
   
   .message-form {
     overflow: hidden;
     border-radius: 6px;
-    border: 1px solid #3b2a50;
+    border: 1px solid green;
     background-color: white;
   }
   
@@ -217,8 +234,7 @@
   .wrapper {
     height: 100vh;
       width: 100%;
-    background: rgb(117,84,160);
-    background: linear-gradient(90deg, rgba(117,84,160,1) 7%, rgba(117,84,160,1) 17%, rgba(106,95,168,1) 29%, rgba(99,103,174,1) 44%, rgba(87,116,184,1) 66%, rgba(70,135,198,1) 83%, rgba(44,163,219,1) 96%, rgba(22,188,237,1) 100%, rgba(0,212,255,1) 100%);  
+    background: green;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -230,7 +246,7 @@
       margin: 0 auto;
     padding: 1.5rem 2rem;
     border-radius: 0.2rem;
-    background-color: rgb(255, 255, 255);
+    background-color: red;
     border: none;
     width: 90%;
     display: block;
@@ -246,17 +262,28 @@
   
   .title {
     text-align: center;
-    color: white;
+    color: black;
     margin-bottom: 30px;
     width: 100%;
     font-size: 2.3em;;
   }
-  
+  .ce-section-title-container {
+    background-color: black !important;
+  }
+
+  .ce-person-title-container {
+    background-color: black !important;
+  }
+
+  #ce-options-drop-down {
+    background-color: black !important;
+  }
+
   .button {
     border-radius: 4px;
     border: none;
-    background-color: white;
-    color: black;
+    background-color: black !important;
+    color: black !important;
     text-align: center;
     text-transform: uppercase;
     font-size: 22px;
