@@ -17,10 +17,11 @@ const ListAllConnections = () => {
     return (
         
         <div>
-        <table style={{textAlign:"center"}}>
+        <br></br>
+        <table style={{textAlign:"left"}}>
             <thead>
             <tr>
-                <th>Registered Users</th>
+                <th><h3>Registered Users</h3></th>
             </tr>
             </thead>
             <tbody>
