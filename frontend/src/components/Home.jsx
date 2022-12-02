@@ -16,23 +16,14 @@ import { reducerCases } from "../utils/Constants";
 import { useStateProvider } from "../utils/StateProvider";
 import axios from "axios";
 import styled from "styled-components";
-
-import ListAllConnections from "./ListAllConnections";
 import { useState } from "react";
-
-
 import WeatherPlaylist from "./WeatherPlaylist";
-import ListAllConnections from './ListAllConnections';
-import { useState } from 'react';
-
 import { useNavigate } from 'react-router-dom';
-import ListSearchResults from './ListSearchResults';
 import Volume from './Volume';
 import PlayerControls from './PlayerControls';
 import CurrentTrack from './CurrentTrack';
 import Search from './Search';
 import ChatForm from './Chat';
-import Share from './Share'
 import ShowAllPosts from './ShowAllPosts';
 import CreatePosts from './CreatePosts';
 
@@ -213,6 +204,7 @@ const Home = () => {
         </div>
         <div class="item3">
           <Search />
+          <br></br>
           <WeatherPlaylist />
         </div>
         <div class="item4">
