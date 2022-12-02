@@ -20,6 +20,7 @@ import Settings from "./components/Settings";
 import ProfileInfo from "./components/profileInfo";
 import OtherUser from "./components/OtherUser";
 import Search from "./components/Search";
+import CreatePosts from "./components/CreatePosts";
 import Home from "./components/Home";
 import SpotifyLogin from "./components/SpotifyLogin";
 import ListSearchResults from "./components/ListSearchResults";
@@ -78,6 +79,7 @@ function App() {
                   <Route path={`/playlist`} element={<Playlist/>}/>
                   <Route path={'/chat'} element={<ChatForm/>}/>
                   <Route path={'/profile/:username'} element={<AnotherUserProfile/>}/>
+                  <Route path='/createPosts' element={<CreatePosts/>}/>
                 </Routes>
               </>
             ) 
@@ -107,6 +109,10 @@ function App() {
                         exact
                         path="/search"
                         element={<ListSearchResults />}
+                      />
+                      <Route
+                        exact path="/createPosts"
+                        element={<CreatePosts />}
                       />
                     </Routes>
                   </Col>

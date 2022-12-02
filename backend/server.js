@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require('cors');
 const usersRouter = require('./routes/users');
+const postRouter = require('./routes/posts');
 const mongoose = require('mongoose');
 const { request } = require('express');
 const decodedToken = require('./authenticateToken')
@@ -24,6 +25,7 @@ app.use(cors());
 app.use(decodedToken);
 app.use(express.json());
 app.use('/api', usersRouter);
+app.use('/posts', postRouter);
 
 const PORT = 3001;
 app.listen(PORT, () => {

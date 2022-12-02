@@ -1,3 +1,7 @@
+/**
+ * @fileoverview This file holds all endpoints to handle creation and modification of users
+ */
+
 const userRouter = require('express').Router();
 const { express } = require('express');
 // const { useParams } = require('react-router-dom');
@@ -131,7 +135,7 @@ userRouter.post('/updateProfilePicture', upload.single("avatar"), async (req, re
 
 // endpoint to update username
 // username should not change given that it exists in database
-userRouter.post('/updateUsername', async (req, res) => {
+userRouter.post('/updateUsername', jsonParser, async (req, res) => {
   User.findOne({'email':req.body.email}, function(err,user) {
     if (err) {
       return res.status(400).send('Error updating username');
@@ -155,14 +159,18 @@ userRouter.post('/updateUsername', async (req, res) => {
 });
 
 
-router.put('/follow',requireLogin,(req,res)=>{
-  User.findByIdAndUpdate(req.body.followId,{
-      $push:{followers:req.user._id}
-  },{
-      new:true
-  },(err,result)=>{
-      if(err){
-          return res.status(422).json({error:err})
+//follow a user
+userRouter.put("/:username/follow", async (req, res) => {
+  if (req.body.username !== req.params.username) {
+    try {
+      const user = await User.findById(req.params.username);
+      const currentUser = await User.findById(req.body.username);
+      if (!user.followers.includes(req.body.username)) {
+        await user.updateOne({ $push: { followers: req.body.username } });
+        await currentUser.updateOne({ $push: { followings: req.params.username } });
+        res.status(200).json("user has been followed");
+      } else {
+        res.status(403).json("you allready follow this user");
       }
     User.findByIdAndUpdate(req.user._id,{
         $push:{following:req.body.followId}
@@ -172,29 +180,49 @@ router.put('/follow',requireLogin,(req,res)=>{
     }).catch(err=>{
         return res.status(422).json({error:err})
     })
-
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  } else {
+    res.status(403).json("you can't follow yourself");
   }
-  )
-})
-router.put('/unfollow',requireLogin,(req,res)=>{
-  User.findByIdAndUpdate(req.body.unfollowId,{
-      $pull:{followers:req.user._id}
-  },{
-      new:true
-  },(err,result)=>{
-      if(err){
-          return res.status(422).json({error:err})
-      }
-    User.findByIdAndUpdate(req.user._id,{
-        $pull:{following:req.body.unfollowId}
-        
-    },{new:true}).then(result=>{
-        res.json(result)
-    }).catch(err=>{
-        return res.status(422).json({error:err})
-    })
-  })
-})
+});
 
+//unfollow a user
+userRouter.put("/:username/unfollow", jsonParser, async (req, res) => {
+    if (req.body.username !== req.params.username) {
+      try {
+        const user = await User.findById(req.params.id);
+        const currentUser = await User.findById(req.body.userId);
+        if (user.followers.includes(req.body.username)) {
+          await user.updateOne({ $pull: { followers: req.body.username } });
+          await currentUser.updateOne({ $pull: { followings: req.params.username } });
+          res.status(200).json("user has been unfollowed");
+        } else {
+          res.status(403).json("you dont follow this user");
+        }
+      } catch (err) {
+        res.status(500).json(err);
+      }
+    } else {
+      res.status(403).json("you cant unfollow yourself");
+    }
+  });
+
+userRouter.post('/setStatusUpdate', jsonParser, async (req, res) => {
+  var params = req.body;
+  User.findOne({'email':params.email}, function(err,user) {
+    if (err) {
+      console.log(err);
+      return res.status(400).send('Error updating status');
+    } else {
+      user.status = params.status;
+      User.updateOne({'email':params.email}, {$set: { "statusUpdate" : req.body.status }} , function(err, user) {
+        if (err) return next(err);
+        return res.status(200).send('Status updated Successfully.');
+      });
+    }
+  });
+});
 
 module.exports = userRouter;

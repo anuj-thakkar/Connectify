@@ -46,7 +46,10 @@ const ProfileInfo = () => {
   const fileOnChange = (e) => {
     console.log(e.target.files[0]);
   };
-
+  const clearStatus = (e) => {
+    e.preventDefault();
+    localStorage.delete('status');
+  }
   //Get Playlists from Spotify API
   useEffect(() => {
     const getPlaylistData = async () => {
@@ -132,6 +135,9 @@ const ProfileInfo = () => {
     }
   };
 
+  const [bio, setBio] = useState("");
+  const [istrue, Setistrue] = useState(false);
+  const [statusUpdate, setStatusUpdate] = useState("");
 
   function handleclick(track) {
     var status = track.name + " by " + track.artists[0].name;
@@ -140,8 +146,6 @@ const ProfileInfo = () => {
     console.log(track.album.images[0])
   }
 
-  function clearStatus() {
-    window.localStorage.removeItem('status');
   }
 
   const viewOrUnfollow = async (selectedPlaylistId) => {
@@ -527,7 +531,7 @@ const ProfileInfo = () => {
       </div>
     </>
   );
-};
+
 
 const PlaylistContainer = styled.div`
   color: #b3b3b3;
