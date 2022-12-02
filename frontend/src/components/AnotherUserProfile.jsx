@@ -2,7 +2,7 @@ import React,{useEffect,useState,useContext} from 'react'
 import axios from 'axios'
 import logo from "../static/logo.jpg";
 import fire from "../fire.js";
-import { searchForUsers } from '../services/usersService';
+import { callFollowUser, searchForUsers } from '../services/usersService';
 import { getUserInfo } from '../services/usersService';
 import { useStateProvider } from "../utils/StateProvider";
 import ListAllConnections from './ListAllConnections';
@@ -24,6 +24,9 @@ const AnotherUserProfile  = ()=> {
     const [{ token}] = useStateProvider();
     const [otherUser, setOtherUser] = useState("");
 
+    const [searched, setSearched] = useState("");
+
+
     // get the user id and its data from the Connectify API
     const [userProfile,setProfile] = useState([])
 
@@ -32,6 +35,8 @@ const AnotherUserProfile  = ()=> {
     const [userUsername, setUsername] = useState("");
     const [userFollowers, setFollowers] = useState("");
     const [userFollowing, setFollowing] = useState("");
+    const [showfollow, setShowFollow] = useState(true);
+    const [showFields, setShowFields] = useState(false);
 
     
     const retrieveUserInfo = async () => {
@@ -41,62 +46,31 @@ const AnotherUserProfile  = ()=> {
         }
         var data = await getUserInfo(otherUser);
         //console.log(data.bio);
-        
-        setBio(data.bio);
-        setEmail(data.email);
-        setUsername(data.username);
-        setFollowers(data.followers.length);
-        setFollowing(data.following.length);
+        if (data !== undefined) {
+            setShowFields(true);
+            setBio(data.bio);
+            setEmail(data.email);
+            setUsername(data.username);
+            setFollowers(data.followers);
+            setFollowing(data.following);
+        } else {
+            setShowFields(false);
+            setSearched("User not found");
+        }
         
     }
 
-
-        
-
-    const followUser = ()=> {
-        axios.put('/follow',{
-            followId: userProfile.userid
-        },{
-            headers:{
-                'Content-Type': 'application/json',
-            }
-        }).then(result=>{
-            setProfile((prevState)=>{
-                return {
-                    ...prevState,
-                    user:{
-                        ...prevState.user,
-                        followers:[...prevState.user.followers,result.data._id]
-                    }
-                }
-            })
-        }).catch(err=>{
-            console.log(err)
-        })
+    const followUser = async () => {
+        const userInfo = await callFollowUser(otherUser);
+        console.log(userInfo);
+        setShowFollow(false);
     }
 
-    const unfollowUser = ()=> {
-        axios.put('/unfollow',{
-            unfollowId: userProfile.userid
-        },{
-            headers:{
-                'Content-Type': 'application/json',
-            }
-        }).then(result=>{
-            setProfile((prevState)=>{
-                const newFollower = prevState.user.followers.filter(item=>item !== result.data._id)
-                return {
-                    ...prevState,
-                    user:{
-                        ...prevState.user,
-                        followers:newFollower
-                    }
-                }
-            })
-        }).catch(err=>{
-            console.log(err)
-        })
-    };
+    const unfollowUser = async () => {
+        const userInfo = await callFollowUser(otherUser);
+        console.log(userInfo);
+        setShowFollow(true);
+    }
 
     const signOut = () => {
         fire.auth().signOut();
@@ -200,7 +174,43 @@ const AnotherUserProfile  = ()=> {
             paddingRight: "30px",
           }}
         >
+
+<h3> {showFields ? 
+                            
+                            <h3> Username: {userUsername} <br></br>
+                             Email: {userEmail} <br></br>
+                              Bio: {userBio} <br></br>
+                              Followers: {userFollowers.length} <br></br>
+                              Following: {userFollowing.length} <br></br>
+
+                              {showfollow?
+                                <button style={{
+                                    margin:"10px"
+                                }} className="btn waves-effect waves-light #64b5f6 blue darken-1"
+                                  onClick={()=>followUser()}
+                                  >
+                                      Follow
+                                  </button>
+                                  : 
+                                  <button
+                                  style={{
+                                      margin:"10px"
+                                  }}
+                                  className="btn waves-effect waves-light #64b5f6 blue darken-1"
+                                  onClick={()=>unfollowUser()}
+                                  >
+                                      UnFollow
+                                  </button>
+                              }   
+                              </h3> : 
+                            
+                            <h3> {searched} </h3>}
+                          </h3>
+
+
+
         </div>
+
 
         <div
           class="trial"
@@ -214,49 +224,26 @@ const AnotherUserProfile  = ()=> {
         </div>
       </div>
       <div class="itemrest">
-        <div
-          style={{
-            display: "block",
-            alignItems: "center",
-
-            justifyContent: "center",
-          }}
-        >
-        </div>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-
-        <div
-          class="trial"
-          align="left"
-          style={{
-            color: "white",
-            paddingLeft: "30px",
-            paddingRight: "30px",
-          }}
-        >
-
-        </div>
-      </div>
-      <div class="itemleft">
                 <div class="form-group">
                     <fieldset>
                         <form>
                         <br></br>
                             <input type="text" id="search-input" placeholder="Find Connections..." onChange={(e)=>setOtherUser(e.target.value)}/>
-                            <button class="btn btn-outline-success" type="submit" onClick={retrieveUserInfo}>Search</button>
+                            <button class="btn btn-outline-success" type="submit" onClick={retrieveUserInfo}>Search
+
+
+
+                            </button>
                             <ListAllConnections 
-                            />    
-                        
-                            <h3> Username: {userUsername}</h3>
-                            <h3> Email: {userEmail}</h3>
-                            <h3> Profile Bio: {userBio}</h3>
-                            <h3> Followers: {userFollowers}</h3>
-                            <h3> Following: {userFollowing}</h3>
+                            /> 
+                            
+                          
+
+                            
 
                         </form>
+
+                        
                     </fieldset>
                     
 
