@@ -28,20 +28,23 @@ const ShowAllPosts = () => {
     }
 
     return (
-        <div align="left">
+        <div>
             {entries.map((entry) => (
-                <div class="border border-success" style={{ marginLeft: "15px", marginRight: "15px", marginTop: "15px", marginBottom: "15px", color: "black", borderRadius: "15px" }}>
-                    <label class="text-white" style={{ fontSize: "20px", marginLeft: "15px", marginTop: "15px", marginBottom: "15px", align: "start" }}>{entry.postedBy}</label>
-                    &nbsp; &nbsp;
-                    <label class="text-white" style={{ fontSize: "20px", marginTop: "15px", marginBottom: "15px", marginRight: "30px", textColor: "white" }}>{entry.text}</label>
-                    <label class="text-white" onClick={()=>updateLikes(entry.id)} style={{ fontSize: "20px" }}>
-                    {entry.likes !== 0 ? <MdOutlineFavorite /> : <MdOutlineFavoriteBorder/>}
-                    &nbsp; &nbsp;
-                    {entry.likes}
-                    &nbsp; &nbsp;
-                    </label>
-                    <label> {window.localStorage.getItem('username') === entry.postedBy ? 
-                    <label class="btn btn-outline-danger" onClick={()=>deleteUserPost(entry.id)}>Delete Post</label> : null} </label>
+                <div class="border border-success" style={{ marginLeft: "15px", marginRight: "15px", marginTop: "15px", marginBottom: "15px", color: "black", borderRadius: "15px", display: "inline-block", width:"95%"}}>
+                    <div style={{float: "left"}}>
+                        <label class="text-white" style={{ fontSize: "20px", marginLeft: "15px", marginTop: "15px", marginBottom: "15px", align: "start" }}>{entry.postedBy}</label>
+                        &nbsp; &nbsp;
+                        <label class="text-white" style={{ fontSize: "20px", marginTop: "15px", marginBottom: "15px", marginRight: "30px", textColor: "white" }}>{entry.text}</label>
+                        <label class="text-white" onClick={()=>updateLikes(entry.id)} style={{ fontSize: "20px" }}>
+                        {entry.likes !== 0 ? <MdOutlineFavorite /> : <MdOutlineFavoriteBorder/>}
+                        &nbsp; &nbsp;
+                        {entry.likes}
+                        &nbsp; &nbsp;
+                        </label>
+                    </div>
+                    <div style={{float: "right"}}>
+                        {window.localStorage.getItem('username') === entry.postedBy ? <label class="btn btn-outline-danger" onClick={()=>deleteUserPost(entry.id)} style={{marginTop: "12px", marginRight: "15px"}}>Delete?</label> : null}
+                    </div>
                 </div>
             ))}
         </div>
