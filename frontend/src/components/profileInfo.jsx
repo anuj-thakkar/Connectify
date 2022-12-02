@@ -229,12 +229,12 @@ const ProfileInfo = () => {
         //setTrack((albums) => [...albums, ...data.artists.items]);
         console.log("it worked");
       });
-  }
+  };
 
   function inviteFriends() {
     navigator.clipboard.writeText("http://localhost:3000/register");
     alert("Link copied to clipboard");
-  }
+  };
 
 
   return (
@@ -560,7 +560,7 @@ const PlaylistContainer = styled.div`
       }
     }
   }
-`;
+;`
 
 /*
 <div class="rowProfile">

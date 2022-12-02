@@ -66,71 +66,155 @@ const AnotherUserProfile  = ()=> {
         
 
    return (
-       <>
-       {userProfile ?
-       <div style={{maxWidth:"550px",margin:"0px auto"}}>
-           <div style={{
-               display:"flex",
-               justifyContent:"space-around",
-               margin:"18px 0px",
-               borderBottom:"1px solid grey"
-           }}>
-               <div>
-                   <img style={{width:"160px",height:"160px",borderRadius:"80px"}}
-                   src={userProfile.user.pic}
-                   />
-               </div>
-               <div>
-                   <h4>{userProfile.user.name}</h4>
-                   <h5>{userProfile.user.email}</h5>
-                   <div style={{display:"flex",justifyContent:"space-between",width:"108%"}}>
-                       <h6>{userProfile.posts.length} posts</h6>
-                       <h6>{userProfile.user.followers.length} followers</h6>
-                       <h6>{userProfile.user.following.length} following</h6>
-                   </div>
-                   {showfollow?
-                   <button style={{
-                       margin:"10px"
-                   }} className="btn waves-effect waves-light #64b5f6 blue darken-1"
-                    onClick={()=>followUser()}
-                    >
-                        Follow
-                    </button>
-                    : 
-                    <button
-                    style={{
-                        margin:"10px"
-                    }}
-                    className="btn waves-effect waves-light #64b5f6 blue darken-1"
-                    onClick={()=>unfollowUser()}
-                    >
-                        UnFollow
-                    </button>
-                    }
-                   
-                  
+    <>
+    <div class="grid-container">
+      <div class="itemnav">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+              <img
+                src={logo}
+                alt=""
+                padding-left="10"
+                height="60"
+                class="d-inline-block align-text-top"
+              ></img>
+            </a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNavAltMarkup"
+              aria-controls="navbarNavAltMarkup"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              &nbsp; &nbsp;
+              <div class="navbar-nav">
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href={`/home#access_token=${token}&token_type=Bearer&expires_in=3600`}
+                >
+                  <MdHomeFilled /> Home
+                </a>
+                &nbsp; &nbsp;
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  onClick={Settings}
+                  href={`/home/settings#access_token=${token}&token_type=Bearer&expires_in=3600`}
+                >
+                  <MdBuild /> Settings
+                </a>
+                &nbsp; &nbsp;
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href={`../profile#access_token=${token}&token_type=Bearer&expires_in=3600`}
+                >
+                  <MdAccountCircle /> Profile
+                </a>
+                &nbsp; &nbsp;
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href={`../connections#access_token=${token}&token_type=Bearer&expires_in=3600`}
+                >
+                  <MdAddReaction /> Connections
+                </a>
+                &nbsp; &nbsp;
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  onClick={ChatForm}
+                  href={`/chat#access_token=${token}&token_type=Bearer&expires_in=3600`}
+                >
+                  <MdChat /> Chat
+                </a>
+                &nbsp; &nbsp;
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  onClick={signOut}
+                  href="/#"
+                >
+                  <MdCompareArrows /> Sign out
+                </a>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="itemright">
+        <div
+          class="trial"
+          align="left"
+          style={{
+            color: "white",
+            paddingTop: "5px",
+            paddingLeft: "30px",
+            paddingRight: "30px",
+          }}
+        >
+          <hr></hr>
+        </div>
 
-               </div>
-           </div>
-     
-           <div className="gallery">
-               {
-                   userProfile.posts.map(item=>{
-                       return(
-                        <img key={item._id} className="item" src={item.photo} alt={item.title}/>  
-                       )
-                   })
-               }
+        <div
+          class="trial"
+          align="left"
+          style={{
+            color: "white",
+            paddingLeft: "30px",
+            paddingRight: "30px",
+          }}
+        >
+        </div>
+      </div>
+      <div class="itemrest">
+        <div
+          style={{
+            display: "block",
+            alignItems: "center",
 
-           
-           </div>
-       </div>
-       
-       
-       : <h2>loading...!</h2>}
-       
-       </>
+            justifyContent: "center",
+          }}
+        >
+        </div>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+
+        <div
+          class="trial"
+          align="left"
+          style={{
+            color: "white",
+            paddingLeft: "30px",
+            paddingRight: "30px",
+          }}
+        >
+
+          <h3>{userInfo ? userInfo.name : null} </h3>
+          <h6>@{userInfo ? userInfo.userId : null}</h6>
+          <h6>{window.localStorage.getItem('email')}</h6>
+
+          <hr></hr>
+          <div>
+            <h6>{profile ? profile.user.followers.length : null} Followers</h6>
+            <h6>{profile ? profile.user.following.length : null} Following</h6>
+            <h6>Status: {window.localStorage.getItem('status')}</h6>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </>
    )
-}
+};
 
 export default AnotherUserProfile;
