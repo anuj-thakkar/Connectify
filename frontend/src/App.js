@@ -4,10 +4,17 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import fire from "./fire.js";
-import Login from "./components/Login";
-import Register from "./components/Register";
 import logo from "./static/logo.jpg";
 import { Row, Col, Container } from "react-bootstrap";
+import { reducerCases } from "./utils/Constants";
+import { useStateProvider } from "./utils/StateProvider";
+
+
+/**
+ * this section contains all pages/components that are rendered
+**/ 
+import Login from "./components/Login";
+import Register from "./components/Register";
 import ForgotPassword from "./components/ForgotPassword";
 import Settings from "./components/Settings";
 import ProfileInfo from "./components/profileInfo";
@@ -15,11 +22,10 @@ import OtherUser from "./components/OtherUser";
 import Search from "./components/Search";
 import Home from "./components/Home";
 import SpotifyLogin from "./components/SpotifyLogin";
-import { reducerCases } from "./utils/Constants";
-import { useStateProvider } from "./utils/StateProvider";
 import ListSearchResults from "./components/ListSearchResults";
 import Playlist from "./components/Playlist";
 import ChatForm from "./components/Chat";
+import AnotherUserProfile from "./components/AnotherUserProfile";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -71,6 +77,7 @@ function App() {
                   <Route path={`/connections`} element={<OtherUser/>}/>
                   <Route path={`/playlist`} element={<Playlist/>}/>
                   <Route path={'/chat'} element={<ChatForm/>}/>
+                  <Route path={'/profile/:username'} element={<AnotherUserProfile/>}/>
                 </Routes>
               </>
             ) 

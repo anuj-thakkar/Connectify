@@ -63,7 +63,9 @@ const userSchema = new mongoose.Schema({
     type: String, 
     required: true,
     default: ""
-  }
+  },
+
+  posts: [{type:ObjectId,ref:"Post"}]
 
   // posts : { type: Array, required: true }
   // uid: { type: Number, required: true}
