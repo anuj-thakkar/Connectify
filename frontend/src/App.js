@@ -13,6 +13,7 @@ import Settings from "./components/Settings";
 import ProfileInfo from "./components/profileInfo";
 import OtherUser from "./components/OtherUser";
 import Search from "./components/Search";
+import CreatePosts from "./components/CreatePosts";
 import Home from "./components/Home";
 import SpotifyLogin from "./components/SpotifyLogin";
 import { reducerCases } from "./utils/Constants";
@@ -71,6 +72,7 @@ function App() {
                   <Route path={`/connections`} element={<OtherUser/>}/>
                   <Route path={`/playlist`} element={<Playlist/>}/>
                   <Route path={'/chat'} element={<ChatForm/>}/>
+                  <Route path='/createPosts' element={<CreatePosts/>}/>
                 </Routes>
               </>
             ) 
@@ -100,6 +102,10 @@ function App() {
                         exact
                         path="/search"
                         element={<ListSearchResults />}
+                      />
+                      <Route
+                        exact path="/createPosts"
+                        element={<CreatePosts />}
                       />
                     </Routes>
                   </Col>

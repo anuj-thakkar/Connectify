@@ -3,7 +3,8 @@ import fire from '../fire';
 
 const url = 'http://localhost:3001/api';
 
-export const registerUser = async (username, name, email, password) => {
+export const registerUser = async (username, name, email) => {
+  const registerUserUrl = 'http://localhost:3001/api/register';
   const payload = {
     username,
     name,
@@ -11,7 +12,7 @@ export const registerUser = async (username, name, email, password) => {
   }
   console.log(payload);
   try {
-    const res = await axios.post(url, payload);
+    const res = await axios.post(registerUserUrl, payload);
     console.log(res.data);
     return res.data;
 } catch (e) {
@@ -81,8 +82,51 @@ export async function updateUsername(email, username) {
   }
   try {
     var result = await axios.post(updateUsernameUrl, body, header);
-    console.log(result);
     return result.data;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export async function createPost(postedBy, title, text) {
+  const header = await createToken();
+  const createPost = 'http://localhost:3001/posts/createPost';
+  const body = {
+    postedBy,
+    title,
+    text
+  }
+
+  try {
+    var result = await axios.post(createPost, body, header);
+    console.log(result.data);
+    return result.data;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export const getPosts = async () => {
+  const header = await createToken();
+  const createPost = 'http://localhost:3001/posts';
+  try {
+    const res = await axios.get(createPost, header);
+    console.log(res.data);
+    return res.data;
+  } catch (e) {
+    console.error(e);
+  }
+}
+export async function deletePost(postId) {
+  const header = await createToken();
+  const deletePostUrl = 'http://localhost:3001/posts/deletePost';
+  const body = {
+    postId
+  }
+  try {
+    const res = await axios.post(deletePostUrl, body, header);
+    console.log(res.data);
+    return res.data;
   } catch (e) {
     console.error(e);
   }

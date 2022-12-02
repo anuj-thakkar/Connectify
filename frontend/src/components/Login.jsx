@@ -18,11 +18,11 @@ const Login = () => {
       .then(async () => {
         localStorage.setItem('email', email);
         localStorage.setItem('password', password);
-        // var user = await login(email);
-        // console.log(user);
-        // localStorage.setItem('bio', user.bio);
-        // localStorage.setItem('FavSong', user.favSong);
-        // localStorage.setItem('username', user.username);
+        var user = await login(email);
+        console.log(user);
+        localStorage.setItem('bio', user.bio);
+        localStorage.setItem('FavSong', user.favSong);
+        localStorage.setItem('username', user.username);
         navigate("/link");
       })
       .catch((error) => {

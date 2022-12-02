@@ -23,6 +23,8 @@ import CurrentTrack from './CurrentTrack';
 import Search from './Search';
 import ChatForm from './Chat';
 import Share from './Share'
+import ShowAllPosts from './ShowAllPosts';
+import CreatePosts from './CreatePosts';
 
 const Home = () => {
   const [{ token, userInfo, currentPlaying, playerState }, dispatch] = useStateProvider();
@@ -114,6 +116,12 @@ const Home = () => {
     <>
       <div class="grid-container">
         <div class="item1">Feed
+        <div>
+          <CreatePosts />
+          <ShowAllPosts />
+          </div>
+        
+        
         <Share/>
         </div>
         <div class="item2">
