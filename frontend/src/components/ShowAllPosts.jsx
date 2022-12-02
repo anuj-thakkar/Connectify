@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getPosts, deletePost } from '../services/usersService';
+import { getPosts, deletePost, likePost } from '../services/usersService';
 import "../App.css";
 import {MdOutlineFavorite, MdOutlineFavoriteBorder} from 'react-icons/md';
 
@@ -23,6 +23,10 @@ const ShowAllPosts = () => {
         deletePost(postId);
     } 
 
+    const updateLikes = (postId) => {
+        likePost(postId);
+    }
+
     return (
         <div align="left">
             {entries.map((entry) => (
@@ -30,10 +34,10 @@ const ShowAllPosts = () => {
                     <label class="text-white" style={{ fontSize: "20px", marginLeft: "15px", marginTop: "15px", marginBottom: "15px", align: "start" }}>{entry.postedBy}</label>
                     &nbsp; &nbsp;
                     <label class="text-white" style={{ fontSize: "20px", marginTop: "15px", marginBottom: "15px", marginRight: "30px", textColor: "white" }}>{entry.text}</label>
-                    <label class="text-white" onClick={()=>setLike(like + 1)} style={{ fontSize: "20px" }}>
-                    {like ? <MdOutlineFavorite /> : <MdOutlineFavoriteBorder/>}
+                    <label class="text-white" onClick={()=>updateLikes(entry.id)} style={{ fontSize: "20px" }}>
+                    {entry.likes !== 0 ? <MdOutlineFavorite /> : <MdOutlineFavoriteBorder/>}
                     &nbsp; &nbsp;
-                    {like}
+                    {entry.likes}
                     &nbsp; &nbsp;
                     </label>
                     <label> {window.localStorage.getItem('username') === entry.postedBy ? 

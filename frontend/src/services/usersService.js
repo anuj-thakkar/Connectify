@@ -117,6 +117,7 @@ export const getPosts = async () => {
     console.error(e);
   }
 }
+
 export async function deletePost(postId) {
   const header = await createToken();
   const deletePostUrl = 'http://localhost:3001/posts/deletePost';
@@ -125,6 +126,21 @@ export async function deletePost(postId) {
   }
   try {
     const res = await axios.post(deletePostUrl, body, header);
+    console.log(res.data);
+    return res.data;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export async function likePost(postId) {
+  const header = await createToken();
+  const likePostUrl = 'http://localhost:3001/posts/likePost';
+  const body = {
+    postId
+  }
+  try {
+    const res = await axios.post(likePostUrl, body, header);
     console.log(res.data);
     return res.data;
   } catch (e) {

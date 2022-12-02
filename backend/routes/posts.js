@@ -66,6 +66,12 @@ postRouter.post('/deletePost', async (req, res) => {
     await Post.deleteOne({"_id":req.body.postId});
     return res.status(201).send(req.body.postId);
 });
+
+postRouter.post('/likePost', async (req, res) => {
+    await Post.updateOne({ "_id" : req.body.postId }, { $inc: { "likes" : 1 } })
+    return res.status(201).send(req.body.postId);
+});
+
 // list all posts of a user
 postRouter.get('/mypost',(req,res)=>{
     Post.find({postedBy:req.user._id})
