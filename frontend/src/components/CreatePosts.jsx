@@ -1,6 +1,8 @@
 import React,{useState, useEffect} from 'react'
 import { createPost } from '../services/usersService';
 import { useStateProvider } from "../utils/StateProvider";
+import "../App.css";
+
 const CreatPost = ()=>{
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
