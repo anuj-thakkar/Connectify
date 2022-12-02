@@ -38,7 +38,8 @@ export const searchForUsers = async (username) => {
   }
   try {
     console.log(searchUrl, payload);
-    const res = await axios.get(searchUrl, payload, header);
+    var res = await axios.get(searchUrl, payload, header);
+    console.log(res.data);
   } catch (e) {
     console.error(e);
   }
@@ -52,6 +53,53 @@ export async function login(email) {
   }
   try {
     var result = await axios.post(loginUrl, body, header);
+    return result.data;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export async function getUserInfo(username) {
+  const header = await createToken();
+  const userInfoURL= 'http://localhost:3001/api/userInfo';
+  const body = {
+    username
+  }
+  console.log(username);
+  try {
+    var result = await axios.post(userInfoURL, body, header);
+    console.log(result.data);
+    
+    return result.data;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export async function callFollowUser(username) {
+  const header = await createToken();
+  const followUserURL = 'http://localhost:3001/api/follow';
+  const body = {
+    username
+  }
+  try {
+    var result = await axios.post(followUserURL, body, header);
+    console.log(result.data);
+    return result.data;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export async function callUnfollowUser(username) {
+  const header = await createToken();
+  const unfollowUserURL = 'http://localhost:3001/api/unfollow';
+  const body = {
+    username
+  }
+  try {
+    var result = await axios.post(unfollowUserURL, body, header);
+    console.log(result.data);
     return result.data;
   } catch (e) {
     console.error(e);

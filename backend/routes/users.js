@@ -22,25 +22,19 @@ userRouter.get('/', async (req, res) => {
   // return res.status(403).send('Not authorized');
 });
 
-/**
- * This gets a user from search bar
- */
-userRouter.get('/search', async(req, res) => {
-    let userPattern = new RegExp("^" + req.body.query);
-    User.find({email: {$regex: userPattern}})
-    .select("username email")
-    .then(user => {
-      res.json({user})
-    })
-    .catch(err => {
-      console.log(err);
-    })
-
-    console.log(req.username);
-    const users = await User.find({username:req.username});
-    return res.json(users.map((users) => users.toJSON()));
-  // }
-  // return res.status(403).send('Not authorized');
+userRouter.post('/userInfo', jsonParser, async (req, res) => {
+  var user = await User.findOne({
+    "username": req.body.username
+  });
+  console.log(req.body.username);
+  console.log(user);
+  if (user) {
+    console.log(user.toJSON());
+    return res.json(user.toJSON());
+  } else {
+    console.log("failed");
+    return res.status(404).send('user not found');
+  }
 });
 
 userRouter.post('/register', async (req, res) => {
@@ -164,24 +158,18 @@ userRouter.post('/updateUsername', jsonParser, async (req, res) => {
 
 
 //follow a user
-userRouter.put("/:username/follow", jsonParser, async (req, res) => {
-  if (req.body.username !== req.params.username) {
-    try {
-      const user = await User.findById(req.params.username);
-      const currentUser = await User.findById(req.body.username);
-      if (!user.followers.includes(req.body.username)) {
-        await user.updateOne({ $push: { followers: req.body.username } });
-        await currentUser.updateOne({ $push: { followings: req.params.username } });
-        res.status(200).json("user has been followed");
-      } else {
-        res.status(403).json("you allready follow this user");
-      }
-    } catch (err) {
-      res.status(500).json(err);
+userRouter.put("/follow", jsonParser, async (req, res) => {
+  console .log(req.body);
+  User.findByIdAndUpdate(
+    req.body.otherUsername,
+    {
+      $push: { followers: req.body.currentUserId },
+    },
+    { new: true },
+    (err, result) => {
+      res.json(result);
     }
-  } else {
-    res.status(403).json("you cant follow yourself");
-  }
+  );
 });
 
 //unfollow a user
