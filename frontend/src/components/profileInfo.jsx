@@ -448,9 +448,9 @@ const ProfileInfo = () => {
             </h6>    
             <h6>Favorite Song: {window.localStorage.getItem('FavSong')}</h6>
             <h6>Top Listened Songs: </h6>
-            <h6>1. {/* topTrackInfo.tracks[0].name ? topTrackInfo.tracks[0].name : null} by {topTrackInfo.tracks[0].artists[0].name ? topTrackInfo.tracks[0].artists[0].name : null */}</h6>
-            <h6>2. {/* topTrackInfo.tracks[1].name ? topTrackInfo.tracks[1].name : null} by {topTrackInfo.tracks[1].artists ? topTrackInfo.tracks[1].artists[0].name : null */}</h6>
-            <h6>3. {/* topTrackInfo.tracks[2].name ? topTrackInfo.tracks[2].name : null} by {topTrackInfo.tracks[0].artists[0].name ? topTrackInfo.tracks[2].artists[0].name : null */}</h6>
+            <h6>1. { topTrackInfo? topTrackInfo.tracks[0].name : null} by {topTrackInfo ? topTrackInfo.tracks[0].artists[0].name : null }</h6>
+            <h6>2. { topTrackInfo ? topTrackInfo.tracks[1].name : null} by {topTrackInfo ? topTrackInfo.tracks[1].artists[0].name : null }</h6>
+            <h6>3. { topTrackInfo ? topTrackInfo.tracks[2].name : null} by {topTrackInfo ? topTrackInfo.tracks[2].artists[0].name : null }</h6>
             <h6>Bio: {window.localStorage.getItem('bio')}</h6>
 
             <hr></hr>
@@ -488,7 +488,8 @@ const ProfileInfo = () => {
                  <Row className="search-group">
                     {albums.map((album, i) => {
                    return (
-                   <Card className="text-white bg-dark" style={{marginTop: "15px", color: "black"}} 
+                   <Card className="text-white bg-dark" style={{marginTop: "15px", color: "black", width: 200,
+                   height: 200,}} 
                     onClick={() => handleclick(album)}>
                        <Card.Img src={album.album.images[0].url} height="130px"/>
                   <Card.Body>

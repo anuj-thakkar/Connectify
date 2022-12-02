@@ -35,14 +35,14 @@ const Search = () => {
     var results = await fetch(
       "https://api.spotify.com/v1/search?q=" +
         searchInput +
-        "&type=track,artist&limit=4",
+        "&type=track&limit=4",
       searchParameters
     )
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
         setAlbums(data.tracks.items);
-        setAlbums((albums) => [...albums, ...data.artists.items]);
+        //setAlbums((albums) => [...albums, ...data.artists.items]);
         console.log("it worked");
       });
   }
@@ -91,7 +91,7 @@ const Search = () => {
         <Container>
           <InputGroup className="search-group" size="small">
             <FormControl
-              placeholder="Search for Artist"
+              placeholder="Search for a Song"
               type="input"
               onKeyPress={(event) => {
                 if (event.key === "Enter") {
@@ -107,21 +107,11 @@ const Search = () => {
           <Row className="search-group">
             {albums.map((album, i) => {
               return (
-                <Card className="text-white bg-dark" style={{marginTop: "15px", color: "black"}} 
+                <Card className="text-white bg-dark" style={{marginTop: "15px", color: "black", width: 200,
+                height: 200,}} 
                 onClick={() => playTrack(album)}>
-                  {/* <Card.Img src={album.album.images[0].url} /> */}
-                  <Card.Img
-                    src={() => {
-                      console.log("getting url");
-                      if (album.type !== "artist") {
-                        console.log("track");
-                        return album.album.images[0].url;
-                      } else {
-                        console.log("artist");
-                        return album.images[0].url;
-                      }
-                    }}
-                  />
+                  <Card.Img src={album.album.images[0].url} 
+                  style={{ width: 100, height: 100 }}/> 
                   <Card.Body>
                     <Card.Text className="fs-6">{album.name}</Card.Text>
                   </Card.Body>
