@@ -2,8 +2,10 @@ import React,{useEffect,useState,useContext} from 'react'
 import axios from 'axios'
 import logo from "../static/logo.jpg";
 import fire from "../fire.js";
-
+import { searchForUsers } from '../services/usersService';
+import { getUserInfo } from '../services/usersService';
 import { useStateProvider } from "../utils/StateProvider";
+import ListAllConnections from './ListAllConnections';
 import {
     MdHomeFilled,
     MdBuild,
@@ -23,26 +25,25 @@ const AnotherUserProfile  = ()=> {
 
     // get the user id and its data from the Connectify API
     const [userProfile,setProfile] = useState([])
-    useEffect( async () => {
-        const { data } = await axios.get(`/user/${userProfile.userid}`,{
-        headers:{
-            'Content-Type': 'application/json',
-        }
-        }).then(result=>{
-            setProfile(result.data.user)
-        }).catch(err=>{
-            console.log(err)
-        })
-        const userInfo = {
-            userId: data.id,
-            email: data.email,
-            name: data.display_name,
-            followers: data.followers,
-            following: data.following,
-            status: data.status,
-            bio: data.bio,
-          };
-    },[]);
+
+    const searchForUser = async () => {
+        console.log("searching for user");
+        const fetchedEntries = await searchForUsers(document.getElementById("search-input").value);
+        console.log(fetchedEntries);
+    };  
+
+    
+
+    
+    const retrieveUserInfo = async (username) => {
+        
+        const {data} = await getUserInfo(username);
+        setProfile(data);
+
+    }
+
+
+        
 
     const followUser = ()=> {
         axios.put('/follow',{
@@ -191,7 +192,6 @@ const AnotherUserProfile  = ()=> {
             paddingRight: "30px",
           }}
         >
-          <hr></hr>
         </div>
 
         <div
@@ -239,9 +239,37 @@ const AnotherUserProfile  = ()=> {
             <h3>{userProfile ? userProfile.status : null} </h3>
             <h3>{userProfile ? userProfile.bio : null} </h3>
 
-          <hr></hr>
         </div>
       </div>
+      <div class="itemleft">
+                <div class="form-group">
+                    <fieldset>
+                        <form>
+                        <br></br>
+                            <input type="text" id="search-input" placeholder="Find Connections..."/>
+                            <button class="btn btn-outline-success" type="submit" onClick={retrieveUserInfo}>Search</button>
+
+
+                        </form>
+                    </fieldset>
+                    <ListAllConnections />
+
+                    {userProfile.map(person => {
+
+                    return (
+                    <div key={person.id}>
+                        <h2>{person.email}</h2>
+                        <h2>{person.first_name}</h2>
+                        <h2>{person.last_name}</h2>
+                        <br />
+                    </div>
+                    );
+                })}
+
+                </div>
+
+
+            </div>
     </div>
     </>
    )

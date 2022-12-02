@@ -22,21 +22,16 @@ userRouter.get('/', async (req, res) => {
   // return res.status(403).send('Not authorized');
 });
 
-/**
- * This gets a user from search bar
- */
-userRouter.get('/search', async(req, res) => {
-    let userPattern = new RegExp("^" + req.body.query);
-    User.find({email: {$regex: userPattern}})
-    .then(user => {
-        res.json({user})
-    }
-    ).catch(err => {
-        console.log(err);
-    })
-    console.log(req.username);
-    return res.json(users.map((users) => users.toJSON()));
-
+userRouter.post('/userInfo', jsonParser, async (req, res) => {
+  var user = await User.findOne({'email':req.body.username});
+  console.log(req.body.username);
+  if (user) {
+    console.log(user.toJSON);
+    return res.json(user.toJSON());
+  } else {
+    console.log("failed");
+    return res.status(404).send('user not found');
+  }
 });
 
 userRouter.post('/register', async (req, res) => {
