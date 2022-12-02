@@ -29,7 +29,9 @@ const ShowAllPosts = () => {
                     {like ? <MdOutlineFavorite /> : <MdOutlineFavoriteBorder/>}
                     &nbsp; &nbsp;
                     {like}
+                    &nbsp; &nbsp;
                     </label>
+                    <label> {window.localStorage.getItem('username') === entry.postedBy ? <button>Delete Post</button> : null} </label>
                 </div>
             ))}
         </div>
