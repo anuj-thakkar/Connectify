@@ -16,22 +16,20 @@ const CreatPost = ()=>{
     return(
         <div className="item1">
             <div className="shareWrapper">
-                <div className="shareTop">
                 <img className="shareProfileImg" src={userInfo ? userInfo.imagesUrl : null} alt="" />
                 &nbsp;
-           <input
+            <input
             type="text"
-             placeholder="body"
-             value={body}
+            placeholder="body"
+            value={body}
             onChange={(e)=>setBody(e.target.value)}
-             />
-             &nbsp; &nbsp;
+            />
+            &nbsp; &nbsp;
             <button className="btn btn-outline-success"
             onClick={()=>postDetails()}
             >
                 Create Post
             </button>
-            </div>
             </div>
        </div>
    )

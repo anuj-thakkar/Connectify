@@ -13,11 +13,6 @@
     background-color: black;
   }
   
-  .shareTop {
-    display: flex;
-    align-items: center;
-  }
-  
   .shareProfileImg {
     width: 50px;
     height: 50px;
