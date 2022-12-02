@@ -46,10 +46,7 @@ const ProfileInfo = () => {
   const fileOnChange = (e) => {
     console.log(e.target.files[0]);
   };
-  const clearStatus = (e) => {
-    e.preventDefault();
-    localStorage.delete('status');
-  }
+
   //Get Playlists from Spotify API
   useEffect(() => {
     const getPlaylistData = async () => {
@@ -135,9 +132,6 @@ const ProfileInfo = () => {
     }
   };
 
-  const [bio, setBio] = useState("");
-  const [istrue, Setistrue] = useState(false);
-  const [statusUpdate, setStatusUpdate] = useState("");
 
   function handleclick(track) {
     var status = track.name + " by " + track.artists[0].name;
@@ -146,6 +140,8 @@ const ProfileInfo = () => {
     console.log(track.album.images[0])
   }
 
+  function clearStatus() {
+    window.localStorage.removeItem('status');
   }
 
   const viewOrUnfollow = async (selectedPlaylistId) => {
@@ -229,12 +225,12 @@ const ProfileInfo = () => {
         //setTrack((albums) => [...albums, ...data.artists.items]);
         console.log("it worked");
       });
-  };
+  }
 
   function inviteFriends() {
     navigator.clipboard.writeText("http://localhost:3000/register");
     alert("Link copied to clipboard");
-  };
+  }
 
 
   return (
@@ -452,9 +448,9 @@ const ProfileInfo = () => {
             </h6>    
             <h6>Favorite Song: {window.localStorage.getItem('FavSong')}</h6>
             <h6>Top Listened Songs: </h6>
-            <h6>1. {topTrackInfo ? topTrackInfo.tracks[0].name : null} by {topTrackInfo ? topTrackInfo.tracks[0].artists[0].name : null}</h6>
-            <h6>2. {topTrackInfo ? topTrackInfo.tracks[1].name : null} by {topTrackInfo ? topTrackInfo.tracks[1].artists[0].name : null}</h6>
-            <h6>3. {topTrackInfo ? topTrackInfo.tracks[2].name : null} by {topTrackInfo ? topTrackInfo.tracks[2].artists[0].name : null}</h6>
+            <h6>1. {/* topTrackInfo.tracks[0].name ? topTrackInfo.tracks[0].name : null} by {topTrackInfo.tracks[0].artists[0].name ? topTrackInfo.tracks[0].artists[0].name : null */}</h6>
+            <h6>2. {/* topTrackInfo.tracks[1].name ? topTrackInfo.tracks[1].name : null} by {topTrackInfo.tracks[1].artists ? topTrackInfo.tracks[1].artists[0].name : null */}</h6>
+            <h6>3. {/* topTrackInfo.tracks[2].name ? topTrackInfo.tracks[2].name : null} by {topTrackInfo.tracks[0].artists[0].name ? topTrackInfo.tracks[2].artists[0].name : null */}</h6>
             <h6>Bio: {window.localStorage.getItem('bio')}</h6>
 
             <hr></hr>
@@ -531,7 +527,7 @@ const ProfileInfo = () => {
       </div>
     </>
   );
-
+};
 
 const PlaylistContainer = styled.div`
   color: #b3b3b3;
@@ -560,7 +556,7 @@ const PlaylistContainer = styled.div`
       }
     }
   }
-;`
+`;
 
 /*
 <div class="rowProfile">

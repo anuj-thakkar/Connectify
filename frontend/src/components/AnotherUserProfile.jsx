@@ -1,13 +1,30 @@
 import React,{useEffect,useState,useContext} from 'react'
-import {UserContext} from '../../App'
-import {useParams} from 'react-router-dom'
 import axios from 'axios'
+import logo from "../static/logo.jpg";
+import fire from "../fire.js";
+
+import { useStateProvider } from "../utils/StateProvider";
+import {
+    MdHomeFilled,
+    MdBuild,
+    MdAccountCircle,
+    MdSearch,
+    MdCompareArrows,
+    MdChat,
+    MdAddReaction
+  } from "react-icons/md";
+
+import Settings from "./Settings";
+import ChatForm from './Chat';
+
 const AnotherUserProfile  = ()=> {
+
+    const [{ token}] = useStateProvider();
 
     // get the user id and its data from the Connectify API
     const [userProfile,setProfile] = useState([])
-    useEffect(()=>{
-       axios.get(`/user/${userid}`,{
+    useEffect( async () => {
+        const { data } = await axios.get(`/user/${userProfile.userid}`,{
         headers:{
             'Content-Type': 'application/json',
         }
@@ -16,11 +33,20 @@ const AnotherUserProfile  = ()=> {
         }).catch(err=>{
             console.log(err)
         })
+        const userInfo = {
+            userId: data.id,
+            email: data.email,
+            name: data.display_name,
+            followers: data.followers,
+            following: data.following,
+            status: data.status,
+            bio: data.bio,
+          };
     },[]);
 
     const followUser = ()=> {
         axios.put('/follow',{
-            followId:userid
+            followId: userProfile.userid
         },{
             headers:{
                 'Content-Type': 'application/json',
@@ -42,7 +68,7 @@ const AnotherUserProfile  = ()=> {
 
     const unfollowUser = ()=> {
         axios.put('/unfollow',{
-            unfollowId:userid
+            unfollowId: userProfile.userid
         },{
             headers:{
                 'Content-Type': 'application/json',
@@ -62,6 +88,11 @@ const AnotherUserProfile  = ()=> {
             console.log(err)
         })
     };
+
+    const signOut = () => {
+        fire.auth().signOut();
+        localStorage.clear();
+      };
                 
         
 
@@ -199,17 +230,16 @@ const AnotherUserProfile  = ()=> {
           }}
         >
 
-          <h3>{userInfo ? userInfo.name : null} </h3>
-          <h6>@{userInfo ? userInfo.userId : null}</h6>
-          <h6>{window.localStorage.getItem('email')}</h6>
+          <h3>{userProfile ? userProfile.userId : null} </h3>
+          <h3>{userProfile ? userProfile.name : null} </h3>
+          <h3>{userProfile ? userProfile.email : null} </h3>
+
+            <h3>{userProfile ? userProfile.followers : null} </h3>
+            <h3>{userProfile ? userProfile.following : null} </h3>
+            <h3>{userProfile ? userProfile.status : null} </h3>
+            <h3>{userProfile ? userProfile.bio : null} </h3>
 
           <hr></hr>
-          <div>
-            <h6>{profile ? profile.user.followers.length : null} Followers</h6>
-            <h6>{profile ? profile.user.following.length : null} Following</h6>
-            <h6>Status: {window.localStorage.getItem('status')}</h6>
-
-          </div>
         </div>
       </div>
     </div>

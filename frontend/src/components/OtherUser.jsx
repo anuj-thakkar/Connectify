@@ -21,6 +21,7 @@ import styled from "styled-components";
 import { useStateProvider } from "../utils/StateProvider";
 import { reducerCases } from "../utils/Constants";
 import { searchForUsers } from "../services/usersService.js";
+import ChatForm from "./Chat.jsx";
 
 const OtherUser = () => {
     let navigate = useNavigate();
