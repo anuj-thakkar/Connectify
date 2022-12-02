@@ -47,6 +47,11 @@ const ProfileInfo = () => {
     console.log(e.target.files[0]);
   };
 
+  const clearStatus = (e) => {
+    e.preventDefault();
+    localStorage.delete('status');
+  }
+
   //Get Playlists from Spotify API
   useEffect(() => {
     const getPlaylistData = async () => {
@@ -93,7 +98,7 @@ const ProfileInfo = () => {
   //get top user track
   useEffect(() => {
     const getUserTopTrack = async () => {
-      const info = await axios.get("https://api.spotify.com/v1/me/top/tracks?limit=1", {
+      const info = await axios.get("https://api.spotify.com/v1/me/top/tracks?limit=3", {
         headers: {
           Authorization: "Bearer " + token,
           "Content-Type": "application/json",
@@ -101,10 +106,10 @@ const ProfileInfo = () => {
       });
       
       const topTrackInfo = {
-        name: info.data.items[0].name,
-        artist: info.data.items[0].artists[0].name,
+        tracks: info.data.items,
       }; 
-      //console.log(topTrackInfo)
+      console.log(topTrackInfo)
+      
       dispatch({ type: reducerCases.SET_TOP_TRACK, topTrackInfo });
     };
     getUserTopTrack();
@@ -138,10 +143,6 @@ const ProfileInfo = () => {
     window.localStorage.setItem('status', status);
     window.location.reload(false);
     console.log(track.album.images[0])
-  }
-
-  function clearStatus() {
-    window.localStorage.removeItem('status');
   }
 
   const viewOrUnfollow = async (selectedPlaylistId) => {
@@ -228,8 +229,7 @@ const ProfileInfo = () => {
   }
 
   function inviteFriends() {
-    navigator.clipboard.writeText("http://localhost:3000/");
-    alert("Link copied to clipboard");
+    navigator.clipboard.writeText("http://localhost:3000/register");
   }
 
 
@@ -339,7 +339,7 @@ const ProfileInfo = () => {
             >
               Unfollow Playlist
             </button>
-            <button type="button" className="inviteLink" onClick={inviteFriends}>Invite Friends</button>
+            <button type="button" className="btn btn-outline-success" onClick={inviteFriends}>Invite Friends</button>
             <hr></hr>
           </div>
 
@@ -447,7 +447,10 @@ const ProfileInfo = () => {
               <Streak streak={useStreak(localStorage, new Date())} />
             </h6>    
             <h6>Favorite Song: {window.localStorage.getItem('FavSong')}</h6>
-            <h6>Most Listened Song: {topTrackInfo ? topTrackInfo.name : null} by {topTrackInfo ? topTrackInfo.artist : null}</h6>
+            <h6>Top Listened Songs: </h6>
+            <h6>1. {/* topTrackInfo.tracks[0].name ? topTrackInfo.tracks[0].name : null} by {topTrackInfo.tracks[0].artists[0].name ? topTrackInfo.tracks[0].artists[0].name : null */}</h6>
+            <h6>2. {/* topTrackInfo.tracks[1].name ? topTrackInfo.tracks[1].name : null} by {topTrackInfo.tracks[1].artists ? topTrackInfo.tracks[1].artists[0].name : null */}</h6>
+            <h6>3. {/* topTrackInfo.tracks[2].name ? topTrackInfo.tracks[2].name : null} by {topTrackInfo.tracks[0].artists[0].name ? topTrackInfo.tracks[2].artists[0].name : null */}</h6>
             <h6>Bio: {window.localStorage.getItem('bio')}</h6>
 
             <hr></hr>

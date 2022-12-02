@@ -87,7 +87,7 @@ const Search = () => {
   
   return (
     <>
-      <div align="center">
+      <div align="center" style={{paddingTop:"10px"}}>
         <Container>
           <InputGroup className="search-group" size="small">
             <FormControl

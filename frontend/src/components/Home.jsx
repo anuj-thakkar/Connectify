@@ -20,15 +20,21 @@ import styled from "styled-components";
 import ListAllConnections from "./ListAllConnections";
 import { useState } from "react";
 
-import { useNavigate } from "react-router-dom";
-import ListSearchResults from "./ListSearchResults";
-import Volume from "./Volume";
-import PlayerControls from "./PlayerControls";
-import CurrentTrack from "./CurrentTrack";
-import Search from "./Search";
-import ChatForm from "./Chat";
-import Share from "./Share";
+
 import WeatherPlaylist from "./WeatherPlaylist";
+import ListAllConnections from './ListAllConnections';
+import { useState } from 'react';
+
+import { useNavigate } from 'react-router-dom';
+import ListSearchResults from './ListSearchResults';
+import Volume from './Volume';
+import PlayerControls from './PlayerControls';
+import CurrentTrack from './CurrentTrack';
+import Search from './Search';
+import ChatForm from './Chat';
+import Share from './Share'
+import ShowAllPosts from './ShowAllPosts';
+import CreatePosts from './CreatePosts';
 
 const Home = () => {
   const [{ token, userInfo, currentPlaying, playerState }, dispatch] =
@@ -118,9 +124,11 @@ const Home = () => {
   return (
     <>
       <div class="grid-container">
-        <div class="item1">
-          Feed
-          <Share />
+        <div class="item1">Feed
+        <div>
+          <CreatePosts />
+          <ShowAllPosts />
+          </div>
         </div>
         <div class="item2">
           <nav class="navbar navbar-expand-lg navbar-dark bg-black">
@@ -204,7 +212,6 @@ const Home = () => {
           </nav>
         </div>
         <div class="item3">
-          <ListAllConnections />
           <Search />
           <WeatherPlaylist />
         </div>

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const {ObjectId} = mongoose.Schema.Types
 const userSchema = new mongoose.Schema({
 
   username: { 
@@ -42,7 +42,13 @@ const userSchema = new mongoose.Schema({
   bio: { 
     type: String, 
     required: true,
-    default: ""
+    default: " "
+  },
+
+  statusUpdate: {
+    type: String,
+    required: false,
+    default: " "
   },
 
   profilePicture: {
@@ -50,35 +56,22 @@ const userSchema = new mongoose.Schema({
     default: "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
   },
 
-  followers: {
-    type: [{
-      username: {
-        type: String,
-        required: true,
-      }
-    }],
-  },
-
-  following: {
-    type: [{
-      username: {
-        type: String,
-        required: true,
-      }
-    }],
-  },
+  followers:[{type:ObjectId,ref:"User"}],
+  following:[{type:ObjectId,ref:"User"}],
 
   favSong: { 
     type: String, 
     required: true,
-    default: ""
+    default: " "
   },
 
   statusUpdate: { 
     type: String, 
     required: true,
-    default: ""
-  }
+    default: " "
+  },
+
+  posts: [{type:ObjectId,ref:"Post"}]
 
   // posts : { type: Array, required: true }
   // uid: { type: Number, required: true}
