@@ -338,7 +338,7 @@ const ProfileInfo = () => {
             >
               Unfollow Playlist
             </button>
-            <button type="button" className="inviteLink" onClick={inviteFriends}>Invite Friends</button>
+            <button type="button" className="btn btn-outline-success" onClick={inviteFriends}>Invite Friends</button>
             <hr></hr>
           </div>
 
