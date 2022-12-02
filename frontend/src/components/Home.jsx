@@ -114,7 +114,7 @@ const Home = () => {
         //setUserDetails(results.user)
       });
   };
-
+  //console.log(token)
   return (
     <>
       <div class="grid-container">

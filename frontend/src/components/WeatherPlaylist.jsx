@@ -10,6 +10,7 @@ import {
 } from "react-bootstrap";
 import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
 import { useStateProvider } from "../utils/StateProvider";
+import axios from "axios";
 
 const WeatherPlaylist = () => {
   const locationAPI =
@@ -80,6 +81,39 @@ const WeatherPlaylist = () => {
       });
   }
 
+  async function addPlaylist(playlist) {
+    console.log(playlist.id)
+    var searchParameters = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    var results = await fetch(
+      "https://api.spotify.com/v1/playlists/" +
+        playlist.id +
+        "/followers",
+      searchParameters
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setPlaylist(data.playlists.items);
+      });
+    /* 
+    await axios.put(
+      `	https://api.spotify.com/v1/playlists/${playlist.id}/followers`,
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+      }
+    ); */
+    console.log("SUCCESS")
+  }
+
   return (
     <div>
       <Container>
@@ -98,18 +132,6 @@ const WeatherPlaylist = () => {
             Search
           </button>
         </InputGroup>
-        {/* <InputGroup>
-        <Dropdown>
-          <Dropdown.Toggle variant="success" id="dropdown-basic">
-            State
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-      </InputGroup> */}
         {currentWeather}
       </Container>
       <Container>
@@ -118,10 +140,10 @@ const WeatherPlaylist = () => {
             return (
               <Card
                 className="text-white bg-dark"
-                style={{ marginTop: "15px", color: "black" }}
-                // onClick={() => playTrack(album)}>
-              >
-                <Card.Img src={playlist.images[0].url} />
+                style={{ marginTop: "15px", color: "black", width: 200, height: 200}}
+                onClick={() => addPlaylist(playlist)}>
+              
+                <Card.Img src={playlist.images[0].url} style={{width: 100, height: 100}}/>
                 <Card.Body>
                   <Card.Text className="fs-6">{playlist.name}</Card.Text>
                 </Card.Body>
