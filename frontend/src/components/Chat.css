@@ -37,7 +37,6 @@
     border-radius: 6px !important;
     background-color: black !important;
     color: white;
-    border: 1px solid green !important;
   }
   
   .ce-primary-button {
@@ -99,11 +98,23 @@
   }
   
   .chat-title {
-    color: black;
+    color: white;
     font-weight: 800;
     font-size: 24px;
   }
-  
+  .ce-autocomplete-option {
+    color: black !important;
+  }
+  .ce-autocomplete-close {
+    color: white !important;
+  }
+  #ce-add-username-input {
+    background-color: black !important;
+  }
+  .ce-input {
+    background-color: black !important;
+    color: white !important;
+  }
   .chat-subtitle {
     color: green;
     font-weight: 600;
