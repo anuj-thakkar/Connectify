@@ -16,7 +16,7 @@ const CreatPost = ()=>{
     return(
         <div className="item1">
             <div className="shareWrapper">
-                <img className="shareProfileImg" src={userInfo ? userInfo.imagesUrl : null} alt="" />
+                <img className="shareProfileImage" src={userInfo ? userInfo.imagesUrl : null} alt="" />
                 &nbsp;
             <input
             type="text"
