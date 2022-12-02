@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getPosts } from '../services/usersService';
+import { getPosts, deletePost } from '../services/usersService';
 import "../App.css";
 import {MdOutlineFavorite, MdOutlineFavoriteBorder} from 'react-icons/md';
 
@@ -18,6 +18,11 @@ const ShowAllPosts = () => {
     if (entries === undefined) {
         return null;
     }
+
+    const deleteUserPost = (postId) => {
+        deletePost(postId);
+    } 
+
     return (
         <div align="left">
             {entries.map((entry) => (
@@ -29,7 +34,9 @@ const ShowAllPosts = () => {
                     {like ? <MdOutlineFavorite /> : <MdOutlineFavoriteBorder/>}
                     &nbsp; &nbsp;
                     {like}
+                    &nbsp; &nbsp;
                     </label>
+                    <label> {window.localStorage.getItem('username') === entry.postedBy ? <button onClick={()=>deleteUserPost(entry.id)}>Delete Post</button> : null} </label>
                 </div>
             ))}
         </div>

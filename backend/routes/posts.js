@@ -62,6 +62,10 @@ postRouter.post('/createPost', async (req, res) => {
     return res.status(201).json(savedPost);
   });
 
+postRouter.post('/deletePost', async (req, res) => {
+    await Post.deleteOne({"_id":req.body.postId});
+    return res.status(201).send(req.body.postId);
+});
 // list all posts of a user
 postRouter.get('/mypost',(req,res)=>{
     Post.find({postedBy:req.user._id})
