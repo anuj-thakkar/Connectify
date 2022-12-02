@@ -10,7 +10,7 @@
   .shareWrapper {
     padding: 10px;
     color: white;
-    background-color: #1db954;
+    background-color: black;
   }
   
   .shareTop {
@@ -29,7 +29,7 @@
   .shareInput {
     border: none;
     width: 80%;
-    background-color: #1ed760;
+    background-color: black;
   }
   
   .shareInput:focus {
@@ -67,15 +67,4 @@
       font-size: 14px;
       font-weight: 500;
       color: black;
-  }
-  
-  .shareButton{
-      border: none;
-      padding: 7px;
-      border-radius: 5px;
-      background-color: black;
-      font-weight: 500;
-      margin-right: 20px;
-      cursor: pointer;
-      color: white;
   }

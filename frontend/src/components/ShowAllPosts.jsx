@@ -36,7 +36,8 @@ const ShowAllPosts = () => {
                     {like}
                     &nbsp; &nbsp;
                     </label>
-                    <label> {window.localStorage.getItem('username') === entry.postedBy ? <button onClick={()=>deleteUserPost(entry.id)}>Delete Post</button> : null} </label>
+                    <label> {window.localStorage.getItem('username') === entry.postedBy ? 
+                    <label class="btn btn-outline-danger" onClick={()=>deleteUserPost(entry.id)}>Delete Post</label> : null} </label>
                 </div>
             ))}
         </div>
