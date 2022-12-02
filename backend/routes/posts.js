@@ -27,7 +27,7 @@ postRouter.get('/allposts',(req,res) => {
 postRouter.get('/', async (req, res) => {
     // const auth = req.currentUser;
     // if (auth) {
-    const posts = await Post.find({});
+    const posts = await Post.find({}).sort({createdAt:-1}).limit(20);
     return res.json(posts.map((posts) => posts.toJSON()));
     // }
     // return res.status(403).send('Not authorized');
