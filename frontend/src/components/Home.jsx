@@ -120,9 +120,6 @@ const Home = () => {
           <CreatePosts />
           <ShowAllPosts />
           </div>
-        
-        
-        <Share/>
         </div>
         <div class="item2">
           <nav class="navbar navbar-expand-lg navbar-dark bg-black">
