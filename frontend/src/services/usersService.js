@@ -163,6 +163,29 @@ export async function updateFavSong(email, newFavSong) {
   }
 }
 
+export async function registerWithChat(username, secret) {
+  const data = {
+    username,
+    secret
+  }
+  var config = {
+    method: 'post',
+    url: 'https://api.chatengine.io/users/',
+    headers: {
+      'PRIVATE-KEY': '{{9d41873d-f16d-4596-b0e2-e789755aa81d}}'
+    },
+    data : data
+  };
+  
+  axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+
 const createToken = async () => {
   const user = fire.auth().currentUser;
   const token = await user.getIdToken();
