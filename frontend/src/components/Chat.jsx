@@ -135,7 +135,7 @@ const ChatForm = () => {
             userName={window.localStorage.getItem('username')}
             userSecret={window.localStorage.getItem('password')}
             renderChatFeed={(chatAppProps) => <ChatFeed {...chatAppProps} />}
-            //onNewMessage={() => new Audio('https://chat-engine-assets.s3.amazonaws.com/click.mp3').play()}
+            onNewMessage={() => new Audio('https://chat-engine-assets.s3.amazonaws.com/click.mp3').play()}
           /> 
           </div>
         </div>
