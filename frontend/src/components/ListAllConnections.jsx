@@ -15,13 +15,12 @@ const ListAllConnections = () => {
         return null;
     }
     return (
-        <div>
-        <h2>Connections</h2>
         
+        <div>
         <table style={{textAlign:"center"}}>
             <thead>
             <tr>
-                <th>Username</th>
+                <th>Registered Users</th>
             </tr>
             </thead>
             <tbody>
