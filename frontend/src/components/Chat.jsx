@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
+
 import img from "../img.png";
 import Attach from "../attach.png";
+
 import logo from "../static/logo.jpg";
 import { useStateProvider } from "../utils/StateProvider";
 import Settings from "./Settings";
 import fire from "../fire.js";
+import ChatFeed from './ChatFeed';
+
 import ListAllConnections from './ListAllConnections';
+
 import {
   MdHomeFilled,
   MdBuild,
@@ -17,8 +22,12 @@ import {
 } from "react-icons/md";
 import "../App.css";
 
+import {ChatEngine} from 'react-chat-engine';
+import './Chat.css';
+
 const ChatForm = () => {
   const [{ token }] = useStateProvider();
+
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
@@ -100,8 +109,8 @@ const ChatForm = () => {
                 <a
                   class="nav-link active"
                   aria-current="page"
-                  onClick={ChatForm}
-                  href={`/chat#access_token=${token}&token_type=Bearer&expires_in=3600`}
+                  //onClick={MessageForm}
+                  href={`/home/chat#access_token=${token}&token_type=Bearer&expires_in=3600`}
                 >
                   <MdChat /> Chat
                 </a>
@@ -119,21 +128,17 @@ const ChatForm = () => {
           </div>
         </nav>
       </div>
-      <div class="itemtop">
-      </div>
-      <div class="itemchat">
-        <fieldset class="input">
-            <label for="input" style={{ color: 'white' }}></label>
-            <input type="text" placeholder="type a chat message..." className="form-control" />
-            &nbsp; &nbsp;
-            <button className="btn btn-success">Send</button>
-        </fieldset>
-      </div>
-      <div class="itemrest">
-      <h4 class="connectionLabel">Chats</h4>
-      &nbsp; &nbsp;
-      <ListAllConnections />
-      </div>
+        <ChatEngine
+            height="100vh"
+            projectID="5c486811-745b-4945-a151-83eb47fcece8"
+            userName="obonilla"
+            userSecret="1234"
+            renderChatFeed={(chatAppProps) => <ChatFeed {...chatAppProps} />}
+            //onNewMessage={() => new Audio('https://chat-engine-assets.s3.amazonaws.com/click.mp3').play()}
+        /> 
+      
+      
+
     </div>
         );
 
