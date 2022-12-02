@@ -22,24 +22,32 @@ import ChatForm from './Chat';
 const AnotherUserProfile  = ()=> {
 
     const [{ token}] = useStateProvider();
+    const [otherUser, setOtherUser] = useState("");
 
     // get the user id and its data from the Connectify API
     const [userProfile,setProfile] = useState([])
 
-    const searchForUser = async () => {
-        console.log("searching for user");
-        const fetchedEntries = await searchForUsers(document.getElementById("search-input").value);
-        console.log(fetchedEntries);
-    };  
+    const [userBio, setBio] = useState(""); 
+    const [userEmail, setEmail] = useState("");
+    const [userUsername, setUsername] = useState("");
+    const [userFollowers, setFollowers] = useState("");
+    const [userFollowing, setFollowing] = useState("");
 
     
-
-    
-    const retrieveUserInfo = async (username) => {
+    const retrieveUserInfo = async () => {
+        if (otherUser !== "") {
+            const userInfo = await getUserInfo(otherUser);
+            console.log(userInfo);
+        }
+        var data = await getUserInfo(otherUser);
+        //console.log(data.bio);
         
-        const {data} = await getUserInfo(username);
-        setProfile(data);
-
+        setBio(data.bio);
+        setEmail(data.email);
+        setUsername(data.username);
+        setFollowers(data.followers.length);
+        setFollowing(data.following.length);
+        
     }
 
 
@@ -230,15 +238,6 @@ const AnotherUserProfile  = ()=> {
           }}
         >
 
-          <h3>{userProfile ? userProfile.userId : null} </h3>
-          <h3>{userProfile ? userProfile.name : null} </h3>
-          <h3>{userProfile ? userProfile.email : null} </h3>
-
-            <h3>{userProfile ? userProfile.followers : null} </h3>
-            <h3>{userProfile ? userProfile.following : null} </h3>
-            <h3>{userProfile ? userProfile.status : null} </h3>
-            <h3>{userProfile ? userProfile.bio : null} </h3>
-
         </div>
       </div>
       <div class="itemleft">
@@ -246,25 +245,20 @@ const AnotherUserProfile  = ()=> {
                     <fieldset>
                         <form>
                         <br></br>
-                            <input type="text" id="search-input" placeholder="Find Connections..."/>
+                            <input type="text" id="search-input" placeholder="Find Connections..." onChange={(e)=>setOtherUser(e.target.value)}/>
                             <button class="btn btn-outline-success" type="submit" onClick={retrieveUserInfo}>Search</button>
-
+                            <ListAllConnections 
+                            />    
+                        
+                            <h3> Username: {userUsername}</h3>
+                            <h3> Email: {userEmail}</h3>
+                            <h3> Profile Bio: {userBio}</h3>
+                            <h3> Followers: {userFollowers}</h3>
+                            <h3> Following: {userFollowing}</h3>
 
                         </form>
                     </fieldset>
-                    <ListAllConnections />
-
-                    {userProfile.map(person => {
-
-                    return (
-                    <div key={person.id}>
-                        <h2>{person.email}</h2>
-                        <h2>{person.first_name}</h2>
-                        <h2>{person.last_name}</h2>
-                        <br />
-                    </div>
-                    );
-                })}
+                    
 
                 </div>
 

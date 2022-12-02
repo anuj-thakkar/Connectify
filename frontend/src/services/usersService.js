@@ -65,6 +65,7 @@ export async function getUserInfo(username) {
   const body = {
     username
   }
+  console.log(username);
   try {
     var result = await axios.post(userInfoURL, body, header);
     console.log(result.data);

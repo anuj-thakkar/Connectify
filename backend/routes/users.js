@@ -23,10 +23,13 @@ userRouter.get('/', async (req, res) => {
 });
 
 userRouter.post('/userInfo', jsonParser, async (req, res) => {
-  var user = await User.findOne({'email':req.body.username});
+  var user = await User.findOne({
+    "username": req.body.username
+  });
   console.log(req.body.username);
+  console.log(user);
   if (user) {
-    console.log(user.toJSON);
+    console.log(user.toJSON());
     return res.json(user.toJSON());
   } else {
     console.log("failed");
