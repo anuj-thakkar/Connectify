@@ -27,7 +27,7 @@ postRouter.get('/allposts',(req,res) => {
 postRouter.get('/', async (req, res) => {
     // const auth = req.currentUser;
     // if (auth) {
-    const posts = await Post.find({});
+    const posts = await Post.find({}).sort({createdAt:-1}).limit(20);
     return res.json(posts.map((posts) => posts.toJSON()));
     // }
     // return res.status(403).send('Not authorized');
@@ -61,6 +61,16 @@ postRouter.post('/createPost', async (req, res) => {
     const savedPost = post.save();
     return res.status(201).json(savedPost);
   });
+
+postRouter.post('/deletePost', async (req, res) => {
+    await Post.deleteOne({"_id":req.body.postId});
+    return res.status(201).send(req.body.postId);
+});
+
+postRouter.post('/likePost', async (req, res) => {
+    await Post.updateOne({ "_id" : req.body.postId }, { $inc: { "likes" : 1 } })
+    return res.status(201).send(req.body.postId);
+});
 
 // list all posts of a user
 postRouter.get('/mypost',(req,res)=>{

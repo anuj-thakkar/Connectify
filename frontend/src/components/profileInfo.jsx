@@ -140,10 +140,6 @@ const ProfileInfo = () => {
     console.log(track.album.images[0])
   }
 
-  function clearStatus() {
-    window.localStorage.removeItem('status');
-  }
-
   const viewOrUnfollow = async (selectedPlaylistId) => {
     if (unfollow) {
       await axios.delete(

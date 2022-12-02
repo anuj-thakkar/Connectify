@@ -116,7 +116,10 @@ const Home = () => {
     <>
       <div class="grid-container">
         <div class="item1">Feed
-        <Share/>
+        <div>
+          <CreatePosts />
+          <ShowAllPosts />
+          </div>
         </div>
         <div class="item2">
           <nav class="navbar navbar-expand-lg navbar-dark bg-black">
